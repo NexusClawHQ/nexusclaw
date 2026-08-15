@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:17.6-bookworm
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-nexusclaw}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?set DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME:-nexusclaw_community}
+    volumes:
+      - community-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7.4.5-bookworm
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - community-redis:/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: ${DATABASE_USER:-nexusclaw}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?set DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME:-nexusclaw_community}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      COMMUNITY_SOURCE_URL: ${COMMUNITY_SOURCE_URL:?set COMMUNITY_SOURCE_URL}
+      PORT: 3000
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "${COMMUNITY_PORT:-3000}:3000"
+
+volumes:
+  community-postgres:
+  community-redis:

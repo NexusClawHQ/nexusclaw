@@ -1,0 +1,1324 @@
+{
+  "files": [
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": ".dockerignore",
+      "sha256": "141c4c9d7207a366880dbd6eed70685ce7d25dde39d45383f0b193522decbd62"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": ".env.example",
+      "sha256": "a0010c5ddedc1afbc1e0429e80a75a7eb2cffea19f72ed9a5320e22f6fb8b21a"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "CONTRIBUTING.md",
+      "sha256": "0e7556402881b85a9bb66a106a84bd666626e6b1a5dac5f0a40edc30b317b947"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "deterministic-public-build-input",
+      "path": "Dockerfile",
+      "sha256": "93f3ea54f579f52cbbe1bb8bb68124af4d51e84a1bf5aed9c65cd9177b89b173"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "LICENSE",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "NOTICE",
+      "sha256": "d9e2aa9ca61bdd0514881c081f51aa46ddc4fb3eca9941e7c2cfe45e1f0dd6a7"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "README.md",
+      "sha256": "492045d434124ae0ceb95ac4110c2945d8acafb444c012925bb6b0bb0649ce40"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "SECURITY.md",
+      "sha256": "f383d04245e7b5782396bac8d4a99df1b347378239f1a7b9995d0b0af6f244bc"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "deterministic-public-build-input",
+      "path": "compose.yml",
+      "sha256": "fb12686ead29b6959198085157879d5e41c124e4cd9fb915b8531836a2655ba5"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "docs/architecture.md",
+      "sha256": "edf4b01064e7bb9581a0c7118e17ba13f448aff54d82682d6bff85e64e23d485"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "docs/licensing-faq.md",
+      "sha256": "2aa7a8cd15dabec6c3eacd9f0c52788ab0cd61c1acc89d1df6926136b81c6389"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "docs/source-compliance.md",
+      "sha256": "5323c54b66bde47cd2b6bd823ba99a17edd74f7b932b84cc70993a37300ab248"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "package-lock.json",
+      "sha256": "4825fc61bc6a0d4b0fa88527a6d0191ec03f27a901fdde5f07bd73b100519f91"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "package.json",
+      "sha256": "507260b4f101b2c4cedd8e2027caaa785d7323e8c227a37cc97418f502cb2042"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "packages/backend/package.json",
+      "sha256": "5200f1f8f432a5ab9b3ec3656b3daf6ab964120d508267846940605fa8e0016f"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/contracts/outbox-event.ts",
+      "sha256": "6612f8d08e26aa61bef7475dcd1c80bd2a480933abfa59955440f1b0dfe15bb4"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/logging/bullmq-request-context.ts",
+      "sha256": "7f2760e3173a9f8813e08d41a10f37ac9a56eedc677f4b4288f62127bf4e0d54"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/logging/index.ts",
+      "sha256": "1f5eae5b8bca2d70e24dcf0dd174877432a5b8bfc661a7cb389b80552bc45638"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/logging/request-context.apollo-plugin.ts",
+      "sha256": "7236f13c7757c340a357e6a9c7f23f8ab721e2f264ae1eada005c0a8e2f88f1d"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/logging/request-context.middleware.ts",
+      "sha256": "477be38fd3378de59450da3593e7e4c286f0bd7f4a4a9f697e88eaac44062e7a"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/logging/structured-logger.ts",
+      "sha256": "2d54c8265735ff2204fecf400eb19354c864577b905186c45beaebeba0d06092"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/observability/instrumentation/agent-runtime-span.decorator.ts",
+      "sha256": "f18ec18625b60f6e267248c56f8d4221cd77cbb0144cf65531f0d5f83ea0da71"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/observability/instrumentation/outbox-span.decorator.ts",
+      "sha256": "234560337edb5dc88499d2a238b79a1cadc01de251e300bc66fc424bff71100d"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/privacy/pii-classification.ts",
+      "sha256": "614aeb97741e7b03849870a5899c3f8e6f435651c93c4f4d32bd5cd647ad6eba"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/request-context/request-context.ts",
+      "sha256": "9f8f90c6fb8296ea77e716a16ca4bfd32601a6d2c9dc1c4311ae70607d62e024"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/security/apply-json-redaction-pointers.ts",
+      "sha256": "4991dd0055c83847684c114b1432741e630b2dde40451f5f6e232b117f3af44a"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/security/redact-sensitive-payload.ts",
+      "sha256": "f220fe0f9535ebc546e49be82a9d8e6de6e06fe8b2e044742be7bb4e082b6cc3"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/common/utils/generate-id.ts",
+      "sha256": "8db8e1a9c41499ef6d8248a62a6bdc541a1d458de2866347b4646ea1f17938b1"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/auth/community-auth.module.ts",
+      "sha256": "0c726dace5aba3c7627237eed5e8becf9a7d3608056abf174b82f320da67cee8"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/auth/community-auth.resolver.ts",
+      "sha256": "7c9743813b1df5cb829500c01f1c9574f4b3c9958fe4b502a754293939bd93bd"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/auth/community-auth.service.ts",
+      "sha256": "88eadbd10eda8d09d9b966b3dfd3cd4d906a15b0764157969661677e480a7c22"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/auth/community-gql-auth.guard.ts",
+      "sha256": "45de7979f91df8f525a9780e91f4529c6e52183266aab674e44b5fa224759c19"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-app.module.ts",
+      "sha256": "729a82180b151ce119849ade64e6063ac324a216857facb72080c6c81f48a0bd"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-capabilities.ts",
+      "sha256": "d3a9eb868cb0e21c08c047cdc504ebf360b42a4e4c99668e20f943d5b7dc16ee"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-composition-readiness.ts",
+      "sha256": "b881cf783fe82e2933e3f718c63092a5d047f5007ee9f3698a10e8f1d41c6d86"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-entity-manifest.ts",
+      "sha256": "19ca18b764858a9b1dbc076d26c74c5e35744040534465b2549e96061c6323fe"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-execution-context.adapter.ts",
+      "sha256": "572569b1481f7c127b6d3945cf97cb3a7eda673f12c638c1e9440f301341f391"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-execution-support.adapters.ts",
+      "sha256": "9df0fa07b829fdbf7bc80e1375995098bc15fac3a92f1496a20208b1d718ac50"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-main.ts",
+      "sha256": "27b4c409e27658e354973a9ea27f268292b7dd63bc4e5cc5b1820811df2d69a2"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-migration-manifest.ts",
+      "sha256": "cb828cb9fa15ca8801158fbd69c4cda7da2d824ec06b8771abb349d80d8f3c90"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-runtime-adapters.ts",
+      "sha256": "2d1a64464cacdd0af5f5aef5cc4bacae2d2469b13b0c02d43b0894a66ac152b9"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/community-surface-manifests.ts",
+      "sha256": "67349df772374afb29997de75f54c87518daa2658ec0f592dbf22842839efb45"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/metadata-runtime/community-metadata-runtime.module.ts",
+      "sha256": "7d19d847c43d6e7009bd28e785d5724fe19df0e56957b3fe2b12a6179416624c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/metadata-runtime/community-metadata-runtime.service.ts",
+      "sha256": "249d44170025f3d5d5df4ffb8670611e8b11eded2d2b57c5183840e3a957db81"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/migrations/community-baseline-0001.generated.ts",
+      "sha256": "9a9bb5517a54e49fcabb3db446d6b2b5e03876c8e04b7d35df5be37e4fc96d4c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/runtime/community-agent-runtime.module.ts",
+      "sha256": "48c17c6fa1002cb6962624fcbe5404e9b25b49a5e94fc5752260ebe381930b2e"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/runtime/community-agent-runtime.resolver.ts",
+      "sha256": "6d2037ead5160a3f9d810c50ebacfd91e873290d4cf7a82927ee4e0281f5c226"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/community/source-disclosure/community-source-disclosure.module.ts",
+      "sha256": "574f0ef9838d0567c22eaa1319c86295315c91ac50d407c149f45e4804bd0279"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-builder/entities/agent-version.entity.ts",
+      "sha256": "4e4b6068b93e299c4a2eb128291d7e766e8ab0516add9cafe9e2bf9a721926f3"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-builder/interfaces/agent-definition.interface.ts",
+      "sha256": "195c8a21d5d0e2e17622d87f4ffebebd082cf94601a1f2c12bb208ac4169cab3"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-permission/interfaces/rag-authorization.port.ts",
+      "sha256": "c57c6177e1166c798a142bd40cb449ea4fce160aafc1702335d9cad653b1a122"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/ai-provider-runtime.registry.ts",
+      "sha256": "2f59c08514fcc28e5a388454d7f14e9e1e02a16bcd81d3246fff5ec18a790ae7"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/contracts/curated-scenario-exemplar.port.ts",
+      "sha256": "ff6c409c3eb6e0383a1817fc8b55be4e61ee8a5dea0113eb30895d92f9302c86"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/contracts/runtime-boundary-ports.ts",
+      "sha256": "db1a4c12d5d888c4060150bb873fc9a6bc56763a4999cfe5594648d3dd907510"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/contracts/verified-exemplar.port.ts",
+      "sha256": "9faacb44870634fcfd85fb7cce5685f340bfa55e9bf4c67d9c39d4da20c48bb2"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/entities/agent-execution.entity.ts",
+      "sha256": "0baf8dc9c5ec6ef6477ef8927271888a92fdc8cb2377b59fe38af87542b8cb31"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/entities/ai-provider-config.entity.ts",
+      "sha256": "7251d300927cde0a6e5a75e1748c27d790fe083c1a84431292ab93697486ea77"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/entities/provider-config.entity.ts",
+      "sha256": "ee8cf40b0a53eebe0dad25e89cf860c0c27657b3f0127f91b29dc8ecb34dcc71"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/entities/react-step.entity.ts",
+      "sha256": "20bbdd33b006dd2399724620e776347e63705dee8b10b6ee449e28d34c19fdca"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/entities/tool-call-record.entity.ts",
+      "sha256": "7394f37a0dca19f704d182078e99dfa9454dd1e6a60bc217670e3a52a26b3a67"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/errors/all-providers-failed.error.ts",
+      "sha256": "da976cd7611fd68530c5a395129ef4ea6288d963118d7ba26d190be0f3b62ece"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/errors/index.ts",
+      "sha256": "b0cee6eaac9fe0cdda62dc3310f1eec0dd4623cccfc70b6cfc0116e4912515f2"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/execution-state-machine.ts",
+      "sha256": "803fdb428c7486bd0abad564567ddb660399b398bfe5cbd8e79c017c2ea98d76"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/executor-engine.service.ts",
+      "sha256": "9fb4e822ae2707014c37845bd6f7251d3ee4cc43808d975a217bae039fac3f83"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/planner-prompt.ts",
+      "sha256": "243f119320b9e51616387bfe430a7e8fc1eb2a0a3f671867d043f48f92f2db0b"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/record-query-observation-projection.ts",
+      "sha256": "9de948e2d17dde0c27094a14698f55031acafd9f0d2fadbefb0af48b33fe895e"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/release-bound-agent-runtime.ts",
+      "sha256": "0eab24b3461fcf1b425b73d94e93b55facc8db12f3d2c8b19e65bf1db82d946c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/render-curated-scenario-exemplars.ts",
+      "sha256": "1f3f6c9ae4ee109f81108c763577d7900108a3d338f0b2b213214f674f327d14"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/render-knowledge-context.ts",
+      "sha256": "fdffca2c1f6986f51bcaadd8c490082573309c810099e7e43ddc82935f2963cd"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/executor/render-verified-exemplars.ts",
+      "sha256": "0ea874c68b5f22b56774bbc3c77ba15b0aac1231613d5421f49d775cbe58233d"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/interfaces/index.ts",
+      "sha256": "1415004d747006217ca6232c3a51fafcd56936bdad05019958607a72e051c639"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/tool-framework/code-action-runtime-budget.ts",
+      "sha256": "44e7cd060298f2075596367a44fb6f7cd9435f54aa61cd354998172643877e72"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/tool-framework/contextual-agent-tool-provider.ts",
+      "sha256": "a5de4720ceb56d5a65fbdb738f1ee9e936516afeaa133f2a825efd400055b247"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/tool-framework/tool-call-lifecycle.service.ts",
+      "sha256": "cb634f9f500ebf84fc06933b7cc949b4fd53264d9789d11c89818ae81a82f002"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/tool-framework/tool-registry.service.ts",
+      "sha256": "3b6b73a09b5b08c917249a0e10746884276d2ab11912f8a7040c69288bc818cb"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent-runtime/utils/prompt-sanitizer.ts",
+      "sha256": "cf8344d141b077d247c48abc542485dbe99a77c6cce77b4d11baf567db50882e"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/agent/entities/agent.entity.ts",
+      "sha256": "3fec8be462117d049c04234ff83914278ca4ec35fd1fcbbd53775e5d8903f285"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/app-menu/entities/app.entity.ts",
+      "sha256": "07f2a47ddd5364da73bd0b186f63b9a6f6e58223d619c10c2568c94a924c3bb9"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/app-menu/entities/menu-item.entity.ts",
+      "sha256": "0f8dce1b593a733e0dbd03f4e7e23ab30a9ca10638669b55db1f165f5d7e4f40"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/approval/entities/approval-instance.entity.ts",
+      "sha256": "4f468d3e322f0a71e6e7ae37cd3e18d4bf29bc941903dbd99e12832884198c44"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/auth/decorators/current-user.decorator.ts",
+      "sha256": "14da8377f141ea5843ead33abbb01bb4e96c28517a85b5d2b6d6b11818570ebc"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/auth/entities/login-ip-range.entity.ts",
+      "sha256": "0c530df21a96a08cded87aec2e64211510014fd240981daa218939a71e58a32e"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/execution-log/contracts/extension-execution-record.ts",
+      "sha256": "01a017ea734093e9f46439537e5175c12325830b2d7ef2e84c9f532103cfbfa4"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/execution-log/entities/execution-log.entity.ts",
+      "sha256": "05f022f1dd765e29c2ca89d975e85ea842ab3312ee20a39df5a8da380626e814"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/governor-limit/constants/governor-limit.constants.ts",
+      "sha256": "142822f0cc9f3575cc2fd07304ee697ca908cd0f6fe3c5c7bf5cd4ba4e1ce22b"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/governor-limit/errors/governor-limit.exception.ts",
+      "sha256": "853742d038b61c58565b47d993e8abf1fd11446af58ba9adf13204ddf4ad01ad"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/governor-limit/governor-limit.service.ts",
+      "sha256": "7fb4e09cca22654a925716476d73737af43433c68eee024d75ca1d1586e9a127"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/governor-limit/types/governor-limit.types.ts",
+      "sha256": "3351f5b9eec282570c6d241378c20f6dcd6b01424dd5290feeace4416630816d"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/guardrail/entities/guardrail-log.entity.ts",
+      "sha256": "8bd34ae69691d87bf70a6bc14cfde8c40c2fef8e18724efcfc9e241378592888"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/guardrail/entities/guardrail-rule.entity.ts",
+      "sha256": "8a9fb48049f63a57b4600599da7e7c0a08bc3fb695942d9117c22cc6c6dfdd7a"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/guardrail/interfaces/index.ts",
+      "sha256": "bd6748f32700e3f54dcfa25b8f0779b0517befb638295e25608ec77a274cdb61"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/guardrail/services/audit-logger.service.ts",
+      "sha256": "e71e90ec1b5b42f04fccadcb983f4cdd3fe59681c4f62bb224bbc28e7e0b6ae5"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/guardrail/services/guardrail-engine.service.ts",
+      "sha256": "345f428e604cf3ba6014c858a38dce67cd92bdd9ddf5131b52a7abbbbb774240"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/guardrail/services/risk-assessor.service.ts",
+      "sha256": "6da2b52946ef06d9c3dd568d693211b63931bb93bed0954703875062d14e3ff4"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/guardrail/services/rule-matcher.service.ts",
+      "sha256": "f9f9f65927527e6fadb5a22f9f8a7857634cbdaab914d57bd16c1cf4e33a03aa"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/contracts/metadata-runtime-paths.ts",
+      "sha256": "adfe2c0ec7224d36e2e76b52c2a65090bc63409cca0c95c414f1cd5830e5d34f"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/contracts/metadata-runtime-taxonomy.ts",
+      "sha256": "f37ec9da5db60ed787ee371d425446fb41ed76f6f0d12d1e169e230ce2d91244"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/contracts/metadata-runtime.constants.ts",
+      "sha256": "edb7a67b50bc9b3ce3519dc14ed739c28a971f01e851723079a6c093d0d81be0"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/contracts/metadata-runtime.types.ts",
+      "sha256": "00dc8b875812423a8ad03f18aa6b4e534d7bf6ecdec02e404c96ae231fc543c6"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/diff/metadata-diff.service.ts",
+      "sha256": "650110a8e696e732d9eb323068425dc981163fc9ffde82ac98b473daccb15cdb"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/loader/metadata-source-file-loader.service.ts",
+      "sha256": "1cbed5ca637c0f6c1d5298a37de3b792da718e88937ef9a338148282d7ce6b50"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/parser/metadata-parser.service.ts",
+      "sha256": "9e23629bfd99399b70cd0e030026c0fa36b55080802811794d388d53bf181367"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/metadata-runtime/utils/metadata-runtime.utils.ts",
+      "sha256": "e933ef35b65f0ee1c34b4ca9378400a8cf9781b977bf9915801131de5ce753f2"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/object-metadata/entities/field-metadata.entity.ts",
+      "sha256": "b546cbdd0bbc91dfc98f71bb4ea62a870b5abe8c25dc70237dd6410b773a61de"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/object-metadata/entities/object-metadata.entity.ts",
+      "sha256": "138cf1d1852b4c78796fb2970a0d239707b47f67eeaa158a99022c31dc4fd13c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/object-metadata/object-config/object-layout.schema.ts",
+      "sha256": "0020a4c6822352ba871009545153058376ebde240ef374d403df36427138790f"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/org-hierarchy/entities/org-node.entity.ts",
+      "sha256": "5b449ce62d01e2e60d45b20ff8771809b58c232b80fce39f497b5226b45121ca"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/outbox/entities/outbox-event.entity.ts",
+      "sha256": "1bd2425460cf25c4fd5e9c7287c0cf79263f9c3a88fa92a6ed9952fbb6f88b19"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/outbox/enums/outbox-topic.enum.ts",
+      "sha256": "fe56540d914cf1ac151d7603b720eef52f712e5e74f2a186355a8df7c9a2e9a2"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/outbox/services/outbox.service.ts",
+      "sha256": "98d37804734cc269df056102ef13a05c9514a4b632c6f482170a19b7601d152a"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/permission/entities/app-permission.entity.ts",
+      "sha256": "b8d6bc12a2a923c326a1c9d9353fb46c9ad849e9433b9d884fc6822b1399211f"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/permission/entities/nav-item-permission.entity.ts",
+      "sha256": "730dafe2e38833c9bec98ce1dc7d15ac898d515fd0590423cbc9eed4750e0c68"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/permission/entities/object-permission.entity.ts",
+      "sha256": "a8e2ff81d57594b1f7f0b8e4d092c3ac065fd494c8d25a51b62c91e1caa69922"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/permission/entities/permission-audit-log.entity.ts",
+      "sha256": "b4bf1243d9aabfbb5e628ecd88d6c480ea9c67db1dbbb062926af57b18c63fc6"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/permission/entities/record-type-permission.entity.ts",
+      "sha256": "2db0b4e61bdaee3999baed3ab4ab8bdbd156372fc2e8596900fa082c52743264"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/permission/entities/tab-permission.entity.ts",
+      "sha256": "89758d78452fece9dd43753f7c1677c09d96500bc63794b47b5ab79a6f4a0b62"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/role/entities/role.entity.ts",
+      "sha256": "969411af34b1ac634610f74660bd03e6102d2ed822b515a17c87470faa9596e7"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/user/entities/user.entity.ts",
+      "sha256": "a0ff5196ae7eff56c9a7038d2abd351553a5b8cb477847ec558a1b1fde2b9328"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/workspace-constitution/render-constitution-block.ts",
+      "sha256": "780557e6a59820635f059d28e45403e6809eeeff12ee1f00059a88387dddd70d"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/workspace/entities/workspace-member.entity.ts",
+      "sha256": "79dabde61b00a2db16e72f676c87ffa701c6e4df57a4450abd405767c321394c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/backend/src/modules/workspace/entities/workspace.entity.ts",
+      "sha256": "d62903d0864e58327be3d1f600a209cf77f6c6c22cc35acd26562077d118afa7"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "packages/backend/tsconfig.json",
+      "sha256": "17843e2042f0cf9211dc04ed32c368b0b9f416177bb93d6c60b3c8a0df236832"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "packages/shared/package.json",
+      "sha256": "8c8d9951b51badcbf57de6c45d7721501db0e096c56bfea2317a860327f1c205"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-avatars/presets.ts",
+      "sha256": "6f9c9bd3c1a115826e487b72f7d66da6b093da878bff4d8d7e0abd68ab3aea93"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/ai-authoring-context-signing.ts",
+      "sha256": "af94c5ba9afd50235320ac156dc16b8274536c183158a0acb213fa65628ed277"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/ai-authoring-context.types.ts",
+      "sha256": "00382cc87462d4355631cddc020154c6c4d88375a5271de6da3d8b489f0f5c39"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/candidate-execution-workspace-admin.types.ts",
+      "sha256": "bcb326bdc51455004380876601fd80b080fc68fea18fa1e18da2efbb2c71cf40"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/candidate-fixture-mismatch-evidence.ts",
+      "sha256": "39afa3e7bf6a1e3800be558ab0299b9f25e5f6951c9a28838ac08a09d3eef9af"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/canonical-hash.ts",
+      "sha256": "d16fdb10f0fd552857cbecf22034b54083477b2631c15bb3953cf1eb61046ea2"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/cli-contract.types.ts",
+      "sha256": "a607714e50db2c591811784242d1c21ef5598f2c3b4a420abe8c1f7c289863a4"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/code-action.types.ts",
+      "sha256": "afb7f4f6f51039328de381e73952f702e73f9bebc81adecc29ca67b412141b96"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/code-extension-manifest.types.ts",
+      "sha256": "f65149caf2ac6e5d9ada4c9708421e8674a85911bb8cb2ac2541c5050dab5a52"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/contract-schemas.ts",
+      "sha256": "c864bcae7b5718cc8c41dc80a2bae7b823f128ec0d1043b4786ae54403f8ce30"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/contract-versions.ts",
+      "sha256": "ff5bfa86b88821fbffb100128fd023a452bf2f1813fcfa3807d1bb3383b5e29b"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/error-catalog.ts",
+      "sha256": "009dd29aa4e5283c3d3ee7dbf2fc7ad6becc3c192af147dd8e1bf7f2aa360272"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/executable-package-validation.types.ts",
+      "sha256": "cacd9a3a8304ebbaa9e05e34986ce4f32a2339f97171a19a08794d2a6f8fdc58"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/flow-payload-v2.types.ts",
+      "sha256": "da921e4b5182e2adcc3466d3449a5d836735b0acc3b8f6ff6d6ef0c6afc14ba3"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/flow-v2-canonical.ts",
+      "sha256": "f8d6e5f40309262df5430c8ad8c996d614a494380f01e68f1ea53374ad93cc37"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/index.ts",
+      "sha256": "6b91e19fe77fefbfcc92ee3f9e08a4f2735fbb61c4ad4f9cb88b7aa3afc2bf22"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/json-value.ts",
+      "sha256": "49face8a15783f8a535da96340a235c1a6875007f60ce51b0fd5d52ced46541c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/release-evidence-validation.ts",
+      "sha256": "5004bef7003ea77d28ad4eb652d4716d552db01c06fd4c7a266c103a4e07b184"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/release-evidence.types.ts",
+      "sha256": "3d60f032f9149be48ffab77cd0c5413e3aac026a51c4a53c6f93b33a9c887570"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/workforce-bundle.types.ts",
+      "sha256": "5c22255ff9cb15018b47f54c5451615e667a544576e0b9c3cf54db4b0b9891d8"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/workforce-lock.types.ts",
+      "sha256": "c88531f015fe994336c6beac8efc088834546de6025df45a213c2aa9443baac5"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/workforce-release-events.types.ts",
+      "sha256": "4f823e65429c50632ceab3016a0a12caea13cbbfb480bce53b902cf687ebae2f"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-executable-assets/workforce-release-gate-receipt.ts",
+      "sha256": "56909ef766199ad87ed1361ad929be7d652c6a1b7af928594ac31e4765d45167"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/agent-markdown-policy/index.ts",
+      "sha256": "5c5b9bd3b675674876c234fe4514fb2a2d94aee2a963c6a5765fe5df0c4b22ac"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/community-capabilities.ts",
+      "sha256": "37ba993b06cdadb162f403dc5999a51980f0707cba4f08b4b14b07017f4e4674"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/employee-package/index.ts",
+      "sha256": "5166d6b0f822665d0da9c809335922d9f8ae0864ce7f2919a5b4712d76c56a42"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/employee-package/types.ts",
+      "sha256": "5df482417001e8d58e5f31003eca6781402c02428541a532f7a685badeccb8c4"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/employee-package/validator.ts",
+      "sha256": "b0ea5934b819e34695b5cbda9aac29458e5fbd1457ebd8fd68598b6bf2eec3a6"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/index.ts",
+      "sha256": "55b467f4aeac67de5a6aeb5c143c643ac0332aa07c66447cd1a5cafa05eb12d0"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/locales/en-US.ts",
+      "sha256": "cb8b261f9a22f2c3197447ea77559ed397df9e6a17ddc7519c5d4be62455316b"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/locales/flatten.ts",
+      "sha256": "a93ea302a2476940f9f7b86191863b5a0e8be848bc20ca8124687578b877fc1c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/locales/index.ts",
+      "sha256": "91179213d176ae5d31137a26c62f8f628680b522b5a4036f4a2390f7babd9ec7"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/locales/zh-CN.ts",
+      "sha256": "b614422d0185a4c6d398bd87db160c70390265eeaffd3acb41aafd66df538b41"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/package-payload.ts",
+      "sha256": "0522298c57499f77d82b47b26f2abe6661af62c9a4b743ad673041a894b54074"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/platform-admin-release-governance/index.ts",
+      "sha256": "6d3edfdff32c41de447e1423537bd94a316d258b41ca14c19b22703b8f4b2f2c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/platform-admin-route-readiness/index.ts",
+      "sha256": "edb43d2e8cb352321b646dac13c1fdd3cbaaa35ac269ddf991fe54bc302e7688"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/source-format/index.ts",
+      "sha256": "9574963d59974d00c747831c49942d9b2cb2f45658ff09d1eeb1d620e25a1a98"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/source-format/page-source-file.ts",
+      "sha256": "359469bc8e7b273b06f09ac2eee8ae5b090b3edaeeac2606c5e8473bf91d41c6"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/system-object-persistence.ts",
+      "sha256": "7f50fb4bb65ee6acabe58370aa4c1ee21cf1e68a35608d53cbf036d314c7791c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "exported-project-source",
+      "path": "packages/shared/src/workspace-regional-settings.ts",
+      "sha256": "90bee81fb3945e20ae8e5ae95f1ba9d5e7205e92ed6d6f6b37ba8c1ae0db4f3c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "packages/shared/tsconfig.build.json",
+      "sha256": "ce85c5636413d5e3f497203f932d26ed8ecb861cf10bdbf988f42a3e3dad1b29"
+    }
+  ],
+  "reportType": "file-license-and-provenance",
+  "schemaVersion": 1,
+  "summary": {
+    "copyrightReviewPending": 164,
+    "files": 164,
+    "unresolved": 0
+  },
+  "unresolved": []
+}

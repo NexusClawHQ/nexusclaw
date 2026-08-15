@@ -1,0 +1,24 @@
+{
+  "build": {
+    "artifactFormat": "CycloneDX-1.6",
+    "lockfileVersion": 3,
+    "packageManager": "npm"
+  },
+  "digests": {
+    "dependencyLicenses": "sha256:f2115010b37bfbabe310dc3fb1f2e957e4a57b3bf1e6d971411afc8735c9ee23",
+    "exporter": "sha256:42ea7b463d4571746c048c606d92f93967801279e8ea2a7aafaeae2edd5f529e",
+    "fileLicenses": "sha256:bd2ba944ba292d5435b88f8931775da84fc1beaf3646785384fd63dd57e7103d",
+    "manifest": "sha256:26bc0c526095581a82f86f7df36ba4b24fe99d4dc3d54006e39e4c4ae716abe0",
+    "payloadTree": "sha256:0af9f84b3dbc793b66e3cd072ff6ebcc9c3f50e47389f85e4de4c62b9d8f9daa",
+    "sbom": "sha256:af28306779d6a9bd7013ab1ff2ef456d976fb74af33bfa3c2971856664ce4d93",
+    "thirdPartyNoticeReport": "sha256:dd3f28994df5f115426d862085f8140d876ae152021707d6927e61ec28344eed",
+    "thirdPartyNotices": "sha256:5208ae4ed3eb39fad803d2289c7e0a0ef74521c3779df11871bd202f93aca879"
+  },
+  "provenanceId": "nexusclaw-community-source/v1",
+  "schemaVersion": 1,
+  "scope": "candidate",
+  "source": {
+    "branch": "main",
+    "commit": "1a519ad2bb31e453a28d5ff7890b74bde2f8b8ef"
+  }
+}

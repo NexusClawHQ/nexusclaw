@@ -1,0 +1,39 @@
+{
+  "name": "@nexusclaw/backend",
+  "version": "0.1.0-community",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "main": "dist/community/community-main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json --incremental false",
+    "start": "node dist/community/community-main.js"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.5.1",
+    "@as-integrations/express5": "^1.1.2",
+    "@nestjs/apollo": "^13.4.2",
+    "@nestjs/common": "^11.1.22",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.1.22",
+    "@nestjs/event-emitter": "^3.1.0",
+    "@nestjs/graphql": "^13.4.2",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/platform-express": "^11.1.22",
+    "@nestjs/typeorm": "^11.0.1",
+    "@nexusclaw/shared": "0.1.1",
+    "@opentelemetry/api": "^1.9.1",
+    "ajv": "8.18.0",
+    "bcryptjs": "^2.4.3",
+    "bullmq": "^5.76.10",
+    "express": "^5.2.1",
+    "graphql": "^16.14.0",
+    "graphql-scalars": "^1.22.0",
+    "js-yaml": "^4.1.1",
+    "pg": "^8.21.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "typeorm": "^0.3.27",
+    "uuid": "11.1.1",
+    "zod": "^3.25.76"
+  }
+}

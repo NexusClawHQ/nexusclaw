@@ -1,0 +1,28 @@
+{
+  "name": "@nexusclaw/shared",
+  "version": "0.1.1",
+  "private": false,
+  "license": "AGPL-3.0-only",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./agent-executable-assets": {
+      "types": "./dist/agent-executable-assets/index.d.ts",
+      "default": "./dist/agent-executable-assets/index.js"
+    },
+    "./agent-markdown-policy": {
+      "types": "./dist/agent-markdown-policy/index.d.ts",
+      "default": "./dist/agent-markdown-policy/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "ajv": "8.18.0"
+  }
+}

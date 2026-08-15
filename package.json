@@ -1,0 +1,34 @@
+{
+  "name": "nexusclaw-community",
+  "version": "0.1.0-community",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "packageManager": "npm@11.6.0",
+  "workspaces": [
+    "packages/shared",
+    "packages/backend"
+  ],
+  "scripts": {
+    "build": "npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend",
+    "start": "npm run start -w @nexusclaw/backend"
+  },
+  "engines": {
+    "node": ">=22.18.0 <23",
+    "npm": ">=11.6.0 <12"
+  },
+  "overrides": {
+    "@isaacs/cliui": {
+      "string-width": {
+        ".": "7.2.0",
+        "get-east-asian-width": "1.4.0"
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.6",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.9.3"
+  }
+}
