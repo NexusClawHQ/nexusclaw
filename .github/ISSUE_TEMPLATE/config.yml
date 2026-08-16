@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 安全漏洞（私有披露，勿开 issue）
+    url: https://github.com/NexusClawHQ/nexusclaw-community/blob/main/SECURITY.md
+    about: 安全漏洞请勿公开讨论——使用 GitHub「Security → Report a vulnerability」私有表单，或邮件 support@nexusclaw.cn（见 SECURITY.md）。
+  - name: 📄 商业许可（双许可咨询）
+    url: https://github.com/NexusClawHQ/nexusclaw-community/blob/main/docs/licensing-faq.md
+    about: 商业授权与双许可问题请先阅读 licensing-faq；定价咨询请通过官网联系我们。
+  - name: 🚧 代码贡献政策（当前关闭）
+    url: https://github.com/NexusClawHQ/nexusclaw-community/blob/main/CONTRIBUTING.md
+    about: v0.1 阶段代码贡献暂不受理（code-contributions-closed）；提交的 PR 会被关闭且不合入，请改用 issue 表达建议。
+  - name: 🌐 官网与社区
+    url: https://nexusclaw.cn
+    about: 完整平台能力总览（六大能力域）与微信群入口。

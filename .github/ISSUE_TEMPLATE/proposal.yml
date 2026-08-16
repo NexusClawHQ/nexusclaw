@@ -1,0 +1,35 @@
+name: 💡 建议与非代码反馈
+description: 功能建议、文档与部署体验反馈（代码贡献政策见 CONTRIBUTING.md，当前关闭）
+labels: ["proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        欢迎通过 issue 提交非安全类建议。当前代码贡献政策为
+        code-contributions-closed：事实、缺陷描述与一般性想法可以讨论，
+        但请勿在此粘贴大段实现代码（详见
+        [CONTRIBUTING.md](https://github.com/NexusClawHQ/nexusclaw-community/blob/main/CONTRIBUTING.md)）。
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题陈述
+      description: 你遇到的具体问题或摩擦，而非期望的解决方案
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望的 Community 行为
+      description: 你期望平台/文档/部署流程呈现的行为；如涉及后续版本能力，请注意 roadmap 非承诺
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: 安全与兼容性影响（可选）
+      description: 该建议是否影响权限、审计、源头合规或现有部署的兼容性
+  - type: textarea
+    id: verification
+    attributes:
+      label: 最小验证方式（可选）
+      description: 维护者如何用最小的步骤验证该建议已正确落地

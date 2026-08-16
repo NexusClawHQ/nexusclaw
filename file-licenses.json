@@ -21,6 +21,30 @@
       "copyrightProvenanceStatus": "pending-legal-review",
       "licenseConcluded": "AGPL-3.0-only",
       "originClass": "public-governance-or-build-overlay",
+      "path": ".github/ISSUE_TEMPLATE/bug-report.yml",
+      "sha256": "b2ddb10d629387a3c2de04f1d973d2a0917a9ae661baef86af4351a12d32d753"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "sha256": "d0ca111573f6dbd55a8007ac97285d6404e4a8fb5b958befbd9e909fcf0d2bda"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
+      "path": ".github/ISSUE_TEMPLATE/proposal.yml",
+      "sha256": "bf8c2d420ae26278c1867b57cffbaba8d541efdbd93aa4daa9d262bbe635262b"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "AGPL-3.0-only",
+      "originClass": "public-governance-or-build-overlay",
       "path": "CONTRIBUTING.md",
       "sha256": "0e7556402881b85a9bb66a106a84bd666626e6b1a5dac5f0a40edc30b317b947"
     },
@@ -1316,8 +1340,8 @@
   "reportType": "file-license-and-provenance",
   "schemaVersion": 1,
   "summary": {
-    "copyrightReviewPending": 164,
-    "files": 164,
+    "copyrightReviewPending": 167,
+    "files": 167,
     "unresolved": 0
   },
   "unresolved": []

@@ -1,0 +1,52 @@
+name: 🐛 缺陷报告
+description: 报告 Community 快照的可复现缺陷（安全问题请走 SECURITY.md 私有渠道，勿用此模板）
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢帮助改进 NexusClaw Community。提交前请注意两点：
+
+        1. **安全漏洞请勿使用此模板**——请按 [SECURITY.md](https://github.com/NexusClawHQ/nexusclaw-community/blob/main/SECURITY.md) 走私有披露渠道。
+        2. **请勿粘贴**密钥、口令、个人数据、客户标识、内部 URL 或利用细节；日志请先脱敏。
+  - type: input
+    id: snapshot
+    attributes:
+      label: 受影响快照版本
+      description: 公开仓 main 的提交哈希（前 8 位即可）
+      placeholder: "例：2d87ad2"
+    validations:
+      required: true
+  - type: dropdown
+    id: deploy
+    attributes:
+      label: 部署形态
+      options:
+        - Docker Compose（compose.yml）
+        - 源码构建（npm ci / npm run build / npm start）
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 最小可复现步骤；环境变量值请脱敏后填写
+      placeholder: |
+        1. cp .env.example .env（替换 replace-with-… 值）
+        2. docker compose up --build
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 期望行为 / 实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏日志或证据（可选）
+      description: 请先移除密钥、个人数据与客户标识
+      render: shell

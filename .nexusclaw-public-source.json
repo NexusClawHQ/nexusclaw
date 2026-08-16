@@ -7,9 +7,9 @@
   "digests": {
     "dependencyLicenses": "sha256:f2115010b37bfbabe310dc3fb1f2e957e4a57b3bf1e6d971411afc8735c9ee23",
     "exporter": "sha256:42ea7b463d4571746c048c606d92f93967801279e8ea2a7aafaeae2edd5f529e",
-    "fileLicenses": "sha256:92e5e1deaaad0153a68e597103d5a4d279f7a16224ec0ca99d076e31702f9bfd",
-    "manifest": "sha256:26bc0c526095581a82f86f7df36ba4b24fe99d4dc3d54006e39e4c4ae716abe0",
-    "payloadTree": "sha256:1ca07c888af2f7b3e1568bb4952f496662d2ba9802717e0f19d174b491b808b1",
+    "fileLicenses": "sha256:8fa79033f3202e738c25a9ea0bd9c1f5898945ee580d5a300e613f8ee2d77fee",
+    "manifest": "sha256:da763419c880c73126ffc5b1033b64f4345b1c49cf61fa48d6a471674b2c0b33",
+    "payloadTree": "sha256:a24b6722c5d392cb76b433f28709bd1853e2879944c5b8e878b522a8ff382ddf",
     "sbom": "sha256:af28306779d6a9bd7013ab1ff2ef456d976fb74af33bfa3c2971856664ce4d93",
     "thirdPartyNoticeReport": "sha256:dd3f28994df5f115426d862085f8140d876ae152021707d6927e61ec28344eed",
     "thirdPartyNotices": "sha256:5208ae4ed3eb39fad803d2289c7e0a0ef74521c3779df11871bd202f93aca879"
@@ -19,6 +19,6 @@
   "scope": "candidate",
   "source": {
     "branch": "main",
-    "commit": "2731b4e2f0fc194bd5b06808de3f82c8383d13e4"
+    "commit": "d4807c033cde5758e04ea0dc09dc5bfe7ca30735"
   }
 }
