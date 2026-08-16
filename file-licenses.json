@@ -54,7 +54,7 @@
       "licenseConcluded": "AGPL-3.0-only",
       "originClass": "public-governance-or-build-overlay",
       "path": "README.md",
-      "sha256": "492045d434124ae0ceb95ac4110c2945d8acafb444c012925bb6b0bb0649ce40"
+      "sha256": "af64aec87f279bf6f81ee9e60f1c7f83e23935682b236753be47c7d17e3b8d6f"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -1222,7 +1222,7 @@
       "licenseConcluded": "AGPL-3.0-only",
       "originClass": "exported-project-source",
       "path": "packages/shared/src/locales/en-US.ts",
-      "sha256": "cb8b261f9a22f2c3197447ea77559ed397df9e6a17ddc7519c5d4be62455316b"
+      "sha256": "8aa49be3c9673ba9dbbd420381f84063920112e66a0d0adddd046bd455ca0fcd"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -1246,7 +1246,7 @@
       "licenseConcluded": "AGPL-3.0-only",
       "originClass": "exported-project-source",
       "path": "packages/shared/src/locales/zh-CN.ts",
-      "sha256": "b614422d0185a4c6d398bd87db160c70390265eeaffd3acb41aafd66df538b41"
+      "sha256": "2f95b8610fc868db67560b8530e8282d55e654126bb0b9841e43c1bc8345e888"
     },
     {
       "copyrightClass": "project-owned-or-attributed",

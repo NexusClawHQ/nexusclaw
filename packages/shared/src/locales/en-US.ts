@@ -1083,7 +1083,12 @@ const messages = {
     severity: {
         high: "High",
         medium: "Medium",
-        low: "Low"
+        low: "Low",
+        critical: "Critical",
+        CRITICAL: "Critical",
+        HIGH: "High",
+        MEDIUM: "Medium",
+        LOW: "Low"
     },
     overdue: "{days} days overdue",
     deadline: "{hours} hours until deadline",
@@ -1925,8 +1930,10 @@ const messages = {
         createNew: "Create new records (ignore duplicates)",
       },
       duplicateStrategyNames: {
-        skip: "Skip"
-      },
+        skip: "Skip",
+          overwrite: "Overwrite",
+          create_new: "Create New Records"
+    },
       metrics: {
         totalRows: "Total Rows",
         success: "Success",
@@ -2961,7 +2968,56 @@ const messages = {
       aiKcGrounding: "__EN_TODO__: 溯源",
       aiKcGroundingTitle: "__EN_TODO__: 知识溯源智能",
       aiSopWorkflowHubTitle: "__EN_TODO__: SOP-流程转化中心",
-      aiGuardrailPolicyIntelligenceTitle: "__EN_TODO__: 策略智能引擎"
+      aiGuardrailPolicyIntelligenceTitle: "__EN_TODO__: 策略智能引擎",
+        objects: "Object Manager",
+        automation: "Automation",
+        integrations: "Integrations",
+        dev: "Developer Tools",
+        appColStatus: "Status",
+        appColActions: "Actions",
+        autoNumberPrefix: "Prefix, e.g. INV-",
+        autoNumberPrefixRequired: "Please enter prefix",
+        autoNumberStarting: "Starting value",
+        autoNumberStartingRequired: "Please enter starting value",
+        aiTabSkills: "Skills",
+        aiTabTools: "Tools",
+        aiTabSettings: "Settings",
+        aiAuditActionAllow: "Allow",
+        aiAuditActionAudit: "Audit",
+        aiAuditActionConfirm: "Confirm",
+        aiAuditActionApprove: "Approve",
+        aiAuditActionBlock: "Block",
+        aiAuditApprovalPending: "Pending",
+        aiAuditApprovalApproved: "Approved",
+        aiAuditApprovalRejected: "Rejected",
+        aiKcEditChunk: "Edit Knowledge Chunk",
+        aiKcDetailLoadFailed: "Failed to load knowledge chunk detail",
+        aiKcLoading: "Loading...",
+        aiKcRetrievalCount: "Retrievals",
+        aiKcInjectionCount: "Injections",
+        aiKcReferenceCount: "References",
+        aiKcUpdateOk: "Knowledge chunk updated",
+        aiKcDeleteOk: "Deleted",
+        aiKcDeleteConfirm: "Confirm delete?",
+        aiSopStatusDraft: "Draft",
+        aiSopStatusReviewed: "Reviewed",
+        aiSopStatusActive: "Active",
+        aiSopStatusArchived: "Archived",
+        rbHardDelete: "Permanently Delete",
+        rbPermanentDelete: "Permanently Delete",
+        rbPermanentDeleteUnavailable: "The customer recycle bin is restore-only. Permanent deletion is handled by the system retention policy or DSAR process and is not exposed on this page.",
+        rbSelectDelete: "Select at least one record to permanently delete",
+        rbDeleteOk: "Permanently deleted {count} record(s)",
+        rbDeleteFail: "Permanent delete failed, please retry later",
+        rbDeleteConfirmTitle: "Confirm permanent delete",
+        rbDeleteConfirmContent: "Permanently delete the selected {count} record(s)? This cannot be undone.",
+        rbCancel: "Cancel",
+        aiSopCategoryGrowth: "__EN_TODO__: 增长获客",
+        aiSopCategorySales: "__EN_TODO__: 销售转化",
+        aiSopCategoryService: "__EN_TODO__: 客户服务",
+        aiSopCategoryOnboarding: "__EN_TODO__: 客户启用",
+        aiSopCategoryOperations: "__EN_TODO__: 运营流程",
+        aiSopCategoryCompliance: "__EN_TODO__: 合规治理"
     },
     developer: {
       apiCredentials: "API Credentials",
@@ -3046,13 +3102,32 @@ const messages = {
         neverRefreshed: "Never refreshed",
         refreshNow: "Refreshable now",
         type: {
-},
+            DEVELOPER: "Developer",
+            DEVELOPER_PRO: "Developer Pro",
+            PARTIAL: "Partial Copy",
+            FULL: "Full Copy"
+        },
         typeDesc: {
-},
+            DEVELOPER: "Copies metadata only. Best for development and testing without data.",
+            DEVELOPER_PRO: "Copies metadata and sampled data. Good for development with realistic data.",
+            PARTIAL: "Copies metadata and template data. Suitable for testing with specific data sets.",
+            FULL: "Complete copy of all metadata and data. Best for UAT and staging environments."
+        },
         status: {
-},
+            CREATING: "Creating",
+            ACTIVE: "Active",
+            REFRESHING: "Refreshing",
+            DELETING: "Deleting",
+            DELETED: "Deleted",
+            ERROR: "Error"
+        },
         stage: {
-},
+            DEVELOPMENT: "Development",
+            INTEGRATION: "Integration",
+            UAT: "UAT",
+            STAGING: "Staging",
+            PRODUCTION: "Production Mirror"
+        },
         wizard: {
           title: "Create sandbox",
           stepType: "Select type",
@@ -3074,13 +3149,24 @@ const messages = {
           stageExtra:
             "Distinguishes development, integration, UAT, and staging semantics to avoid mistaking a sandbox for production.",
           stageDesc: {
-},
+              DEVELOPMENT: "Local development and debugging",
+              INTEGRATION: "Cross-module integration validation",
+              UAT: "Business acceptance and training",
+              STAGING: "Pre-release rehearsal",
+              PRODUCTION: "Production mirror or rehearsal environment"
+        },
           sampleSizeLabel: "Data sampling ratio",
           sampleSizeTooltip: "Ratio of data sampled from production",
           dataTemplateLabel: "Data template",
           dataTemplateRequired: "Please select a data template",
           template: {
-},
+              minimal: "Minimal data set",
+              minimalDesc: "Contains only the essential base data",
+              standard: "Standard data set",
+              standardDesc: "Contains commonly used test data",
+              comprehensive: "Comprehensive data set",
+              comprehensiveDesc: "Contains data for comprehensive test scenarios"
+        },
           fullWarningTitle: "Full copy sandbox",
           fullWarningDesc:
             "A full copy duplicates all production data and may take a long time to create. Creating it during off-peak hours is recommended.",
@@ -3896,7 +3982,11 @@ const messages = {
       'Deleting "{name}" will permanently delete all related data and records.',
     deleteConfirmInput: "Type {text} to confirm deletion:",
     confirmText: "yes",
-  },
+      functionCategoryMath: "Math",
+      functionCategoryString: "String",
+      functionCategoryDate: "Date",
+      functionCategoryLogic: "Logic"
+},
   permission: {
     tabPermissions: "Permissions",
     tabSettings: "Settings",
@@ -3981,7 +4071,9 @@ const messages = {
         "Maximum number of simultaneous sessions allowed per user",
       maxSessionsHint: "Set to 0 for unlimited concurrent sessions",
       policyLabel: "Limit Policy",
-      policyDesc: "Action to take when concurrent session limit is reached"
+      policyDesc: "Action to take when concurrent session limit is reached",
+        policy_KICK_OLDEST: "Kick Oldest Session",
+        policy_BLOCK_NEW: "Block New Login"
     },
     activationStatus: "Activation Status",
     activationStatusDesc: "Control whether this permission set is active",
@@ -4314,6 +4406,9 @@ const messages = {
     status: {
       active: "Enabled",
       failed: "Failed",
+        creating: "Creating",
+        dropping: "Deleting",
+        dropped: "Deleted"
     },
   },
   appWizard: {
@@ -4698,8 +4793,31 @@ const messages = {
       objectName: {
         account: "Account",
         opportunity: "Opportunity",
-        activity: "Activity"
-      },
+        activity: "Activity",
+          lead: "Lead",
+          contact: "Contact",
+          task: "Task",
+          case: "Case",
+          product: "Product"
+    },
+        recordQueryLoading: "Querying data...",
+        recordQueryDone: "Query complete",
+        recordCreateLoading: "Creating record...",
+        recordCreateDone: "Record created",
+        recordUpdateLoading: "Updating record...",
+        recordUpdateDone: "Record updated",
+        recordDeleteLoading: "Deleting record...",
+        recordDeleteDone: "Record deleted",
+        knowledgeSearchLoading: "Searching knowledge base...",
+        knowledgeSearchDone: "Knowledge search complete",
+        emailDraftLoading: "Drafting email...",
+        emailDraftDone: "Email draft generated",
+        emailSendLoading: "Sending email...",
+        emailSendDone: "Email sent",
+        reportAggregateLoading: "Generating report...",
+        reportAggregateDone: "Report generated",
+        webSearchLoading: "Searching the web...",
+        webSearchDone: "Search complete"
     },
   },
   agentDemo: {
@@ -5070,27 +5188,47 @@ const messages = {
       deleteConfirm: "Are you sure you want to delete this campaign?",
       viewDetail: "View Detail",
       success: "Action successful",
-      error: "Action failed"
+      error: "Action failed",
+        startSuccess: "Started successfully",
+        startError: "Failed to start",
+        pauseSuccess: "Paused successfully",
+        pauseError: "Failed to pause",
+        cancelSuccess: "Cancelled successfully",
+        cancelError: "Failed to cancel"
     },
     filter: {
       status: {
         draft: "Draft",
         running: "Running",
         paused: "Paused",
-        completed: "Completed"
-      },
+        completed: "Completed",
+          all: "All Statuses",
+          scheduled: "Scheduled",
+          cancelled: "Cancelled"
+    },
       type: {
-        manual: "Manual"
-      },
+        manual: "Manual",
+          all: "All Types",
+          preview: "Preview",
+          progressive: "Progressive",
+          predictive: "Predictive",
+          ai_auto: "AI Auto"
+    },
     },
     type: {
-      manual: "Manual"
+      manual: "Manual",
+        preview: "Preview",
+        progressive: "Progressive",
+        predictive: "Predictive",
+        ai_auto: "AI Auto"
     },
     status: {
       draft: "Draft",
       running: "Running",
       paused: "Paused",
-      completed: "Completed"
+      completed: "Completed",
+        scheduled: "Scheduled",
+        cancelled: "Cancelled"
     },
     stats: {
       total: "Total",
@@ -5183,18 +5321,27 @@ const messages = {
     createModal: {
       type: {
         manual: {
-},
+            label: "📋 Manual Dial",
+            desc: "Agents dial each contact one by one."
+        },
         preview: {
           label: "👁 Preview Dial",
           desc: "Show contact info first, then the agent confirms the call.",
         },
         progressive: {
-},
+            label: "📞 Progressive Auto Dial",
+            desc: "The system dials automatically and transfers to an agent once connected."
+        },
         ai_auto: {
-},
+            label: "🤖 AI Fully Automated Outbound",
+            desc: "An AI voice agent completes the call automatically."
+        },
       },
       contactSource: {
-},
+          list_view: "Import from list view",
+          csv: "Upload from CSV",
+          segment: "Import from a customer segment"
+    },
       timezone: {
         "Asia/Shanghai": "China Standard Time (UTC+8)",
         "Asia/Tokyo": "Japan Standard Time (UTC+9)",
@@ -6215,15 +6362,27 @@ const messages = {
         },
         action: {
           description: "Send email/update field/webhook",
+            name: "Action"
         },
         decision: {
           description: "Conditional branch routing",
+            name: "Decision"
         },
-        wait: { description: "Wait for duration/date/event" },
+        wait: { description: "Wait for duration/date/event",
+            name: "Wait"
+        },
         split: {
-},
-        goal: { },
-        exit: { },
+            name: "A/B Split",
+            description: "Randomly assign by percentage"
+        },
+        goal: {
+            name: "Goal",
+            description: "Check whether a condition is met"
+        },
+        exit: {
+            name: "Exit",
+            description: "Journey end point"
+        },
       },
     },
     nodeConfig: {
@@ -6854,19 +7013,24 @@ const messages = {
     risk: {
       L0: {
         label: "No Risk",
-      },
+          action: "Allow"
+    },
       L1: {
         label: "Low Risk",
-      },
+          action: "Audit"
+    },
       L2: {
         label: "Medium Risk",
-      },
+          action: "Confirm"
+    },
       L3: {
         label: "High Risk",
-      },
+          action: "Approve"
+    },
       L4: {
         label: "Critical Risk",
-      },
+          action: "Block"
+    },
     },
     toolForm: {
       categoryLabel: "Category",
@@ -7060,6 +7224,7 @@ const messages = {
       builderGuardrailTitle: "Guardrail assignment",
       builderHighRiskActions: "High-risk actions",
       builderIdentity: {
+        independent: "Independent AI employee",
         assistant: "Employee assistant"
       },
       assistantIdentityBanner:
@@ -7098,7 +7263,14 @@ const messages = {
       builderLearningRecommendationDesc:
         "Recommendations must carry evidence, risk, impact, and candidate tests; they cannot become live configuration directly.",
       builderLifecycle: {
-},
+        draft: "Draft",
+        approval_pending: "Pending approval",
+        ready: "Ready",
+        running: "Running",
+        governance_needed: "Governance needed",
+        asset_gap: "Assets needed",
+        test_gap: "Test needed"
+      },
       builderLifecycleAction: "View readiness",
       builderLifecycleStage: "Lifecycle stage",
       builderMetricWindow: "Metric window",
@@ -7122,14 +7294,22 @@ const messages = {
       builderPreviewRestoring: "Restoring the last conversation…",
       builderReadinessTitle: "Readiness",
       builderReadiness: {
+          identity: "Execution identity",
           knowledge: "Knowledge",
           guardrail: "Guardrail",
           access: "Usage scope",
-          sop: "SOP"
+          sop: "SOP",
+          test: "Test",
+          loadFailed: "Failed to load the provider control plane",
+          loadFailedDescription: "Provider configurations and organization policies could not be read. Please retry.",
+          retry: "Retry"
     },
       builderReadinessMenuCaption: "Pre-publish check",
       builderReadinessStatus: {
-},
+        ok: "OK",
+        gap: "Gap",
+        unknown: "Unexplained"
+      },
       builderRecentExecutions: "Recent executions",
       builderRecentFailure: "Recent failure",
       builderRecentFailureDesc: "From existing AgentExecution records.",
@@ -7148,14 +7328,25 @@ const messages = {
       builderSavedState: "Current configuration is synced",
       editProfile: "Edit profile",
       builderSection: {
+          identity: "Identity",
+          sharing: "Usage sharing",
+          cognitivePolicy: "Goals",
+          topics: "Responsibilities",
+          actions: "Skills",
           knowledge: "Knowledge",
           guardrail: "Guardrail",
           access: "Access",
-          sop: "SOP"
+          sop: "SOP",
+          learning: "Learning",
+          test: "Test",
+          observability: "Observability"
     },
       cognitive: {
         tab: {
-},
+          successContract: "Goals & Metrics",
+          proactivePolicy: "Proactive Policy",
+          contextAndMemoryPolicy: "Context & Memory Policy"
+        },
         successContractTitle: "Success Contract",
         successContractDesc:
           "Distinguish hard gates from weighted metrics; the candidate version can only be published after passing evaluation.",
@@ -7644,7 +7835,14 @@ const messages = {
       versionHistory: "Version history",
       writeRateLimit: "Max writes per minute",
     },
-  },
+      nodeTypes: {
+          topic: "Topic",
+          tool: "Tool",
+          guardrail: "Guardrail",
+          knowledge: "Knowledge",
+          model: "Model"
+    }
+},
   servicebotAgentDesk: {
     channel: {
       webChat: "Web Chat",
@@ -7791,7 +7989,14 @@ const messages = {
     descriptionPlaceholder: "Component description (optional)",
     scopeHint: "Limit to objects (comma-separated, empty means no limit):",
     permission: {
-},
+        dataRead: "Data Read (data:read)",
+        dataWrite: "Data Write (data:write)",
+        navigation: "Navigation (navigation)",
+        ui: "UI Interaction (ui)",
+        platformScan: "Scan (platform:scan)",
+        platformLocation: "Location (platform:location)",
+        platformImage: "Image Picker (platform:image)"
+    },
     onlyJs: "Only .js files are supported",
     maxSize: "File size cannot exceed 2MB",
     uploadSuccess: "Bundle uploaded successfully",
@@ -7883,7 +8088,13 @@ const messages = {
         "Add a summary field in the outline panel first to configure conditional formatting",
       title: "Conditional Formatting",
       conditionType: {
-},
+          gt: "Greater than",
+          lt: "Less than",
+          eq: "Equal to",
+          between: "Between",
+          topN: "Top N",
+          bottomN: "Bottom N"
+    },
     },
     configPanel: {
       collapsePanel: "Collapse panel",
@@ -7937,7 +8148,22 @@ const messages = {
         notEquals: "Not equal to",
         in: "In",
         notIn: "Not in",
-      },
+          between: "Between",
+          before: "Before",
+          after: "After",
+          thisWeek: "This week",
+          lastWeek: "Last week",
+          thisMonth: "This month",
+          lastMonth: "Last month",
+          thisQuarter: "This quarter",
+          lastQuarter: "Last quarter",
+          thisYear: "This year",
+          lastYear: "Last year",
+          thisFiscalQuarter: "This fiscal quarter",
+          lastFiscalYear: "Last fiscal year",
+          lastNDays: "Last N days",
+          nextNDays: "Next N days"
+    },
     },
     filtersTab: {
       commonPractice: "Common practice: owner, stage, date range",
@@ -8098,6 +8324,13 @@ const messages = {
       statusScheduled: "Scheduled",
       statusScheduledHelperNext: "Waiting for the next run",
       statusScheduledHelperFirst: "Waiting for the first run",
+        weekdaySunday: "Sunday",
+        weekdayMonday: "Monday",
+        weekdayTuesday: "Tuesday",
+        weekdayWednesday: "Wednesday",
+        weekdayThursday: "Thursday",
+        weekdayFriday: "Friday",
+        weekdaySaturday: "Saturday"
     },
     selectFields: {
 },
@@ -8144,7 +8377,11 @@ const messages = {
       saveFirst: "Please save the report first",
       undo: "Undo (⌘Z)",
       reportTypeOptions: {
-},
+          tabular: "Detail Report",
+          summary: "Summary Report",
+          matrix: "Matrix Report",
+          joined: "Joined Report"
+    },
       apiNamePlaceholder: "API Name",
       close: "Close",
     },
@@ -8411,19 +8648,33 @@ const messages = {
         customDomainPlaceholder: "e.g. support.example.com",
         templateOptions: {
           BLANK: {
-},
+              label: "Blank",
+              description: "A blank template with no preset pages or permissions, fully customizable."
+        },
           CUSTOMER_SERVICE: {
-},
+              label: "Customer Service",
+              description: "Customer service portal: case submission, knowledge base, case deflection."
+        },
           HELP_CENTER: {
-},
+              label: "Help Center",
+              description: "Help center: knowledge base search, FAQ, community Q&A."
+        },
           PARTNER_CENTRAL: {
-},
+              label: "Partner Central",
+              description: "Partner portal: deal registration, lead sharing, channel insights."
+        },
           SELF_SERVICE: {
-},
+              label: "Self-Service",
+              description: "Self-service: account management, order lookup, form submission."
+        },
           COMMUNITY: {
-},
+              label: "Community",
+              description: "Community: discussions, Q&A, topics."
+        },
           MICROSITE: {
-},
+              label: "Microsite",
+              description: "Microsite: CMS content pages, landing pages, campaign pages."
+        },
         },
       },
       list: {
@@ -8960,7 +9211,13 @@ const messages = {
       cardConfig: {
         cardType: "Card Type",
         cardTypeOption: {
-},
+            metric: "Metric Card",
+            list: "List Card",
+            chart: "Chart Card",
+            pending_actions: "Pending Actions",
+            recent: "Recently Viewed",
+            custom: "Custom (Phase 2)"
+        },
         title: "Title",
         icon: "Icon",
         relatedObject: "Related Object",
@@ -9028,7 +9285,13 @@ const messages = {
         route: "Navigation Path",
         flowVersionId: "Flow Version ID",
         actionTypeOption: {
-},
+            create_related: "Create Related Record",
+            update_field: "Update Field",
+            trigger_flow: "Trigger Flow",
+            call: "Make a Call",
+            email: "Send Email",
+            navigate: "Navigate to Page"
+        },
       },
       fabConfig: {
         buttonName: "Button Name",
@@ -9036,7 +9299,13 @@ const messages = {
         actionType: "Action Type",
         createObject: "Object to Create",
         route: "Navigation Path",
-      },
+          fabTypeOption: {
+              create: "Create record",
+              scan: "Scan code",
+              navigate: "Navigate to page",
+              trigger_flow: "Trigger flow"
+        }
+    },
       tabConfig: {
         tabName: "Tab Name",
         icon: "Icon",
@@ -9850,9 +10119,28 @@ const messages = {
   },
   objectFieldsPages: {
     fieldTypeOption: {
-},
+        TEXT: "Text",
+        LONG_TEXT: "Long Text",
+        NUMBER: "Number",
+        DATE: "Date",
+        DATETIME: "Date Time",
+        BOOLEAN: "Boolean",
+        SELECT: "Select",
+        MULTI_SELECT: "Multi-Select",
+        RELATION: "Relation",
+        EMAIL: "Email",
+        PHONE: "Phone",
+        URL: "Link",
+        CURRENCY: "Currency",
+        UUID: "Unique ID",
+        FORMULA: "Formula",
+        ROLLUP: "Rollup"
+    },
     relationTypeOption: {
-},
+        ONE_TO_MANY: "One-to-Many (ONE_TO_MANY)",
+        MANY_TO_ONE: "Many-to-One (MANY_TO_ONE)",
+        MANY_TO_MANY: "Many-to-Many (MANY_TO_MANY)"
+    },
     breadcrumbSettings: "Settings",
     breadcrumbObjects: "Objects",
     breadcrumbNewField: "New Field",
@@ -12010,21 +12298,41 @@ const messages = {
         "Cross-module Entries: Sales Cloud · Marketing Cloud · Open Platform",
       homeCards: {
         profiles: {
-},
+            title: "Partner Profiles",
+            description: "Manage partner tiers, owners, certification status, and portal readiness as the foundational PRM master data.",
+            step: "Step 1"
+        },
         dealRegistrations: {
-},
+            title: "Deal Registration",
+            description: "A dedicated object handling partner deal registration, approval protection periods, and downstream co-selling collaboration.",
+            step: "Step 2"
+        },
         referrals: {
-},
+            title: "Referral Leads",
+            description: "Focus on leads sourced from Partner Referral, demonstrating the loop from partner-driven traffic to Sales Cloud.",
+            step: "Step 3"
+        },
         insights: {
-},
+            title: "Channel Insights",
+            description: "One click into Partner Cloud dashboards and reports, going straight into the investor demo path.",
+            step: "Step 4"
+        },
         channelSources: {
-},
+            title: "Channel Source View",
+            description: "View registration structure by channel source, making it easy to explain collaboration models and contribution distribution."
+        },
         jointMarketing: {
-},
+            title: "Joint Marketing -> Marketing Cloud",
+            description: "Jump to Marketing Cloud to reuse campaigns, segmentation, and journey capabilities in support of channel co-marketing."
+        },
         enablement: {
-},
+            title: "Partner Enablement -> Help Center",
+            description: "Jump to the Help Center to manage partner training, sales materials, and SOPs."
+        },
         integrations: {
-},
+            title: "Portal & Integrations -> Open Platform",
+            description: "Jump to the Open Platform to connect partner portals via API Keys and webhooks."
+        },
       },
     },
     platformAdmin: {
@@ -12237,7 +12545,12 @@ const messages = {
         memberTypePlaceholder: "Select a member type",
         memberTypeRequired: "Please select a member type",
         memberTypeOption: {
-},
+            USER: "User",
+            ROLE: "Role",
+            ROLE_AND_SUBORDINATES: "Role and Subordinates",
+            ORG_NODE: "Org Node",
+            PUBLIC_GROUP: "Public Group"
+        },
         referenceRequired: "Please select a specific member",
         searchPlaceholder: "Search and select...",
         selectMember: "Select Member",
@@ -12276,7 +12589,12 @@ const messages = {
         memberRemoved: "Member removed",
         memberNameUnavailable: "Name unavailable",
         memberTypeOption: {
-},
+            USER: "User",
+            ROLE: "Role",
+            ROLE_AND_SUBORDINATES: "Role and Subordinates",
+            ORG_NODE: "Org Node",
+            PUBLIC_GROUP: "Public Group"
+        },
         membersTitle: "Member List",
         noMembers: "No members yet",
         notFound: "Public group does not exist",
@@ -12541,10 +12859,26 @@ const messages = {
       empty: "No signup risk audit records under the current filters",
       totalCount: "{count} total",
       riskGroup: {
-          access: "Access Blocked"
+          access: "Access Blocked",
+          captcha: "Captcha Risk",
+          identity: "Account Conflict",
+          risk: "Input Anomaly",
+          system: "System Error"
     },
       failureCode: {
-},
+          CAPTCHA_REQUIRED: "Captcha Missing",
+          CAPTCHA_FAILED: "Captcha Verification Failed",
+          EMAIL_DUPLICATE: "Email Already Registered",
+          USERNAME_DUPLICATE: "Username Already Exists",
+          FORBIDDEN: "Access Denied",
+          BAD_REQUEST: "Invalid Request Parameters",
+          SIGNUP_FAILED: "Signup Process Failed",
+          RATE_LIMITED: "Signup Rate Limited",
+          IP_RATE_LIMITED: "Too Many Signups from IP",
+          EMAIL_RATE_LIMITED: "Too Many Attempts for Email",
+          PROVISIONING_CONFLICT: "Trial Provisioning Conflict",
+          PROVISIONING_FAILED: "Trial Provisioning Failed"
+    },
     },
   },
   marketingPages: {
@@ -12899,7 +13233,13 @@ const messages = {
         actionHint: "Run consecutively to generate the trend",
       },
       dispositionLabel: {
-},
+          interested: "Interested",
+          callback: "Callback",
+          not_interested: "Not Interested",
+          no_answer: "No Answer",
+          voicemail: "Voicemail",
+          other: "Other"
+    },
     },
     itemTable: {
       filterStatusPlaceholder: "Filter by status",
@@ -12952,7 +13292,10 @@ const messages = {
         "Type cannot be changed in edit mode; to change it, delete and recreate the tab",
       typePlaceholder: "Please select a tab type",
       typeOption: {
-},
+          object: "Object",
+          page: "Custom Page",
+          url: "External Link"
+    },
       objectLabel: "Linked Object",
       objectRequired: "Please select a linked object",
       objectPlaceholder: "Please select a linked object",
@@ -13602,7 +13945,12 @@ const messages = {
         "Select the relation field on the child object that points to the parent",
       aggregateFunctionLabel: "Aggregate Function",
       functionOption: {
-},
+          SUM: "Sum (SUM)",
+          COUNT: "Count (COUNT)",
+          AVG: "Average (AVG)",
+          MIN: "Minimum (MIN)",
+          MAX: "Maximum (MAX)"
+    },
       childFieldLabel: "Field To Aggregate",
       childFieldPlaceholder: "Select the field to aggregate",
       filterCriteriaLabel: "Filter Criteria (Optional)",
@@ -14192,53 +14540,101 @@ const messages = {
   newFieldSelect: {
     fieldType: {
       TEXT: {
-},
+          label: "Text",
+          description: "Single or multi-line text"
+    },
       LONG_TEXT: {
-},
+          label: "Text Area",
+          description: "Multi-line plain text (max 131,072 characters)"
+    },
       NUMBER: {
-},
+          label: "Number",
+          description: "Integer or decimal"
+    },
       BOOLEAN: {
-},
+          label: "Boolean",
+          description: "True/false value"
+    },
       DATE: {
-},
+          label: "Date",
+          description: "Date only"
+    },
       DATE_TIME: {
-},
+          label: "Date Time",
+          description: "Date and time"
+    },
       SELECT: {
-},
+          label: "Picklist",
+          description: "Single-select dropdown"
+    },
       MULTI_SELECT: {
-},
+          label: "Multi-select",
+          description: "Multi-select tags"
+    },
       RATING: {
-},
+          label: "Rating",
+          description: "Star rating"
+    },
       CURRENCY: {
-},
+          label: "Currency",
+          description: "Amount and currency code"
+    },
       EMAILS: {
-},
+          label: "Email",
+          description: "Primary email and additional emails"
+    },
       PHONES: {
-},
+          label: "Phone",
+          description: "Primary phone and additional phones"
+    },
       LINKS: {
-},
+          label: "Links",
+          description: "Primary link and additional links"
+    },
       FULL_NAME: {
-},
+          label: "Full Name",
+          description: "First and last name"
+    },
       ADDRESS: {
-},
+          label: "Address",
+          description: "Complete address information"
+    },
       RELATION: {
-},
+          label: "Relation",
+          description: "Relate to other objects"
+    },
       UUID: {
-},
+          label: "Unique ID",
+          description: "UUID identifier"
+    },
       RAW_JSON: {
-},
+          label: "JSON",
+          description: "JSON data"
+    },
       ARRAY: {
-},
+          label: "Array",
+          description: "List of values"
+    },
       FILES: {
-},
+          label: "Files",
+          description: "File attachments"
+    },
       GEOLOCATION: {
-},
+          label: "Geolocation",
+          description: "Latitude/longitude coordinates with map picker support"
+    },
       EXTERNAL_LOOKUP: {
-},
+          label: "External Lookup",
+          description: "Reference records in external systems"
+    },
       FORMULA: {
-},
+          label: "Formula",
+          description: "Read-only value computed from other fields"
+    },
       ROLLUP: {
-},
+          label: "Rollup",
+          description: "Roll up child object fields (SUM/COUNT/AVG/MIN/MAX)"
+    },
     },
     categoryDescription: {
       Basic: "Basic field types for common needs",
@@ -15434,7 +15830,13 @@ const messages = {
     objAutomationExecution: "Automation Execution",
     objLoginHistory: "Login History",
     objQuoteLineItem: "Quote Line Item",
-  },
+      chartArea: "Area",
+      chartCombo: "Combo",
+      chartDonut: "Donut",
+      chartGauge: "Gauge",
+      chartScatter: "Scatter",
+      chartType: "Chart Type"
+},
   servicebot: {
     channels: "Channels",
     create: "Create NexusBot",
@@ -16082,9 +16484,18 @@ const messages = {
       totalRecords: "{total} execution records in total",
       noRecords: "No execution records",
       status: {
-},
+          RUNNING: "Running",
+          COMPLETED: "Completed",
+          FAILED: "Failed",
+          CANCELLED: "Cancelled",
+          WAITING: "Waiting"
+    },
       triggerType: {
-},
+          RECORD_TRIGGER: "Record Trigger",
+          MANUAL: "Manual Trigger",
+          SCHEDULED: "Scheduled Trigger",
+          SUBFLOW: "Subflow"
+    },
     },
     decisionConfig: {
       title: "Decision Branch Configuration",
@@ -16644,7 +17055,13 @@ const messages = {
       transferToMobile: "Transfer to Mobile",
       close: "Close",
     },
-  },
+      queueStatus: {
+          pending: "Pending call",
+          completed: "Completed",
+          failed: "Failed",
+          skipped: "Skipped"
+    }
+},
   recording: {
     list: {
       waitingPool: "Pending review pool",
@@ -16765,7 +17182,12 @@ const messages = {
     status: {
       pending: "Pending",
       completed: "Completed",
-      failed: "Failed"
+      failed: "Failed",
+        scheduled: "Scheduled",
+        dialing: "Dialing",
+        connected: "Connected",
+        skipped: "Skipped",
+        dnc: "DNC"
     },
     disposition: {
       interested: "Interested",
@@ -16773,6 +17195,7 @@ const messages = {
       not_interested: "Not Interested",
       voicemail: "Voicemail",
       no_answer: "No Answer",
+        appointment_set: "Appointment Set"
     },
     filter: {
       status: "Filter by status"
@@ -17476,7 +17899,12 @@ const messages = {
     deleteConfirmPrefix: "Are you sure you want to delete approval process ",
     deleteConfirmSuffix: "? This action cannot be undone.",
     object: {
-},
+        Opportunity: "Opportunity",
+        Quote: "Quote",
+        Contract: "Contract",
+        Account: "Account",
+        Order: "Order"
+    },
     approver: {
       user: "Assigned User",
       role: "Role"
@@ -17633,9 +18061,17 @@ const messages = {
     updateSuccess: "Workflow rule updated successfully",
     updateFailed: "Update failed, please check the form",
     object: {
-},
+        Opportunity: "Opportunity",
+        Account: "Account",
+        Contact: "Contact",
+        Task: "Task",
+        Lead: "Lead"
+    },
     evaluation: {
-},
+        created: "On creation only",
+        created_and_edited: "On creation and edit",
+        edited: "On edit only"
+    },
   },
   triggersAdmin: {
     title: "Trigger Management",
@@ -18609,14 +19045,83 @@ const messages = {
     menuPlatformAdminHome: "Platform Overview",
     providerControlPlaneUi: {
       family: {
-},
+          ai: "AI Provider Control Plane",
+          telephony: "Telephony Provider Control Plane",
+          channel: "Channel Provider Control Plane"
+    },
       tone: {
-},
+          success: "Success",
+          warning: "Warning",
+          danger: "Danger",
+          info: "Info",
+          neutral: "Neutral"
+    },
       field: {
         key: "Key",
         label: "Label",
-        secret: "Secret"
-      },
+        secret: "Secret",
+          kind: "Kind",
+          status: "Status",
+          health: "Health",
+          defaultModel: "Default Model",
+          capabilities: "Capabilities",
+          region: "Region",
+          action: "Action",
+          workspace: "Workspace",
+          primaryProvider: "Primary Provider",
+          routing: "Routing",
+          migration: "Migration",
+          fallbacks: "Fallbacks",
+          channel: "Channel",
+          runtime: "Runtime",
+          residency: "Residency",
+          providerSecret: "Provider Secret",
+          webhookSecret: "Webhook Secret",
+          purpose: "Purpose",
+          providerConfigKey: "Provider Config Key",
+          providerKind: "Provider Kind",
+          priority: "Priority",
+          baseUrl: "Base URL",
+          dataResidency: "Data Residency",
+          internalEndpoint: "Internal Endpoint",
+          enabledCapabilities: "Enabled Capabilities",
+          modelListJson: "Model List JSON",
+          metadataMaskedJson: "Metadata Masked JSON",
+          migrationState: "Migration State",
+          fallbackChainJson: "Fallback Chain JSON",
+          modelPolicyJson: "Model Policy JSON",
+          budgetPolicyJson: "Budget Policy JSON",
+          accountRefMasked: "Account Ref Masked",
+          endpointMasked: "Endpoint Masked",
+          senderIdentityJson: "Sender Identity JSON",
+          domainPolicyJson: "Domain Policy JSON",
+          suppressionPolicyJson: "Suppression Policy JSON",
+          retryPolicyJson: "Retry Policy JSON",
+          rateLimitPolicyJson: "Rate Limit Policy JSON",
+          senderPolicyJson: "Sender Policy JSON",
+          templateBoundaryPolicyJson: "Template Boundary Policy JSON",
+          sendingLimitPolicyJson: "Sending Limit Policy JSON",
+          compliancePolicyJson: "Compliance Policy JSON",
+          featurePolicyJson: "Feature Policy JSON"
+    },
+        guardrailAria: "Provider guardrail summary",
+        metricsAria: "Provider trust metrics",
+        workbenchAria: "Provider operations workbench",
+        recordsAria: "Provider records and policies",
+        riskTitle: "Risk and safe next actions",
+        noActiveRisk: "No provider risk currently requires action.",
+        contractGuarded: "Contract guarded",
+        maskedAuditView: "Masked audit view",
+        providerConfigs: "Provider configs",
+        orgPolicies: "Org policies",
+        cancel: "Cancel",
+        saveWithAudit: "Save with audit trail",
+        create: "Create",
+        edit: "Edit",
+        bindPolicy: "Bind policy",
+        impactAria: "Provider change impact preview",
+        impactPreview: "Impact preview",
+        impactDescription: "Validate scope, routing, SecretRef, residency, and audit intent before saving."
     },
     aiProviderControlPlane: {
       title: "AI Provider Control Plane",
@@ -18645,7 +19150,14 @@ const messages = {
       workspacePlaceholder: "Select workspace",
       ui: {
         capability: {
-},
+            chat: "Chat",
+            embedding: "Embedding",
+            vision: "Vision",
+            json: "JSON",
+            tool_calling: "Tool Calling",
+            streaming: "Streaming",
+            reasoning: "Reasoning"
+        },
         impact: {
           capabilityDelta: "Capability delta",
           capabilityDeltaBody:
@@ -18667,15 +19179,109 @@ const messages = {
             "Policy updates remain platform-admin scoped and should be reviewable from audit logs.",
         },
         runtimeConsumer: {
-}
-      },
+            modelRouting: "Model routing",
+            knowledgeRetrieval: "Knowledge retrieval",
+            other: "Other runtime service",
+            unavailable: "—"
+        },
+          loadFailed: "Failed to load the AI provider control plane",
+          loadFailedDescription: "AI provider configurations or organization policies could not be read. Please retry.",
+          retry: "Retry",
+          test: "Test",
+          testAll: "Test all",
+          testProvider: "Test provider capabilities",
+          editProvider: "Edit provider",
+          probeResults: "Capability test results",
+          noWiredProbeTargets: "There are no wired capability targets to test. Configure an active model and select only capabilities marked WIRED by the runtime catalog.",
+          noProbeResults: "No capability-test evidence was returned",
+          result: "Result",
+          passed: "Passed",
+          failed: "Failed",
+          latency: "Latency",
+          evidence: "Evidence",
+          diagnostic: "Diagnostic",
+          requestedModel: "Requested model",
+          actualModel: "Actual model",
+          modelConsistency: "Model match",
+          consistent: "Matched",
+          inconsistent: "Mismatched",
+          observedAt: "Observed at",
+          actor: "Operator",
+          auditId: "Audit ID",
+          dimension: "Dimension {count}",
+          tokens: "Tokens {input}/{output}",
+          providerHealth: "Provider health",
+          atRiskCount: "{count} at risk",
+          activeCount: "{active}/{total} active",
+          unknownHealthChecks: "{count} provider health checks are unknown",
+          healthChecksVisible: "Health checks are visible before raw configs",
+          policyCoverage: "Policy coverage",
+          policyCoverageHelper: "{count} org policies route to governed model providers",
+          secretRotationRisk: "Secret rotation risk",
+          configured: "Configured",
+          notConfigured: "Not configured",
+          available: "Available",
+          unavailable: "Unavailable",
+          notTested: "Not tested",
+          gapCount: "{count} gaps",
+          secretRotationHelper: "Only configuration status is returned; SecretRef identifiers and raw credentials stay out of the UI",
+          fallbackRoutingRisk: "Fallback and routing risk",
+          covered: "Covered",
+          fallbackRoutingHelper: "Pinned model route, migration state, and fallback chain are reviewed together",
+          reliability: "Reliability",
+          noDefaultModel: "No default model",
+          selectProviderReliability: "Select or create a provider to see runtime reliability",
+          modelRouting: "Model routing",
+          modelRoutingBound: "{workspace} routes to {provider} in {state}",
+          modelRoutingUnbound: "No org policy is bound yet; create a pinned route before relying on this provider.",
+          capabilityCoverage: "Capability coverage",
+          noCapabilities: "No capabilities configured",
+          wired: "WIRED",
+          notWired: "NOT_WIRED",
+          capabilityCatalogTitle: "Runtime capability catalog",
+          capabilityCatalogDescription: "Each capability is only executable when a real runtime consumer is wired. NOT_WIRED capabilities cannot be enabled on providers.",
+          runtimeCatalogUnavailable: "Runtime capability catalog unavailable",
+          invalidJson: "{field} contains invalid JSON",
+          capabilityColumn: "Capability",
+          wiringColumn: "Wiring",
+          runtimeConsumerColumn: "Runtime consumer",
+          noConsumer: "—",
+          noProviderSelected: "No provider is selected.",
+          modelResidency: "Model residency",
+          noRegion: "No region",
+          noResidencyPolicy: "No residency policy",
+          residencyUnavailable: "Residency cannot be audited until a provider exists.",
+          noAiProviderSelected: "No AI provider selected",
+          providerKey: "Provider key",
+          defaultModel: "Default model",
+          health: "Health",
+          policyWorkspace: "Policy workspace",
+          noPinnedPolicy: "No pinned policy",
+          secret: "Secret",
+          updated: "Updated"
+    },
     },
     channelProviderControlPlane: {
       ui: {
         capability: {
-},
+            send_email: "Send Email",
+            receive_email: "Receive Email",
+            send_sms: "Send SMS",
+            send_push: "Send Push",
+            send_work_notice: "Send Work Notice",
+            in_app_notify: "In-app Notify"
+        },
         purpose: {
-},
+            transactional: "Transactional",
+            marketing: "Marketing",
+            notification: "Notification",
+            workflow: "Workflow",
+            servicebot: "ServiceBot",
+            site_auth: "Site Auth",
+            inbound_case: "Inbound Case",
+            in_app: "In App",
+            mixed: "Mixed"
+        },
         impact: {
           capabilityDelta: "Channel capability delta",
           capabilityDeltaBody:
@@ -18695,8 +19301,56 @@ const messages = {
           auditTrail: "Audit trail",
           auditTrailBody:
             "Channel policy changes are compliance sensitive and remain visible to platform audit.",
-        }
-      },
+        },
+          loadFailed: "Failed to load the channel provider control plane",
+          loadFailedDescription: "Channel provider configurations and organization policies could not be read. Please retry.",
+          retry: "Retry",
+          title: "Channel Provider Control Plane",
+          providerHealth: "Provider health",
+          atRiskCount: "{count} at risk",
+          activeCount: "{active}/{total} active",
+          unknownDeliveryHealth: "{count} channel providers have unknown delivery health",
+          governedSenderCount: "{count} sender identities look governed",
+          policyCoverage: "Policy coverage",
+          policyCoverageHelper: "{count} org policies bind sender, template, limit, suppression, and compliance behavior",
+          secretRotationRisk: "Secret rotation risk",
+          configured: "Configured",
+          notConfigured: "Not configured",
+          gapCount: "{count} gaps",
+          secretRotationHelper: "Only provider and webhook configuration status is returned; SecretRef identifiers stay out of the UI",
+          fallbackRoutingRisk: "Fallback and routing risk",
+          pinned: "Pinned",
+          fallbackRoutingHelper: "Sender policy, rate limit, suppression, retry, and provider route are reviewed together",
+          reliability: "Reliability",
+          channel: "Channel",
+          selectChannelProvider: "Select or create a channel provider",
+          senderIdentity: "Sender identity",
+          domainOwnershipUnset: "Domain ownership not set",
+          noProviderSelected: "No provider is selected.",
+          deliveryPolicy: "Delivery policy",
+          deliveryPolicyBound: "{workspace} controls {purpose} delivery through {provider}",
+          deliveryPolicyUnbound: "No org policy is bound yet; sender and delivery controls are not pinned.",
+          deliveryReliability: "Suppression, retry, and rate limit",
+          noRegion: "No region",
+          noResidencyPolicy: "No residency policy",
+          noHealthMessage: "No health message",
+          deliveryReliabilityUnavailable: "Delivery reliability cannot be audited until a provider exists.",
+          noChannelProviderSelected: "No channel provider selected",
+          providerKey: "Provider key",
+          providerKind: "Provider kind",
+          policyWorkspace: "Policy workspace",
+          noPinnedPolicy: "No pinned policy",
+          providerSecret: "Provider secret",
+          webhookSecret: "Webhook secret",
+          updated: "Updated",
+          notWired: "NOT_WIRED",
+          invalidJson: "{field} must contain valid JSON",
+          configuredSecretRefHint: "Configured. Leave blank to retain the current SecretRef without reading or overwriting the credential.",
+          optionalProviderSecretRefHint: "Leave blank when this provider does not require a credential.",
+          optionalWebhookSecretRefHint: "Leave blank when this channel does not require webhook signature verification.",
+          wiredCapabilitiesHint: "Only capabilities with a registered runtime consumer can be enabled.",
+          notWiredCapabilitiesHint: "Providers without runtime wiring cannot enable delivery capabilities."
+    },
     },
     telephonyProviderControlPlane: {
 },
@@ -19393,7 +20047,15 @@ const messages = {
   },
   imBotSetup: {
     toolLabel: {
-},
+        recordQuery: "Query CRM",
+        recordAggregate: "Aggregate CRM",
+        recordCreate: "Write CRM",
+        recordUpdate: "Update CRM",
+        activityLog: "Log activity",
+        knowledgeSearch: "Search knowledge base",
+        reportGenerate: "Generate report",
+        imNotify: "Send outreach notification"
+    },
     platform: {
       dingtalk: {
         label: "DingTalk",
@@ -19917,11 +20579,24 @@ const messages = {
       detail: "Details",
       totalCount: "{count} total",
       outcomeTypeLabels: {
-},
+          mql: "MQL",
+          opportunityCreated: "Opportunity Created",
+          opportunityWon: "Opportunity Won",
+          caseClosed: "Case Closed",
+          customerActivated: "Customer Activated"
+    },
       tierLabels: {
-},
+          full: "Full Attribution",
+          half: "Half Attribution",
+          none: "Observation Only"
+    },
       statusLabels: {
-},
+          pending: "Pending",
+          billed: "Trial Billed",
+          waived: "Observation Only",
+          disputed: "Disputed",
+          cancelled: "Cancelled"
+    },
     },
     agentPermission: {
       pageTitle: "Agent Permission Configuration",
@@ -20361,6 +21036,11 @@ const messages = {
     type: {
       service: "Customer Service",
       custom: "General Purpose",
+        sales: "Sales",
+        analytics: "Analytics",
+        operations: "Operations",
+        marketing: "Marketing",
+        support: "Support"
     },
     status: {
       active: "Published",
@@ -20371,19 +21051,54 @@ const messages = {
       disabled: "Disabled",
     },
     capability: {
-},
+        multilingual_outreach: "Multilingual Outreach",
+        lead_qualification: "Lead Qualification",
+        email_drafting: "Email Drafting",
+        prospect_research: "Prospect Research",
+        mql_scoring: "MQL Scoring",
+        mql_conversion: "MQL Conversion",
+        follow_up_cadence: "Follow-up Cadence",
+        inbound_inquiry: "Inbound Inquiry Handling",
+        sales: "Sales Development",
+        case_resolution: "Case Resolution",
+        refund_processing: "Refund Processing",
+        order_tracking: "Order Tracking",
+        faq_answering: "FAQ Answers",
+        escalation_routing: "Escalation Routing",
+        team_coaching: "Team Coaching",
+        next_best_action: "Next Best Action",
+        sop_adherence: "SOP Adherence",
+        bottleneck_alerting: "Bottleneck Alerts",
+        bottleneck_detection: "Bottleneck Detection",
+        performance_review: "Performance Review",
+        enablement: "Team Enablement",
+        pipeline_analysis: "Pipeline Analysis",
+        revenue_forecasting: "Revenue Forecasting",
+        report_generation: "Report Generation",
+        kpi_monitoring: "KPI Monitoring"
+    },
   },
   orchestrationDisplay: {
     trigger: {
-      manual: "Manual Trigger"
+      manual: "Manual Trigger",
+        event: "Event Trigger",
+        schedule: "Scheduled Trigger"
     },
     category: {
       default: "Default",
+        custom: "Custom"
     },
     failureStrategy: {
-},
+        continue: "Continue",
+        fail_fast: "Fail Fast",
+        retry: "Retry Automatically"
+    },
     stepType: {
-},
+        agent_task: "Agent Task",
+        condition: "Condition",
+        parallel: "Parallel Branch",
+        tool_call: "Tool Call"
+    },
   },
   aiWorkforceHome: {
     title: "AI Workforce Command Center",

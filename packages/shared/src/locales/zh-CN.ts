@@ -1033,7 +1033,12 @@ const messages = {
     severity: {
         high: "重要",
         medium: "中等",
-        low: "一般"
+        low: "一般",
+        critical: "紧急",
+        CRITICAL: "紧急",
+        HIGH: "重要",
+        MEDIUM: "中等",
+        LOW: "一般"
     },
     overdue: "已超时 {days} 天",
     deadline: "距离截止还有 {hours} 小时",
@@ -1813,8 +1818,10 @@ const messages = {
         createNew: "创建新记录（忽略重复）",
       },
       duplicateStrategyNames: {
-        skip: "跳过"
-      },
+        skip: "跳过",
+          overwrite: "覆盖",
+          create_new: "创建新记录"
+    },
       metrics: {
         totalRows: "总行数",
         success: "成功",
@@ -2778,7 +2785,56 @@ const messages = {
       aiKcGrounding: "溯源",
       aiKcGroundingTitle: "知识溯源智能",
       aiSopWorkflowHubTitle: "SOP-流程转化中心",
-      aiGuardrailPolicyIntelligenceTitle: "策略智能引擎"
+      aiGuardrailPolicyIntelligenceTitle: "策略智能引擎",
+        objects: "对象管理器",
+        automation: "自动化",
+        integrations: "集成",
+        dev: "开发工具",
+        appColStatus: "状态",
+        appColActions: "操作",
+        autoNumberPrefix: "前缀，如 INV-",
+        autoNumberPrefixRequired: "请输入前缀",
+        autoNumberStarting: "起始值",
+        autoNumberStartingRequired: "请输入起始值",
+        aiTabSkills: "技能",
+        aiTabTools: "工具",
+        aiTabSettings: "设置",
+        aiAuditActionAllow: "允许",
+        aiAuditActionAudit: "审计",
+        aiAuditActionConfirm: "确认",
+        aiAuditActionApprove: "批准",
+        aiAuditActionBlock: "阻断",
+        aiAuditApprovalPending: "待处理",
+        aiAuditApprovalApproved: "已通过",
+        aiAuditApprovalRejected: "已拒绝",
+        aiKcEditChunk: "编辑知识片段",
+        aiKcDetailLoadFailed: "知识片段详情加载失败",
+        aiKcLoading: "加载中...",
+        aiKcRetrievalCount: "检索次数",
+        aiKcInjectionCount: "注入次数",
+        aiKcReferenceCount: "引用次数",
+        aiKcUpdateOk: "知识片段更新成功",
+        aiKcDeleteOk: "已删除",
+        aiKcDeleteConfirm: "确认删除？",
+        aiSopStatusDraft: "草稿",
+        aiSopStatusReviewed: "已审核",
+        aiSopStatusActive: "已激活",
+        aiSopStatusArchived: "已归档",
+        rbHardDelete: "永久删除",
+        rbPermanentDelete: "永久删除",
+        rbPermanentDeleteUnavailable: "客户回收站仅支持恢复。永久删除由系统保留策略或 DSAR 流程处理，不在此页面暴露。",
+        rbSelectDelete: "请先选择至少一条待永久删除记录",
+        rbDeleteOk: "已永久删除 {count} 条记录",
+        rbDeleteFail: "永久删除操作失败，请稍后重试",
+        rbDeleteConfirmTitle: "永久删除确认",
+        rbDeleteConfirmContent: "确定要永久删除选中的 {count} 条记录吗？此操作不可恢复。",
+        rbCancel: "取消",
+        aiSopCategoryGrowth: "增长获客",
+        aiSopCategorySales: "销售转化",
+        aiSopCategoryService: "客户服务",
+        aiSopCategoryOnboarding: "客户启用",
+        aiSopCategoryOperations: "运营流程",
+        aiSopCategoryCompliance: "合规治理"
     },
     developer: {
       apiCredentials: "API 凭证",
@@ -2861,13 +2917,32 @@ const messages = {
         neverRefreshed: "从未刷新",
         refreshNow: "可立即刷新",
         type: {
-},
+            DEVELOPER: "Developer",
+            DEVELOPER_PRO: "Developer Pro",
+            PARTIAL: "Partial Copy",
+            FULL: "Full Copy"
+        },
         typeDesc: {
-},
+            DEVELOPER: "仅复制元数据，适合无数据的开发和测试。",
+            DEVELOPER_PRO: "复制元数据和采样数据，适合需要真实数据的开发。",
+            PARTIAL: "复制元数据和模板数据，适合使用特定数据集的测试。",
+            FULL: "完整复制所有元数据和数据，适合 UAT 和预发环境。"
+        },
         status: {
-},
+            CREATING: "创建中",
+            ACTIVE: "运行中",
+            REFRESHING: "刷新中",
+            DELETING: "删除中",
+            DELETED: "已删除",
+            ERROR: "错误"
+        },
         stage: {
-},
+            DEVELOPMENT: "开发",
+            INTEGRATION: "集成",
+            UAT: "UAT",
+            STAGING: "预发",
+            PRODUCTION: "生产镜像"
+        },
         wizard: {
           title: "创建沙盒",
           stepType: "选择类型",
@@ -2888,13 +2963,24 @@ const messages = {
           stageExtra:
             "用于区分开发、集成、UAT、预发等语义，避免误把沙盒当生产环境使用。",
           stageDesc: {
-},
+              DEVELOPMENT: "本地开发与联调",
+              INTEGRATION: "跨模块集成验证",
+              UAT: "业务验收与培训",
+              STAGING: "上线前预演",
+              PRODUCTION: "生产镜像或演练环境"
+        },
           sampleSizeLabel: "数据采样比例",
           sampleSizeTooltip: "从生产环境采样的数据比例",
           dataTemplateLabel: "数据模板",
           dataTemplateRequired: "请选择数据模板",
           template: {
-},
+              minimal: "最小数据集",
+              minimalDesc: "仅包含必要的基础数据",
+              standard: "标准数据集",
+              standardDesc: "包含常用的测试数据",
+              comprehensive: "完整数据集",
+              comprehensiveDesc: "包含全面的测试场景数据"
+        },
           fullWarningTitle: "完整副本沙盒",
           fullWarningDesc:
             "完整副本将复制所有生产数据，创建过程可能需要较长时间。建议在非高峰时段创建。",
@@ -3659,7 +3745,11 @@ const messages = {
     deleteObjectDesc: '删除 "{name}" 对象将永久删除所有相关数据和记录。',
     deleteConfirmInput: "请输入 {text} 确认删除：",
     confirmText: "yes",
-  },
+      functionCategoryMath: "数学",
+      functionCategoryString: "文本",
+      functionCategoryDate: "日期",
+      functionCategoryLogic: "逻辑"
+},
   permission: {
     tabPermissions: "权限",
     tabSettings: "设置",
@@ -3740,7 +3830,9 @@ const messages = {
       maxSessionsDesc: "同一用户允许同时在线的最大会话数",
       maxSessionsHint: "设为 0 表示不限制并发会话数",
       policyLabel: "超限策略",
-      policyDesc: "当并发会话数达到上限时的处理策略"
+      policyDesc: "当并发会话数达到上限时的处理策略",
+        policy_KICK_OLDEST: "踢出最早会话",
+        policy_BLOCK_NEW: "拒绝新登录"
     },
     activationStatus: "激活状态",
     activationStatusDesc: "控制此权限集是否生效",
@@ -4065,6 +4157,9 @@ const messages = {
     status: {
       active: "已启用",
       failed: "失败",
+        creating: "创建中",
+        dropping: "删除中",
+        dropped: "已删除"
     },
   },
   appWizard: {
@@ -4442,8 +4537,31 @@ const messages = {
       objectName: {
         account: "客户",
         opportunity: "商机",
-        activity: "活动"
-      },
+        activity: "活动",
+          lead: "线索",
+          contact: "联系人",
+          task: "任务",
+          case: "工单",
+          product: "产品"
+    },
+        recordQueryLoading: "正在查询数据...",
+        recordQueryDone: "查询完成",
+        recordCreateLoading: "正在创建记录...",
+        recordCreateDone: "记录已创建",
+        recordUpdateLoading: "正在更新记录...",
+        recordUpdateDone: "记录已更新",
+        recordDeleteLoading: "正在删除记录...",
+        recordDeleteDone: "记录已删除",
+        knowledgeSearchLoading: "正在检索知识库...",
+        knowledgeSearchDone: "知识检索完成",
+        emailDraftLoading: "正在起草邮件...",
+        emailDraftDone: "邮件草稿已生成",
+        emailSendLoading: "正在发送邮件...",
+        emailSendDone: "邮件已发送",
+        reportAggregateLoading: "正在生成报表...",
+        reportAggregateDone: "报表已生成",
+        webSearchLoading: "正在搜索网页...",
+        webSearchDone: "搜索完成"
     },
   },
   agentDemo: {
@@ -4798,27 +4916,47 @@ const messages = {
       deleteConfirm: "确定要删除此外呼任务吗？",
       viewDetail: "查看详情",
       success: "操作成功",
-      error: "操作失败"
+      error: "操作失败",
+        startSuccess: "启动成功",
+        startError: "启动失败",
+        pauseSuccess: "暂停成功",
+        pauseError: "暂停失败",
+        cancelSuccess: "取消成功",
+        cancelError: "取消失败"
     },
     filter: {
       status: {
         draft: "草稿",
         running: "进行中",
         paused: "已暂停",
-        completed: "已完成"
-      },
+        completed: "已完成",
+          all: "全部状态",
+          scheduled: "已计划",
+          cancelled: "已取消"
+    },
       type: {
-        manual: "人工手动"
-      },
+        manual: "人工手动",
+          all: "全部类型",
+          preview: "预览拨号",
+          progressive: "渐进式",
+          predictive: "预测式",
+          ai_auto: "AI 自动"
+    },
     },
     type: {
-      manual: "人工手动"
+      manual: "人工手动",
+        preview: "预览拨号",
+        progressive: "渐进式",
+        predictive: "预测式",
+        ai_auto: "AI 自动"
     },
     status: {
       draft: "草稿",
       running: "进行中",
       paused: "已暂停",
-      completed: "已完成"
+      completed: "已完成",
+        scheduled: "已计划",
+        cancelled: "已取消"
     },
     stats: {
       total: "总数",
@@ -4909,18 +5047,28 @@ const messages = {
     },
     createModal: {
       type: {
-        manual: { },
+        manual: {
+            label: "📋 人工手动拨号",
+            desc: "坐席逐个手动点击拨号"
+        },
         preview: {
           label: "👁 预览确认拨号",
           desc: "展示联系人信息后坐席确认拨号",
         },
         progressive: {
-},
+            label: "📞 渐进式自动拨号",
+            desc: "系统自动拨号，接通后转坐席"
+        },
         ai_auto: {
-},
+            label: "🤖 AI 全自动外呼",
+            desc: "AI 语音 Agent 自动完成通话"
+        },
       },
       contactSource: {
-},
+          list_view: "从列表视图导入",
+          csv: "从 CSV 上传",
+          segment: "从客户细分导入"
+    },
       timezone: {
         "Asia/Shanghai": "中国标准时间 (UTC+8)",
         "Asia/Tokyo": "日本标准时间 (UTC+9)",
@@ -5879,12 +6027,27 @@ const messages = {
       dragAddAria: "拖拽添加{name}节点",
       nodeType: {
         entry: { name: "入口", description: "旅程起点：细分/事件/手动" },
-        action: { description: "发邮件/更新字段/Webhook" },
-        decision: { description: "条件分支路由" },
-        wait: { description: "时长/日期/事件等待" },
-        split: { },
-        goal: { },
-        exit: { },
+        action: { description: "发邮件/更新字段/Webhook",
+            name: "动作"
+        },
+        decision: { description: "条件分支路由",
+            name: "决策"
+        },
+        wait: { description: "时长/日期/事件等待",
+            name: "等待"
+        },
+        split: {
+            name: "A/B 分流",
+            description: "按百分比随机分配"
+        },
+        goal: {
+            name: "目标",
+            description: "条件达成检查"
+        },
+        exit: {
+            name: "退出",
+            description: "旅程终点"
+        },
       },
     },
     nodeConfig: {
@@ -6489,19 +6652,24 @@ const messages = {
     risk: {
       L0: {
         label: "无风险",
-      },
+          action: "放行"
+    },
       L1: {
         label: "低风险",
-      },
+          action: "审核"
+    },
       L2: {
         label: "中风险",
-      },
+          action: "确认"
+    },
       L3: {
         label: "高风险",
-      },
+          action: "审批"
+    },
       L4: {
         label: "极高风险",
-      },
+          action: "阻断"
+    },
     },
     toolForm: {
       categoryLabel: "分类",
@@ -6692,6 +6860,7 @@ const messages = {
       builderGuardrailTitle: "护栏分配",
       builderHighRiskActions: "高风险动作",
       builderIdentity: {
+        independent: "独立 AI 员工",
         assistant: "员工助理"
       },
       assistantIdentityBanner:
@@ -6728,7 +6897,14 @@ const messages = {
       builderLearningRecommendationDesc:
         "建议必须带证据、风险、影响和候选测试，不能直接变成线上配置。",
       builderLifecycle: {
-},
+        draft: "草稿",
+        approval_pending: "待审批",
+        ready: "可上岗",
+        running: "运行中",
+        governance_needed: "需治理",
+        asset_gap: "待补资产",
+        test_gap: "待测试"
+      },
       builderLifecycleAction: "查看上岗准备度",
       builderLifecycleStage: "生命周期阶段",
       builderMetricWindow: "指标窗口",
@@ -6749,14 +6925,22 @@ const messages = {
       builderPreviewRestoring: "正在恢复上次会话…",
       builderReadinessTitle: "上岗准备度",
       builderReadiness: {
+          identity: "执行身份",
           knowledge: "知识",
           guardrail: "护栏",
           access: "使用范围",
-          sop: "SOP"
+          sop: "SOP",
+          test: "测试",
+          loadFailed: "服务商控制面加载失败",
+          loadFailedDescription: "无法读取服务商配置和组织策略，请重试。",
+          retry: "重试"
     },
       builderReadinessMenuCaption: "发布前检查",
       builderReadinessStatus: {
-},
+        ok: "OK",
+        gap: "缺口",
+        unknown: "待解释"
+      },
       builderRecentExecutions: "最近执行记录",
       builderRecentFailure: "最近失败",
       builderRecentFailureDesc: "来自现有 AgentExecution 记录。",
@@ -6773,14 +6957,25 @@ const messages = {
       builderSavedState: "当前配置已同步",
       editProfile: "编辑资料",
       builderSection: {
+          identity: "身份",
+          sharing: "使用共享",
+          cognitivePolicy: "目标",
+          topics: "职责",
+          actions: "技能",
           knowledge: "知识",
           guardrail: "护栏",
           access: "权限",
-          sop: "SOP"
+          sop: "SOP",
+          learning: "学习",
+          test: "测试",
+          observability: "观测"
     },
       cognitive: {
         tab: {
-},
+          successContract: "目标与考核",
+          proactivePolicy: "主动策略",
+          contextAndMemoryPolicy: "上下文与记忆策略"
+        },
         successContractTitle: "成功合同",
         successContractDesc:
           "区分硬门禁与加权指标，候选版本通过评测后才可发布。",
@@ -7233,7 +7428,14 @@ const messages = {
       versionHistory: "版本历史",
       writeRateLimit: "每分钟写入上限",
     },
-  },
+      nodeTypes: {
+          topic: "主题",
+          tool: "工具",
+          guardrail: "护栏",
+          knowledge: "知识",
+          model: "模型"
+    }
+},
   servicebotAgentDesk: {
     channel: {
       webChat: "官网会话",
@@ -7373,7 +7575,14 @@ const messages = {
     descriptionPlaceholder: "组件功能描述（可选）",
     scopeHint: "限定对象（逗号分隔，留空表示不限制）：",
     permission: {
-},
+        dataRead: "数据读取 (data:read)",
+        dataWrite: "数据写入 (data:write)",
+        navigation: "页面导航 (navigation)",
+        ui: "UI 交互 (ui)",
+        platformScan: "扫码 (platform:scan)",
+        platformLocation: "定位 (platform:location)",
+        platformImage: "图片选择 (platform:image)"
+    },
     onlyJs: "仅支持 .js 文件",
     maxSize: "文件大小不能超过 2MB",
     uploadSuccess: "Bundle 上传成功",
@@ -7462,7 +7671,13 @@ const messages = {
       noAggHint: "请先在结构面板添加汇总字段，才能配置条件格式",
       title: "条件格式化",
       conditionType: {
-},
+          gt: "大于",
+          lt: "小于",
+          eq: "等于",
+          between: "介于",
+          topN: "前 N 名",
+          bottomN: "后 N 名"
+    },
     },
     configPanel: {
       collapsePanel: "收起面板",
@@ -7516,7 +7731,22 @@ const messages = {
         notEquals: "不等于",
         in: "包含于",
         notIn: "不包含于",
-      },
+          between: "介于",
+          before: "早于",
+          after: "晚于",
+          thisWeek: "本周",
+          lastWeek: "上周",
+          thisMonth: "本月",
+          lastMonth: "上月",
+          thisQuarter: "本季度",
+          lastQuarter: "上季度",
+          thisYear: "今年",
+          lastYear: "去年",
+          thisFiscalQuarter: "本财季",
+          lastFiscalYear: "上财年",
+          lastNDays: "最近 N 天",
+          nextNDays: "未来 N 天"
+    },
     },
     filtersTab: {
       commonPractice: "常用做法：负责人、阶段、日期范围",
@@ -7673,6 +7903,13 @@ const messages = {
       statusScheduled: "按计划发送",
       statusScheduledHelperNext: "等待下一次执行",
       statusScheduledHelperFirst: "等待首次执行",
+        weekdaySunday: "周日",
+        weekdayMonday: "周一",
+        weekdayTuesday: "周二",
+        weekdayWednesday: "周三",
+        weekdayThursday: "周四",
+        weekdayFriday: "周五",
+        weekdaySaturday: "周六"
     },
     selectFields: {
 },
@@ -7718,7 +7955,11 @@ const messages = {
       saveFirst: "请先保存报表",
       undo: "撤销 (⌘Z)",
       reportTypeOptions: {
-},
+          tabular: "明细表",
+          summary: "汇总表",
+          matrix: "矩阵表",
+          joined: "联合报表"
+    },
       apiNamePlaceholder: "API 名称",
       close: "关闭",
     },
@@ -7976,19 +8217,33 @@ const messages = {
         customDomainPlaceholder: "例如: support.example.com",
         templateOptions: {
           BLANK: {
-},
+              label: "空白",
+              description: "空白模板，无预置页面或权限，完全自定义。"
+        },
           CUSTOMER_SERVICE: {
-},
+              label: "客户服务",
+              description: "客户服务门户：工单提交、知识库、Case Deflection。"
+        },
           HELP_CENTER: {
-},
+              label: "帮助中心",
+              description: "帮助中心：知识库搜索、FAQ、社区问答。"
+        },
           PARTNER_CENTRAL: {
-},
+              label: "伙伴中心",
+              description: "伙伴门户：Deal Registration、线索共享、渠道洞察。"
+        },
           SELF_SERVICE: {
-},
+              label: "自助服务",
+              description: "自助服务：账户管理、订单查询、表单提交。"
+        },
           COMMUNITY: {
-},
+              label: "社区",
+              description: "社区：讨论、问答、话题。"
+        },
           MICROSITE: {
-},
+              label: "微站点",
+              description: "微站点：CMS 内容页、落地页、活动页。"
+        },
         },
       },
       list: {
@@ -8503,7 +8758,13 @@ const messages = {
       cardConfig: {
         cardType: "卡片类型",
         cardTypeOption: {
-},
+            metric: "指标卡片",
+            list: "列表卡片",
+            chart: "图表卡片",
+            pending_actions: "待办事项",
+            recent: "最近访问",
+            custom: "自定义（Phase 2）"
+        },
         title: "标题",
         icon: "图标",
         relatedObject: "关联对象",
@@ -8571,7 +8832,13 @@ const messages = {
         route: "跳转路径",
         flowVersionId: "Flow 版本 ID",
         actionTypeOption: {
-},
+            create_related: "新建关联记录",
+            update_field: "更新字段",
+            trigger_flow: "触发 Flow",
+            call: "拨打电话",
+            email: "发送邮件",
+            navigate: "跳转页面"
+        },
       },
       fabConfig: {
         buttonName: "按钮名称",
@@ -8579,7 +8846,13 @@ const messages = {
         actionType: "操作类型",
         createObject: "新建对象",
         route: "跳转路径",
-      },
+          fabTypeOption: {
+              create: "新建记录",
+              scan: "扫码",
+              navigate: "跳转页面",
+              trigger_flow: "触发 Flow"
+        }
+    },
       tabConfig: {
         tabName: "标签名称",
         icon: "图标",
@@ -9361,9 +9634,28 @@ const messages = {
   },
   objectFieldsPages: {
     fieldTypeOption: {
-},
+        TEXT: "文本",
+        LONG_TEXT: "文本域",
+        NUMBER: "数字",
+        DATE: "日期",
+        DATETIME: "日期时间",
+        BOOLEAN: "布尔",
+        SELECT: "选项",
+        MULTI_SELECT: "多选",
+        RELATION: "关联",
+        EMAIL: "邮箱",
+        PHONE: "电话",
+        URL: "链接",
+        CURRENCY: "货币",
+        UUID: "唯一ID",
+        FORMULA: "公式",
+        ROLLUP: "汇总"
+    },
     relationTypeOption: {
-},
+        ONE_TO_MANY: "一对多 (ONE_TO_MANY)",
+        MANY_TO_ONE: "多对一 (MANY_TO_ONE)",
+        MANY_TO_MANY: "多对多 (MANY_TO_MANY)"
+    },
     breadcrumbSettings: "设置",
     breadcrumbObjects: "对象",
     breadcrumbNewField: "新建字段",
@@ -11429,21 +11721,41 @@ const messages = {
       homeExtendedLabel: "跨模块入口：销售云 · 营销云 · 开放平台",
       homeCards: {
         profiles: {
-},
+            title: "伙伴档案",
+            description: "管理伙伴等级、负责人、认证状态和门户准备度，形成 PRM 基础主数据。",
+            step: "第一步"
+        },
         dealRegistrations: {
-},
+            title: "Deal Registration",
+            description: "以独立对象承接伙伴报备、审批保护期和后续联合销售协同。",
+            step: "第二步"
+        },
         referrals: {
-},
+            title: "推荐线索",
+            description: "聚焦 Partner Referral 来源线索，演示伙伴引流到销售云的闭环。",
+            step: "第三步"
+        },
         insights: {
-},
+            title: "渠道洞察",
+            description: "一键进入伙伴云仪表盘和报表，直接进入投资人演示链路。",
+            step: "第四步"
+        },
         channelSources: {
-},
+            title: "渠道来源视图",
+            description: "按渠道来源查看报备结构，方便讲清合作模式和贡献分布。"
+        },
         jointMarketing: {
-},
+            title: "联合营销 → 营销云",
+            description: "跳转营销云，复用营销活动、客户分群和旅程能力支持渠道协同营销。"
+        },
         enablement: {
-},
+            title: "伙伴赋能 → 帮助中心",
+            description: "跳转帮助中心，管理伙伴培训、销售资料与 SOP。"
+        },
         integrations: {
-},
+            title: "门户与集成 → 开放平台",
+            description: "跳转开放平台，通过 API Key、Webhook 对接伙伴门户。"
+        },
       },
     },
     platformAdmin: {
@@ -11651,7 +11963,12 @@ const messages = {
         memberTypePlaceholder: "请选择成员类型",
         memberTypeRequired: "请选择成员类型",
         memberTypeOption: {
-},
+            USER: "用户",
+            ROLE: "职权",
+            ROLE_AND_SUBORDINATES: "职权及下属",
+            ORG_NODE: "组织架构节点",
+            PUBLIC_GROUP: "公共组"
+        },
         referenceRequired: "请选择具体成员",
         searchPlaceholder: "搜索并选择...",
         selectMember: "选择成员",
@@ -11690,7 +12007,12 @@ const messages = {
         memberRemoved: "成员已移除",
         memberNameUnavailable: "名称不可用",
         memberTypeOption: {
-},
+            USER: "用户",
+            ROLE: "职权",
+            ROLE_AND_SUBORDINATES: "职权及下属",
+            ORG_NODE: "组织架构节点",
+            PUBLIC_GROUP: "公共组"
+        },
         membersTitle: "成员列表",
         noMembers: "暂无成员",
         notFound: "公共组不存在",
@@ -11948,10 +12270,26 @@ const messages = {
       empty: "当前筛选条件下没有注册风险审计记录",
       totalCount: "共 {count} 条",
       riskGroup: {
-          access: "访问拦截"
+          access: "访问拦截",
+          captcha: "验证码风险",
+          identity: "账号冲突",
+          risk: "输入异常",
+          system: "系统异常"
     },
       failureCode: {
-},
+          CAPTCHA_REQUIRED: "缺少验证码",
+          CAPTCHA_FAILED: "验证码校验失败",
+          EMAIL_DUPLICATE: "邮箱已注册",
+          USERNAME_DUPLICATE: "用户名已存在",
+          FORBIDDEN: "访问被拒绝",
+          BAD_REQUEST: "请求参数异常",
+          SIGNUP_FAILED: "注册流程失败",
+          RATE_LIMITED: "触发注册限流",
+          IP_RATE_LIMITED: "IP 注册过于频繁",
+          EMAIL_RATE_LIMITED: "邮箱尝试过于频繁",
+          PROVISIONING_CONFLICT: "试用开通并发冲突",
+          PROVISIONING_FAILED: "试用资源开通失败"
+    },
     },
   },
   marketingPages: {
@@ -12284,7 +12622,13 @@ const messages = {
         actionHint: "连续执行后生成趋势",
       },
       dispositionLabel: {
-},
+          interested: "有意向",
+          callback: "回拨",
+          not_interested: "无意向",
+          no_answer: "未接通",
+          voicemail: "语音信箱",
+          other: "其他"
+    },
     },
     itemTable: {
       filterStatusPlaceholder: "按状态筛选",
@@ -12336,7 +12680,10 @@ const messages = {
       typeEditTooltip: "编辑模式下不可修改类型，如需更改请删除后重建",
       typePlaceholder: "请选择选项卡类型",
       typeOption: {
-},
+          object: "对象",
+          page: "自定义页面",
+          url: "外部链接"
+    },
       objectLabel: "关联对象",
       objectRequired: "请选择关联对象",
       objectPlaceholder: "请选择关联对象",
@@ -12968,7 +13315,12 @@ const messages = {
       relationFieldPlaceholder: "选择子对象上指向父对象的关联字段",
       aggregateFunctionLabel: "聚合函数",
       functionOption: {
-},
+          SUM: "求和 (SUM)",
+          COUNT: "计数 (COUNT)",
+          AVG: "平均值 (AVG)",
+          MIN: "最小值 (MIN)",
+          MAX: "最大值 (MAX)"
+    },
       childFieldLabel: "被聚合字段",
       childFieldPlaceholder: "选择要聚合的字段",
       filterCriteriaLabel: "过滤条件（可选）",
@@ -13519,53 +13871,101 @@ const messages = {
   newFieldSelect: {
     fieldType: {
       TEXT: {
-},
+          label: "文本",
+          description: "单行或多行文本"
+    },
       LONG_TEXT: {
-},
+          label: "文本域",
+          description: "多行纯文本（最大 131,072 字符）"
+    },
       NUMBER: {
-},
+          label: "数字",
+          description: "整数或小数"
+    },
       BOOLEAN: {
-},
+          label: "布尔",
+          description: "真/假值"
+    },
       DATE: {
-},
+          label: "日期",
+          description: "仅日期"
+    },
       DATE_TIME: {
-},
+          label: "日期时间",
+          description: "日期和时间"
+    },
       SELECT: {
-},
+          label: "选项",
+          description: "单选下拉"
+    },
       MULTI_SELECT: {
-},
+          label: "多选",
+          description: "多选标签"
+    },
       RATING: {
-},
+          label: "评分",
+          description: "星级评分"
+    },
       CURRENCY: {
-},
+          label: "货币",
+          description: "金额和货币代码"
+    },
       EMAILS: {
-},
+          label: "邮箱",
+          description: "主邮箱和附加邮箱"
+    },
       PHONES: {
-},
+          label: "电话",
+          description: "主电话和附加电话"
+    },
       LINKS: {
-},
+          label: "链接",
+          description: "主链接和附加链接"
+    },
       FULL_NAME: {
-},
+          label: "姓名",
+          description: "名和姓"
+    },
       ADDRESS: {
-},
+          label: "地址",
+          description: "完整地址信息"
+    },
       RELATION: {
-},
+          label: "关联",
+          description: "关联其他对象"
+    },
       UUID: {
-},
+          label: "唯一ID",
+          description: "UUID 标识符"
+    },
       RAW_JSON: {
-},
+          label: "JSON",
+          description: "JSON 数据"
+    },
       ARRAY: {
-},
+          label: "数组",
+          description: "值列表"
+    },
       FILES: {
-},
+          label: "文件",
+          description: "文件附件"
+    },
       GEOLOCATION: {
-},
+          label: "地理位置",
+          description: "纬度/经度坐标，支持地图选点"
+    },
       EXTERNAL_LOOKUP: {
-},
+          label: "外部查找",
+          description: "引用外部系统记录"
+    },
       FORMULA: {
-},
+          label: "公式",
+          description: "基于其他字段计算的只读值"
+    },
       ROLLUP: {
-},
+          label: "汇总",
+          description: "汇总子对象字段（SUM/COUNT/AVG/MIN/MAX）"
+    },
     },
     categoryDescription: {
       Basic: "基础字段类型，满足常见需求",
@@ -14706,7 +15106,13 @@ const messages = {
     objAutomationExecution: "自动化执行",
     objLoginHistory: "登录历史",
     objQuoteLineItem: "报价产品",
-  },
+      chartArea: "面积图",
+      chartCombo: "组合图",
+      chartDonut: "环形图",
+      chartGauge: "仪表盘",
+      chartScatter: "散点图",
+      chartType: "图表类型"
+},
   servicebot: {
     channels: "渠道",
     create: "创建 NexusBot",
@@ -15344,9 +15750,18 @@ const messages = {
       totalRecords: "共 {total} 条执行记录",
       noRecords: "暂无执行记录",
       status: {
-},
+          RUNNING: "运行中",
+          COMPLETED: "已完成",
+          FAILED: "失败",
+          CANCELLED: "已取消",
+          WAITING: "等待中"
+    },
       triggerType: {
-},
+          RECORD_TRIGGER: "记录触发",
+          MANUAL: "手动触发",
+          SCHEDULED: "定时触发",
+          SUBFLOW: "子流程"
+    },
     },
     decisionConfig: {
       title: "条件分支配置",
@@ -15884,7 +16299,13 @@ const messages = {
       transferToMobile: "转接到手机",
       close: "关闭",
     },
-  },
+      queueStatus: {
+          pending: "待拨打",
+          completed: "已完成",
+          failed: "失败",
+          skipped: "已跳过"
+    }
+},
   recording: {
     list: {
       waitingPool: "待复核录音池",
@@ -16001,7 +16422,12 @@ const messages = {
     status: {
       pending: "待拨",
       completed: "已完成",
-      failed: "失败"
+      failed: "失败",
+        scheduled: "已排期",
+        dialing: "拨号中",
+        connected: "已接通",
+        skipped: "跳过",
+        dnc: "DNC"
     },
     disposition: {
       interested: "有意向",
@@ -16009,6 +16435,7 @@ const messages = {
       not_interested: "无意向",
       voicemail: "语音信箱",
       no_answer: "未接通",
+        appointment_set: "已预约"
     },
     filter: {
       status: "按状态筛选"
@@ -16683,7 +17110,12 @@ const messages = {
     deleteConfirmPrefix: "确定要删除审批过程 ",
     deleteConfirmSuffix: " 吗？此操作不可撤销。",
     object: {
-},
+        Opportunity: "商机",
+        Quote: "报价单",
+        Contract: "合同",
+        Account: "客户",
+        Order: "订单"
+    },
     approver: {
       user: "指定用户",
       role: "职权"
@@ -16836,9 +17268,17 @@ const messages = {
     updateSuccess: "工作流规则更新成功",
     updateFailed: "更新失败，请检查表单",
     object: {
-},
+        Opportunity: "商机",
+        Account: "客户",
+        Contact: "联系人",
+        Task: "任务",
+        Lead: "线索"
+    },
     evaluation: {
-},
+        created: "仅创建时",
+        created_and_edited: "创建和编辑时",
+        edited: "仅编辑时"
+    },
   },
   triggersAdmin: {
     title: "触发器管理",
@@ -17777,14 +18217,83 @@ const messages = {
     menuPlatformAdminHome: "平台总览",
     providerControlPlaneUi: {
       family: {
-},
+          ai: "AI 模型服务商控制面",
+          telephony: "通话服务商控制面",
+          channel: "消息渠道服务商控制面"
+    },
       tone: {
-},
+          success: "正常",
+          warning: "警告",
+          danger: "危险",
+          info: "提示",
+          neutral: "中性"
+    },
       field: {
         key: "标识",
         label: "名称",
-        secret: "密钥"
-      },
+        secret: "密钥",
+          kind: "类型",
+          status: "状态",
+          health: "健康状态",
+          defaultModel: "默认模型",
+          capabilities: "能力",
+          region: "区域",
+          action: "操作",
+          workspace: "工作区",
+          primaryProvider: "主服务商",
+          routing: "路由",
+          migration: "迁移",
+          fallbacks: "回退链",
+          channel: "消息渠道",
+          runtime: "运行时",
+          residency: "数据驻留",
+          providerSecret: "服务商密钥",
+          webhookSecret: "Webhook 密钥",
+          purpose: "用途",
+          providerConfigKey: "服务商配置标识",
+          providerKind: "服务商类型",
+          priority: "优先级",
+          baseUrl: "基础 URL",
+          dataResidency: "数据驻留",
+          internalEndpoint: "内部端点",
+          enabledCapabilities: "已启用能力",
+          modelListJson: "模型列表 JSON",
+          metadataMaskedJson: "脱敏元数据 JSON",
+          migrationState: "迁移状态",
+          fallbackChainJson: "回退链 JSON",
+          modelPolicyJson: "模型策略 JSON",
+          budgetPolicyJson: "预算策略 JSON",
+          accountRefMasked: "脱敏账户引用",
+          endpointMasked: "脱敏端点",
+          senderIdentityJson: "发件身份 JSON",
+          domainPolicyJson: "域名策略 JSON",
+          suppressionPolicyJson: "抑制策略 JSON",
+          retryPolicyJson: "重试策略 JSON",
+          rateLimitPolicyJson: "速率限制策略 JSON",
+          senderPolicyJson: "发件策略 JSON",
+          templateBoundaryPolicyJson: "模板边界策略 JSON",
+          sendingLimitPolicyJson: "发送限额策略 JSON",
+          compliancePolicyJson: "合规策略 JSON",
+          featurePolicyJson: "功能策略 JSON"
+    },
+        guardrailAria: "服务商安全边界摘要",
+        metricsAria: "服务商可信指标",
+        workbenchAria: "服务商运营工作台",
+        recordsAria: "服务商配置与组织策略",
+        riskTitle: "风险与安全后续操作",
+        noActiveRisk: "当前没有需要处理的服务商风险。",
+        contractGuarded: "契约受控",
+        maskedAuditView: "脱敏审计视图",
+        providerConfigs: "服务商配置",
+        orgPolicies: "组织策略",
+        cancel: "取消",
+        saveWithAudit: "保存并记录审计",
+        create: "创建",
+        edit: "编辑",
+        bindPolicy: "绑定策略",
+        impactAria: "服务商变更影响预览",
+        impactPreview: "影响预览",
+        impactDescription: "保存前请确认作用范围、路由、SecretRef、数据驻留和审计意图。"
     },
     aiProviderControlPlane: {
       title: "AI 模型控制面",
@@ -17811,7 +18320,14 @@ const messages = {
       workspacePlaceholder: "选择工作区",
       ui: {
         capability: {
-},
+            chat: "对话",
+            embedding: "向量化",
+            vision: "视觉",
+            json: "JSON",
+            tool_calling: "工具调用",
+            streaming: "流式输出",
+            reasoning: "推理"
+        },
         impact: {
           capabilityDelta: "能力变更",
           capabilityDeltaBody:
@@ -17831,15 +18347,109 @@ const messages = {
             "策略更新仍限平台管理员范围，并应可在审计日志中复核。",
         },
         runtimeConsumer: {
-}
-      },
+            modelRouting: "模型路由",
+            knowledgeRetrieval: "知识检索",
+            other: "其他运行时服务",
+            unavailable: "—"
+        },
+          loadFailed: "AI 模型控制面加载失败",
+          loadFailedDescription: "无法读取 AI 模型服务商配置或组织策略，请重试。",
+          retry: "重试",
+          test: "测试",
+          testAll: "测试全部",
+          testProvider: "测试服务商能力",
+          editProvider: "编辑服务商",
+          probeResults: "能力测试结果",
+          noWiredProbeTargets: "没有可测试的已接入能力。请先配置启用中的模型，并只选择运行时目录标记为已接入的能力。",
+          noProbeResults: "没有返回能力测试证据",
+          result: "结果",
+          passed: "通过",
+          failed: "失败",
+          latency: "延迟",
+          evidence: "证据",
+          diagnostic: "诊断",
+          requestedModel: "请求模型",
+          actualModel: "实际模型",
+          modelConsistency: "模型一致性",
+          consistent: "一致",
+          inconsistent: "不一致",
+          observedAt: "测试时间",
+          actor: "操作者",
+          auditId: "审计 ID",
+          dimension: "维度 {count}",
+          tokens: "Token {input}/{output}",
+          providerHealth: "服务商健康状态",
+          atRiskCount: "{count} 个有风险",
+          activeCount: "{active}/{total} 个活跃",
+          unknownHealthChecks: "{count} 个服务商的健康检查状态未知",
+          healthChecksVisible: "可在查看原始配置前先确认健康检查状态",
+          policyCoverage: "策略覆盖率",
+          policyCoverageHelper: "{count} 条组织策略路由到受治理的模型服务商",
+          secretRotationRisk: "密钥轮换风险",
+          configured: "已配置",
+          notConfigured: "未配置",
+          available: "可用",
+          unavailable: "不可用",
+          notTested: "未测试",
+          gapCount: "{count} 个缺口",
+          secretRotationHelper: "界面仅返回配置状态；SecretRef 标识和原始凭据不会显示",
+          fallbackRoutingRisk: "回退与路由风险",
+          covered: "已覆盖",
+          fallbackRoutingHelper: "固定模型路由、迁移状态和回退链需一并审查",
+          reliability: "可靠性",
+          noDefaultModel: "无默认模型",
+          selectProviderReliability: "选择或创建服务商后查看运行时可靠性",
+          modelRouting: "模型路由",
+          modelRoutingBound: "工作区 {workspace} 通过 {state} 路由到 {provider}",
+          modelRoutingUnbound: "尚未绑定组织策略；依赖此服务商前请先创建固定路由。",
+          capabilityCoverage: "能力覆盖",
+          noCapabilities: "未配置能力",
+          wired: "已接入",
+          notWired: "未接入",
+          capabilityCatalogTitle: "运行时能力目录",
+          capabilityCatalogDescription: "每项能力只有在存在真实运行时消费者并接入时才可执行。未接入的能力无法在服务商上启用。",
+          runtimeCatalogUnavailable: "运行时能力目录不可用",
+          invalidJson: "{field} 的 JSON 格式无效",
+          capabilityColumn: "能力",
+          wiringColumn: "接入状态",
+          runtimeConsumerColumn: "运行时消费者",
+          noConsumer: "—",
+          noProviderSelected: "未选择服务商。",
+          modelResidency: "模型数据驻留",
+          noRegion: "未设置区域",
+          noResidencyPolicy: "未设置数据驻留策略",
+          residencyUnavailable: "创建服务商后才能审计数据驻留情况。",
+          noAiProviderSelected: "未选择 AI 模型服务商",
+          providerKey: "服务商标识",
+          defaultModel: "默认模型",
+          health: "健康状态",
+          policyWorkspace: "策略工作区",
+          noPinnedPolicy: "无固定策略",
+          secret: "密钥",
+          updated: "更新时间"
+    },
     },
     channelProviderControlPlane: {
       ui: {
         capability: {
-},
+            send_email: "发送邮件",
+            receive_email: "接收邮件",
+            send_sms: "发送短信",
+            send_push: "发送推送",
+            send_work_notice: "发送工作通知",
+            in_app_notify: "站内通知"
+        },
         purpose: {
-},
+            transactional: "事务通知",
+            marketing: "营销",
+            notification: "通知",
+            workflow: "工作流",
+            servicebot: "服务机器人",
+            site_auth: "站点认证",
+            inbound_case: "入站工单",
+            in_app: "站内",
+            mixed: "混合"
+        },
         impact: {
           capabilityDelta: "渠道能力变更",
           capabilityDeltaBody:
@@ -17857,8 +18467,56 @@ const messages = {
             "发件人、模板边界、发送限额、抑制、合规和功能策略将一并保存。",
           auditTrail: "审计轨迹",
           auditTrailBody: "渠道策略变更涉及合规，并保持对平台审计可见。",
-        }
-      },
+        },
+          loadFailed: "渠道服务商控制面加载失败",
+          loadFailedDescription: "无法读取渠道服务商配置和组织策略，请重试。",
+          retry: "重试",
+          title: "消息渠道服务商控制面",
+          providerHealth: "服务商健康状态",
+          atRiskCount: "{count} 个有风险",
+          activeCount: "{active}/{total} 个活跃",
+          unknownDeliveryHealth: "{count} 个渠道服务商的投递健康状态未知",
+          governedSenderCount: "{count} 个发件身份已纳入治理",
+          policyCoverage: "策略覆盖率",
+          policyCoverageHelper: "{count} 条组织策略已绑定发件人、模板、限额、抑制和合规行为",
+          secretRotationRisk: "密钥轮换风险",
+          configured: "已配置",
+          notConfigured: "未配置",
+          gapCount: "{count} 个缺口",
+          secretRotationHelper: "界面仅返回服务商和 Webhook 配置状态；SecretRef 标识不会显示",
+          fallbackRoutingRisk: "回退与路由风险",
+          pinned: "已固定",
+          fallbackRoutingHelper: "发件策略、速率限制、抑制、重试和服务商路由需一并审查",
+          reliability: "可靠性",
+          channel: "消息渠道",
+          selectChannelProvider: "选择或创建消息渠道服务商",
+          senderIdentity: "发件身份",
+          domainOwnershipUnset: "未设置域名归属",
+          noProviderSelected: "未选择服务商。",
+          deliveryPolicy: "投递策略",
+          deliveryPolicyBound: "工作区 {workspace} 通过 {provider} 管理 {purpose} 投递",
+          deliveryPolicyUnbound: "尚未绑定组织策略；发件和投递控制尚未固定。",
+          deliveryReliability: "抑制、重试与速率限制",
+          noRegion: "未设置区域",
+          noResidencyPolicy: "未设置数据驻留策略",
+          noHealthMessage: "无健康信息",
+          deliveryReliabilityUnavailable: "创建服务商后才能审计投递可靠性。",
+          noChannelProviderSelected: "未选择消息渠道服务商",
+          providerKey: "服务商标识",
+          providerKind: "服务商类型",
+          policyWorkspace: "策略工作区",
+          noPinnedPolicy: "无固定策略",
+          providerSecret: "服务商密钥",
+          webhookSecret: "Webhook 密钥",
+          updated: "更新时间",
+          notWired: "未接入",
+          invalidJson: "{field} 的 JSON 格式无效",
+          configuredSecretRefHint: "已配置。留空将保留当前 SecretRef，不会读取或覆盖现有密钥。",
+          optionalProviderSecretRefHint: "如果该服务商不需要凭据，可保持为空。",
+          optionalWebhookSecretRefHint: "如果该渠道不需要 Webhook 签名校验，可保持为空。",
+          wiredCapabilitiesHint: "仅可启用已经注册运行时消费者的能力。",
+          notWiredCapabilitiesHint: "未接入运行时的服务商不能启用投递能力。"
+    },
     },
     telephonyProviderControlPlane: {
 },
@@ -18499,7 +19157,15 @@ const messages = {
   },
   imBotSetup: {
     toolLabel: {
-},
+        recordQuery: "查询 CRM",
+        recordAggregate: "统计 CRM",
+        recordCreate: "写入 CRM",
+        recordUpdate: "更新 CRM",
+        activityLog: "记录活动",
+        knowledgeSearch: "检索知识库",
+        reportGenerate: "生成报表",
+        imNotify: "外联推送"
+    },
     platform: {
       dingtalk: {
         label: "钉钉",
@@ -19012,11 +19678,24 @@ const messages = {
       detail: "详情",
       totalCount: "共 {count} 条",
       outcomeTypeLabels: {
-},
+          mql: "MQL",
+          opportunityCreated: "商机创建",
+          opportunityWon: "商机赢单",
+          caseClosed: "工单关闭",
+          customerActivated: "客户激活"
+    },
       tierLabels: {
-},
+          full: "全额归因",
+          half: "半额归因",
+          none: "仅观察"
+    },
       statusLabels: {
-},
+          pending: "待确认",
+          billed: "试点计入",
+          waived: "仅观察",
+          disputed: "争议中",
+          cancelled: "已取消"
+    },
     },
     agentPermission: {
       pageTitle: "Agent 权限配置",
@@ -19446,6 +20125,11 @@ const messages = {
     type: {
       service: "客服",
       custom: "通用",
+        sales: "销售",
+        analytics: "分析",
+        operations: "运营",
+        marketing: "营销",
+        support: "支持"
     },
     status: {
       active: "已发布",
@@ -19456,19 +20140,54 @@ const messages = {
       disabled: "已停用",
     },
     capability: {
-},
+        multilingual_outreach: "多语种触达",
+        lead_qualification: "线索资格化",
+        email_drafting: "邮件撰写",
+        prospect_research: "客户调研",
+        mql_scoring: "MQL 评分",
+        mql_conversion: "MQL 转化",
+        follow_up_cadence: "跟进节奏",
+        inbound_inquiry: "询盘接待",
+        sales: "销售拓展",
+        case_resolution: "工单处理",
+        refund_processing: "退款处理",
+        order_tracking: "订单跟踪",
+        faq_answering: "FAQ 解答",
+        escalation_routing: "升级路由",
+        team_coaching: "团队辅导",
+        next_best_action: "最佳下一步",
+        sop_adherence: "SOP 遵循",
+        bottleneck_alerting: "瓶颈预警",
+        bottleneck_detection: "瓶颈识别",
+        performance_review: "绩效复盘",
+        enablement: "团队赋能",
+        pipeline_analysis: "管道分析",
+        revenue_forecasting: "营收预测",
+        report_generation: "报告生成",
+        kpi_monitoring: "KPI 监控"
+    },
   },
   orchestrationDisplay: {
     trigger: {
-      manual: "手动触发"
+      manual: "手动触发",
+        event: "事件触发",
+        schedule: "定时触发"
     },
     category: {
       default: "默认",
+        custom: "自定义"
     },
     failureStrategy: {
-},
+        continue: "继续执行",
+        fail_fast: "遇错停止",
+        retry: "自动重试"
+    },
     stepType: {
-},
+        agent_task: "Agent 任务",
+        condition: "条件判断",
+        parallel: "并行分支",
+        tool_call: "工具调用"
+    },
   },
   aiWorkforceHome: {
     title: "队伍总览",
