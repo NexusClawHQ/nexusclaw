@@ -1,0 +1,46 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: 'Community deps'
+    labels:
+      - dependencies
+
+  - package-ecosystem: npm
+    directory: /governance
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: 'Community deps'
+    labels:
+      - dependencies
+
+  - package-ecosystem: npm
+    directory: /governance/adapters/n8n
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: 'Community deps'
+    labels:
+      - dependencies
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: 'Community deps'
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: 'Community ci'
+    labels:
+      - dependencies

@@ -17,6 +17,9 @@ COPY packages/backend/tsconfig.json ./packages/backend/tsconfig.json
 # app (see packages/dashboard), so its manifest is present for npm ci's
 # workspace sync but not built here.
 RUN npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend
+# The runtime image only needs production dependencies — drop the toolchain
+# (typescript, vite, vitest, react) before the runtime stage copies node_modules.
+RUN npm prune --omit=dev
 
 FROM node:22.18.0-bookworm-slim AS runtime
 ENV NODE_ENV=production
