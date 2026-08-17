@@ -1,0 +1,22 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+  "changelog": false,
+  "commit": false,
+  "fixed": [
+    [
+      "@agent-governance/approval",
+      "@agent-governance/audit-chain",
+      "@agent-governance/contracts",
+      "@agent-governance/executor",
+      "@agent-governance/governor",
+      "@agent-governance/guardrail",
+      "@agent-governance/outbox",
+      "@agent-governance/permission",
+      "@agent-governance/sidecar"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch"
+}
