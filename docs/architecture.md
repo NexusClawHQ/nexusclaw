@@ -63,7 +63,7 @@ of truth before a later snapshot exports them.
 
 ## Deployment shape
 
-`compose.community.yml` starts PostgreSQL, Redis and the Community backend.
-`Dockerfile.community` uses the public lockfile and only the exported build
+`compose.yml` starts PostgreSQL, Redis and the Community backend.
+`Dockerfile` uses the public lockfile and only the exported build
 context. Deployment-specific secrets come from the operator environment and
 must never be committed. See the root README for the supported commands.

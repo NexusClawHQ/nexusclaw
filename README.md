@@ -80,6 +80,14 @@ cp .env.example .env
 docker compose up --build
 ```
 
+After startup, open **http://localhost:3000/console** and sign in with the
+seeded demo account (`demo` / `nexusclaw-demo`). Run a task to watch the
+deterministic governed scenario: an L1 customer lookup proceeds and is
+audited, an L3 follow-up email pauses for your approval, and approving it
+resumes the execution — the audit chain (execution → reasoning steps → tool
+calls → outbox events) is then inspectable in the console and via GraphQL.
+No external LLM credential is required.
+
 The backend listens on `http://localhost:3000` by default (override the host
 port with `COMMUNITY_PORT`). Full requirements, the source build and the
 source-compliance contract are in the
