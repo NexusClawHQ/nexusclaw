@@ -2,3 +2,8 @@ node_modules/
 dist/
 # Local secrets for the docker compose quick start (see .env.example)
 .env
+# Python build artifacts
+*.egg-info/
+__pycache__/
+dist/
+build/
