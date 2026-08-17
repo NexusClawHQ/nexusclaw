@@ -41,7 +41,9 @@ On top of the v0.5.0 adapter base:
 - **Adoption ergonomics** — making "three lines to governed tools" true for
   more runtimes and languages.
 - **Deeper n8n / Dify coverage** — richer node parameters and schema surface
-  as adoption feedback arrives.
+  as adoption feedback arrives. The n8n nodes are published on npm
+  (`n8n-nodes-nexusclaw-governance`): installable by name in n8n →
+  Settings → Community Nodes.
 
 ## Exploring (later, in this repo's scope)
 
