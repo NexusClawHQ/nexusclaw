@@ -7,7 +7,9 @@ sidecar](../../packages/sidecar). Zero dependencies (stdlib only).
 ## Install & adopt in three lines
 
 ```sh
-pip install agent-governance        # or: pip install ./adapters/python
+# from this repository (works today, no PyPI needed):
+pip install "git+https://github.com/NexusClawHQ/nexusclaw.git#subdirectory=governance/adapters/python"
+# or from PyPI once published: pip install agentgovernance
 ```
 
 ```python
