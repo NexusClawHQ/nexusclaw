@@ -60,6 +60,12 @@ verified against this tree.
   en/zh locale parity; the dashboard gains unit tests for the GraphQL
   client (401/error paths), i18n interpolation and formatters. All run in
   CI.
+- **Docker quick-start repair**: the backend image's build broke when the
+  dashboard workspace joined the root build (its manifest/sources were not
+  in the image); the Dockerfile now copies `.npmrc` and the dashboard
+  manifest and builds only shared + backend, CI gains a docker image build
+  gate, and `.env` (quick-start secrets) is gitignored. The full
+  `docker compose up` path was re-verified end to end locally.
 
 ## [v0.5.0-community] — 2026-08-17
 

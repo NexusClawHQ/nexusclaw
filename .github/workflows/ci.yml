@@ -67,3 +67,19 @@ jobs:
           corepack enable
           corepack pnpm install --frozen-lockfile
           corepack pnpm verify
+
+  docker:
+    name: docker image build (quick-start path)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Validate compose file
+        run: docker compose config --quiet
+        env:
+          DATABASE_PASSWORD: ci-placeholder
+          JWT_SECRET: ci-placeholder-at-least-32-characters
+          COMMUNITY_SOURCE_URL: https://example.com/source
+
+      - name: Build backend image
+        run: docker build -t nexusclaw-community:ci .

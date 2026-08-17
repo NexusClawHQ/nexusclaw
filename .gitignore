@@ -1,2 +1,4 @@
 node_modules/
 dist/
+# Local secrets for the docker compose quick start (see .env.example)
+.env
