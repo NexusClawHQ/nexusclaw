@@ -2,22 +2,113 @@
 
 <img src="https://nexusclaw.cn/assets/home/hero-dashboard.webp" alt="NexusClaw — AI-native CRM with governed digital employees" width="760">
 
-# NexusClaw — AI 原生 CRM 与数字员工平台
+# NexusClaw — AI-native CRM with Governed Digital Employees
 
-**让 AI 员工在受治理的边界内交付真实业务产出——而不只是软件席位。**
+**Digital employees deliver real business output inside governed boundaries — not just software seats.**
 
 An AI-native CRM and digital-employee governance platform. This repository is
 the self-hostable, auditable **Community edition** (AGPL-3.0-only).
+中文介绍见[下方中文页](#nexusclaw-是什么)。
 
 [![License: AGPL-3.0-only](https://img.shields.io/badge/license-AGPL--3.0--only-007ec6)](LICENSE)
 [![Release: v0.1.0-community](https://img.shields.io/badge/release-v0.1.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw-community/releases/tag/v0.1.0-community)
 [![Website: nexusclaw.cn](https://img.shields.io/badge/website-nexusclaw.cn-2da44e)](https://nexusclaw.cn)
 
-[官网](https://nexusclaw.cn) · [能力总览](https://nexusclaw.cn/zh/capabilities) · [快速开始](#快速开始) · [能力边界](#能力边界community-v01) · [社区与支持](#社区与支持)
+[Website](https://nexusclaw.cn) · [Why it matters](#why-it-matters) · [Quick start](#quick-start) · [Capability boundary](#capability-boundary-community-v01) · [中文介绍](#nexusclaw-是什么) · [Community](#community--support)
 
 </div>
 
 ---
+
+## What is NexusClaw
+
+NexusClaw is an AI-native CRM and digital-employee governance platform:
+**digital employees execute real business tasks inside governed boundaries**,
+and human corrections and real outcomes are captured — through a release gate —
+as **reviewable, rollback-able** capability assets.
+
+This repository (`nexusclaw-community`) is the open-source Community edition of
+NexusClaw: a self-hostable, auditable runtime slice focused on the
+safety-critical path — **authenticated intent → executor → governed tools →
+audit & attribution records**.
+
+<img src="https://nexusclaw.cn/assets/home/platform-overview.png" alt="NexusClaw platform planes: business context, agent execution chain, governance and trust layer, enterprise connectivity" width="860">
+
+> The image above shows the full platform planes (see the
+> [capabilities overview](https://nexusclaw.cn/zh/capabilities)).
+> Community v0.1 ships the **governance kernel** of that picture; see the
+> [capability boundary](#capability-boundary-community-v01) below.
+
+## Why it matters
+
+All three claims below can be independently verified from this repository and
+a self-hosted instance:
+
+| | Highlight | How to verify |
+|---|---|---|
+| 🛡️ | **Governance-first digital employees**: unauthenticated execution is denied by default (deny-by-default); every agent execution leaves a complete audit chain (execution records, reasoning steps, outbox events) | Read the permission and execution paths in the source; probe a self-hosted instance |
+| 🔍 | **Auditable open-source release**: every snapshot is exported deterministically and passes multi-layer leakage scans; SBOM, third-party licenses and the corresponding-source record ship in-tree; running instances expose a `GET /source` compliance endpoint | Inspect `sbom.cdx.json` and `THIRD_PARTY_NOTICES.md` in the repo; call `GET /source` after starting |
+| ⚡ | **Fast to try**: single-host Docker Compose reached full-stack readiness in **35 seconds** (application listening in under 1 second; measured 2026-08-15 on a single-machine Docker environment) | Follow [Quick start](#quick-start) and time it yourself |
+
+## Capability boundary (Community v0.1)
+
+| ✅ Included in this snapshot | ⏳ Not included (roadmap, not promises) |
+|---|---|
+| Workspace & member authentication | Visual builder |
+| Governed agent execution (deny-by-default autonomy) | Packaging & template marketplace |
+| Execution audit chain | Enterprise modules |
+| AGPL source compliance (`GET /source` corresponding-source disclosure) | Billing & commercial capabilities |
+
+The full platform's six capability domains — **digital employees / growth
+loop / governance & audit / deployment shapes / CLI & developers /
+integrations & mobile** — are covered on the
+[capabilities overview](https://nexusclaw.cn/zh/capabilities). Commercial
+licensing (dual license) is covered in
+[docs/licensing-faq.md](docs/licensing-faq.md).
+
+## Quick start
+
+```sh
+cp .env.example .env
+# Edit .env: replace every replace-with-... value with a new local secret,
+# or with the HTTPS URL of the corresponding public source you will publish
+
+docker compose up --build
+```
+
+The backend listens on `http://localhost:3000` by default (override the host
+port with `COMMUNITY_PORT`). Full requirements, the source build and the
+source-compliance contract are in the
+[Operational guide](#operational-guide-english) below.
+
+## Community & support
+
+<table>
+<tr>
+<td width="260">
+
+<img src="https://nexusclaw.cn/community/wechat-qr.png" alt="NexusClaw WeChat community group QR code" width="230">
+
+</td>
+<td valign="top">
+
+**WeChat group**: scan to join the community group (long-lived QR; if scanning
+fails, please open a GitHub issue instead).
+
+- 🐛 **Bug reports**: [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw-community/issues) welcome
+- 🔒 **Security**: do not discuss vulnerabilities publicly — follow the private disclosure channels in [SECURITY.md](SECURITY.md)
+- 📄 **Commercial licensing**: dual-license inquiries → [docs/licensing-faq.md](docs/licensing-faq.md)
+- 🚧 **Code contributions**: not accepted at v0.1 (`code-contributions-closed`); issues and non-code feedback are welcome — policy in [CONTRIBUTING.md](CONTRIBUTING.md)
+
+</td>
+</tr>
+</table>
+
+---
+
+# NexusClaw 中文介绍
+
+[官网](https://nexusclaw.cn) · [能力总览](https://nexusclaw.cn/zh/capabilities) · [快速开始](#快速开始) · [能力边界](#能力边界community-v01) · [社区与支持](#社区与支持)
 
 ## NexusClaw 是什么
 
@@ -66,7 +157,8 @@ docker compose up --build
 ```
 
 后端默认监听 `http://localhost:3000`（可用 `COMMUNITY_PORT` 覆盖宿主端口）。
-完整环境要求与源码构建见下方 [Operational guide](#operational-guide-english)。
+完整环境要求与源码构建见上方 [Quick start](#quick-start) 与下方
+[Operational guide](#operational-guide-english)。
 
 ## 社区与支持
 
@@ -141,7 +233,7 @@ and Redis data.
 Every API response advertises `COMMUNITY_SOURCE_URL`, and `GET /source`
 returns the same corresponding-source location and license. Operators who
 modify the program must publish the source matching their deployed version and
-update this URL; do not leave it pointing to an unmodified upstream snapshot.
+update this URL; do not leave it pointing at an unmodified upstream snapshot.
 See [docs/source-compliance.md](docs/source-compliance.md) for the publication
 and ingress verification contract.
 
