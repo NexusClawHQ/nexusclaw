@@ -1,6 +1,6 @@
 {
   "name": "@agent-governance/executor",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "The governed ReAct loop: deny-by-default tools, L0-L4 guardrails, human approval pause/resume, full audit chain.",
   "license": "Apache-2.0",
   "type": "module",

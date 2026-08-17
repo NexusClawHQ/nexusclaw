@@ -1,6 +1,6 @@
 {
   "name": "@agent-governance/approval",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Human-in-the-loop approval decision core: agent sensitive-operation approvals, multi-step decisions, timeouts, audit trails.",
   "license": "Apache-2.0",
   "type": "module",

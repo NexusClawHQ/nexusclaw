@@ -1,6 +1,6 @@
 {
   "name": "@agent-governance/permission",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Deny-by-default agent permissions: tool access, allow-list resolution, conservative RAG authorization, data-scope filters, field masking.",
   "license": "Apache-2.0",
   "type": "module",

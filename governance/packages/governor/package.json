@@ -1,6 +1,6 @@
 {
   "name": "@agent-governance/governor",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Framework-neutral governor: AsyncLocalStorage resource limits with sync/async limit tables.",
   "license": "Apache-2.0",
   "type": "module",

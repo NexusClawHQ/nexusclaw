@@ -1,6 +1,6 @@
 {
   "name": "@agent-governance/guardrail",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Guardrail rule engine: L0–L4 risk matching and assessment with pluggable rule loading.",
   "license": "Apache-2.0",
   "type": "module",

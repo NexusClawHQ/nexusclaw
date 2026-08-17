@@ -1,6 +1,6 @@
 {
   "name": "@agent-governance/outbox",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Transactional outbox: enqueue events inside the producing transaction with a coalesced, transport-pluggable wake-up.",
   "license": "Apache-2.0",
   "type": "module",
