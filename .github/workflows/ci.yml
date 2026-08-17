@@ -50,6 +50,22 @@ jobs:
           npm ci
           npm run build
 
+      - name: Backend boot smoke (real NestJS boot against the service Postgres)
+        run: |
+          node -e "const {Client}=require('pg');(async()=>{const c=new Client({host:'localhost',port:5432,user:'postgres',password:'postgres'});await c.connect();const r=await c.query(\"SELECT 1 FROM pg_database WHERE datname='nexusclaw_community'\");if(r.rowCount===0)await c.query('CREATE DATABASE nexusclaw_community');await c.end();})().catch(e=>{console.error(e);process.exit(1)})"
+          DATABASE_HOST=localhost DATABASE_PORT=5432 DATABASE_USER=postgres DATABASE_PASSWORD=postgres \
+            DATABASE_NAME=nexusclaw_community \
+            JWT_SECRET=ci-smoke-secret-at-least-32-characters-long \
+            COMMUNITY_SOURCE_URL=https://github.com/NexusClawHQ/nexusclaw \
+            PORT=3000 NODE_ENV=production \
+            node packages/backend/dist/community/community-main.js &
+          for i in $(seq 1 30); do curl -sf http://localhost:3000/source >/dev/null && break; sleep 1; done
+          curl -sf http://localhost:3000/source | grep -q 'apache.org/licenses/LICENSE-2.0'
+          curl -sf -X POST http://localhost:3000/graphql -H 'content-type: application/json' \
+            --data '{"query":"mutation { communitySignIn(username: \"demo\", password: \"nexusclaw-demo\") { token } }"}' \
+            | grep -q '"token"'
+          kill %1
+
       - name: Root workspace — unit tests (backend + dashboard)
         run: |
           npm test -w @nexusclaw/backend
