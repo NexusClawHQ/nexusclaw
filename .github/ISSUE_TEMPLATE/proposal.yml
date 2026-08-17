@@ -8,7 +8,7 @@ body:
         欢迎通过 issue 提交非安全类建议。当前代码贡献政策为
         code-contributions-closed：事实、缺陷描述与一般性想法可以讨论，
         但请勿在此粘贴大段实现代码（详见
-        [CONTRIBUTING.md](https://github.com/NexusClawHQ/nexusclaw-community/blob/main/CONTRIBUTING.md)）。
+        [CONTRIBUTING.md](https://github.com/NexusClawHQ/nexusclaw/blob/main/CONTRIBUTING.md)）。
   - type: textarea
     id: problem
     attributes:

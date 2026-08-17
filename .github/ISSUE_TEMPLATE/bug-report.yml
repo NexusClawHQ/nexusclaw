@@ -7,7 +7,7 @@ body:
       value: |
         感谢帮助改进 NexusClaw Community。提交前请注意两点：
 
-        1. **安全漏洞请勿使用此模板**——请按 [SECURITY.md](https://github.com/NexusClawHQ/nexusclaw-community/blob/main/SECURITY.md) 走私有披露渠道。
+        1. **安全漏洞请勿使用此模板**——请按 [SECURITY.md](https://github.com/NexusClawHQ/nexusclaw/blob/main/SECURITY.md) 走私有披露渠道。
         2. **请勿粘贴**密钥、口令、个人数据、客户标识、内部 URL 或利用细节；日志请先脱敏。
   - type: input
     id: snapshot

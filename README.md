@@ -11,7 +11,7 @@ the self-hostable, auditable **Community edition** (AGPL-3.0-only).
 中文介绍见[下方中文页](#nexusclaw-是什么)。
 
 [![License: AGPL-3.0-only](https://img.shields.io/badge/license-AGPL--3.0--only-007ec6)](LICENSE)
-[![Release: v0.1.0-community](https://img.shields.io/badge/release-v0.1.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw-community/releases/tag/v0.1.0-community)
+[![Release: v0.1.0-community](https://img.shields.io/badge/release-v0.1.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.1.0-community)
 [![Website: nexusclaw.cn](https://img.shields.io/badge/website-nexusclaw.cn-2da44e)](https://nexusclaw.cn)
 
 [Website](https://nexusclaw.cn) · [Why it matters](#why-it-matters) · [Quick start](#quick-start) · [Capability boundary](#capability-boundary-community-v01) · [中文介绍](#nexusclaw-是什么) · [Community](#community--support)
@@ -27,7 +27,7 @@ NexusClaw is an AI-native CRM and digital-employee governance platform:
 and human corrections and real outcomes are captured — through a release gate —
 as **reviewable, rollback-able** capability assets.
 
-This repository (`nexusclaw-community`) is the open-source Community edition of
+This repository (`nexusclaw`) is the open-source Community edition of
 NexusClaw: a self-hostable, auditable runtime slice focused on the
 safety-critical path — **authenticated intent → executor → governed tools →
 audit & attribution records**.
@@ -99,7 +99,7 @@ source-compliance contract are in the
 **WeChat group**: scan to join the community group (long-lived QR; if scanning
 fails, please open a GitHub issue instead).
 
-- 🐛 **Bug reports**: [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw-community/issues) welcome
+- 🐛 **Bug reports**: [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw/issues) welcome
 - 🔒 **Security**: do not discuss vulnerabilities publicly — follow the private disclosure channels in [SECURITY.md](SECURITY.md)
 - 📄 **Commercial licensing**: dual-license inquiries → [docs/licensing-faq.md](docs/licensing-faq.md)
 - 🚧 **Code contributions**: not accepted at v0.1 (`code-contributions-closed`); issues and non-code feedback are welcome — policy in [CONTRIBUTING.md](CONTRIBUTING.md)
@@ -119,7 +119,7 @@ fails, please open a GitHub issue instead).
 NexusClaw 是 AI 原生 CRM 与数字员工治理平台：**数字员工在受治理的边界内执行真实业务任务**；
 人的修正与真实结果经发布闸门沉淀为**可评审、可回滚**的能力资产。
 
-本仓库（`nexusclaw-community`）是 NexusClaw 的开源社区版——可自部署、可审计的运行时切片，
+本仓库（`nexusclaw`）是 NexusClaw 的开源社区版——可自部署、可审计的运行时切片，
 聚焦安全关键路径：**已认证意图 → 执行器 → 受控工具 → 审计与归因记录**。
 
 <img src="https://nexusclaw.oss-cn-hangzhou.aliyuncs.com/assets/home/platform-architecture-blueprint-v3.png" alt="NexusClaw 平台架构蓝图：企业连接、AI 员工运行时、成长回路、治理与信任、数据与模型、部署形态" width="880">
@@ -177,7 +177,7 @@ docker compose up --build
 
 **微信群**：扫码加入社区群（长期有效；如无法扫码请在 GitHub 提交 issue）。
 
-- 🐛 **问题反馈**：欢迎提交 [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw-community/issues)
+- 🐛 **问题反馈**：欢迎提交 [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw/issues)
 - 🔒 **安全漏洞**：请勿公开讨论——按 [SECURITY.md](SECURITY.md) 走私有披露渠道
 - 📄 **商业许可**：双许可咨询见 [docs/licensing-faq.md](docs/licensing-faq.md)
 - 🚧 **代码贡献**：v0.1 阶段暂不受理（`code-contributions-closed`），issue 与非代码反馈欢迎，
