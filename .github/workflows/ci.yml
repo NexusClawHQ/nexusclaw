@@ -37,7 +37,7 @@ jobs:
       SIDECAR_PGUSER: postgres
       SIDECAR_PGPASSWORD: postgres
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v5
         with:
@@ -75,7 +75,7 @@ jobs:
     name: docker image build (quick-start path)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Validate compose file
         run: docker compose config --quiet
@@ -91,7 +91,7 @@ jobs:
     name: adapters (n8n typecheck · python unittest)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v5
         with:
