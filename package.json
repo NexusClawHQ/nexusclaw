@@ -6,11 +6,13 @@
   "packageManager": "npm@11.6.0",
   "workspaces": [
     "packages/shared",
-    "packages/backend"
+    "packages/backend",
+    "packages/dashboard"
   ],
   "scripts": {
-    "build": "npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend",
-    "start": "npm run start -w @nexusclaw/backend"
+    "build": "npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend && npm run build -w @nexusclaw/dashboard",
+    "start": "npm run start -w @nexusclaw/backend",
+    "dev:dashboard": "npm run dev -w @nexusclaw/dashboard"
   },
   "engines": {
     "node": ">=22.18.0 <23",

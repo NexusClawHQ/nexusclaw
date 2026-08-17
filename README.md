@@ -65,6 +65,7 @@ a self-hosted instance:
 | Governed agent execution (deny-by-default autonomy) | Packaging & template marketplace |
 | Execution audit chain | Enterprise modules |
 | `/console` browser closed loop (run → approve → audit views) | Billing & commercial capabilities |
+| Governance Dashboard (React/Vite app: execution timeline, approval queue, tool calls, outbox stream) | |
 | Governance core as Apache-2.0 library (`governance/`, 9 packages, 58 tests) | |
 | Gate API + framework adapters: Python client, n8n nodes, Dify OpenAPI schema | |
 | Source transparency (`GET /source` corresponding-source disclosure) | |
@@ -93,6 +94,34 @@ audited, an L3 follow-up email pauses for your approval, and approving it
 resumes the execution — the audit chain (execution → reasoning steps → tool
 calls → outbox events) is then inspectable in the console and via GraphQL.
 No external LLM credential is required.
+
+**The 30-second closed loop, in the Governance Dashboard** — run → L3 pause →
+human approval → resumed execution → audit chain:
+
+<img src="docs/assets/dashboard-demo.gif" alt="30-second governance closed loop in the NexusClaw Governance Dashboard: run a task, the L3 follow-up-email tool pauses for approval, approving resumes the run, and the execution detail shows the ReAct timeline, succeeded tool calls and outbox event stream" width="880">
+
+## Governance Dashboard
+
+A dedicated frontend for the kernel's own outputs — no commercial UI involved,
+just the governance data every deployment produces:
+
+- **Executions** — recent runs with live status; open one for the ReAct step
+  timeline, tool-call records (permission/guardrail checks, inputs, outputs)
+  and the outbox event stream (`started → step → paused → resumed → completed`).
+- **Approvals** — the pending L3 queue with risk level, tool input and an
+  optional decision comment; approve or reject resumes or cancels the paused
+  execution.
+- **Run** — trigger the deterministic governed scenario end to end.
+
+```sh
+npm run dev:dashboard   # Vite dev server on http://localhost:5173, proxies /graphql to :3000
+```
+
+The dashboard is a React + Vite workspace (`packages/dashboard`, Apache-2.0,
+English/中文) that consumes only the public community GraphQL surface — the
+same API the `/console` page and the governance adapters use.
+
+<img src="docs/assets/dashboard-execution-detail.png" alt="Governance Dashboard execution detail: ReAct timeline with the guardrail marker on step 1, two succeeded tool-call records, and the outbox event stream" width="880">
 
 The backend listens on `http://localhost:3000` by default (override the host
 port with `COMMUNITY_PORT`). Full requirements, the source build and the
@@ -159,6 +188,7 @@ NexusClaw 是 AI 原生 CRM 与数字员工治理平台：**数字员工在受�
 | 受治理的 agent 执行（deny-by-default 自治） | 打包与模板市场 |
 | 执行审计链 | 企业模块 |
 | `/console` 浏览器闭环（运行 → 审批 → 审计视图） | 计费与商业化能力 |
+| 治理仪表盘（React/Vite：执行时间线、审批队列、工具调用记录、outbox 事件流） | |
 | 治理内核 Apache-2.0 库（`governance/`，9 个包，58 个测试） | |
 | gate API + 框架适配器：Python 客户端、n8n 节点、Dify OpenAPI schema | |
 | 源头透明（`GET /source` 对应源头披露） | |
@@ -180,6 +210,15 @@ docker compose up --build
 后端默认监听 `http://localhost:3000`（可用 `COMMUNITY_PORT` 覆盖宿主端口）。
 完整环境要求与源码构建见上方 [Quick start](#quick-start) 与下方
 [Operational guide](#operational-guide-english)。
+
+**30 秒闭环演示**（治理仪表盘：运行 → L3 暂停审批 → 批准恢复 → 审计链）：
+
+<img src="docs/assets/dashboard-demo.gif" alt="治理闭环 30 秒演示动图：运行任务、L3 外发邮件工具暂停等待审批、批准后恢复执行、详情页展示 ReAct 时间线、工具调用记录与 outbox 事件流" width="880">
+
+配套的 **Governance Dashboard**（`packages/dashboard`，React + Vite，Apache-2.0）
+可视化治理内核自身产出的数据——执行时间线、审批队列、工具调用记录与 outbox
+事件流，仅消费公开的社区 GraphQL 接口。开发模式：`npm run dev:dashboard`
+（Vite 开发服务器 `http://localhost:5173`，`/graphql` 代理到 `:3000` 后端）。
 
 ## 社区与支持
 
