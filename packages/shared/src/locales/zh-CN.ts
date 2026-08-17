@@ -5159,6 +5159,20 @@ const messages = {
       colTargetCustomer: "服务客户",
       colLearning: "学习状态",
       executionQueue: "执行队列",
+      // customer-dimension communication history view.
+      customerHistoryTitle: "客户沟通记录：{customer}",
+      customerHistoryDescription: "该客户的全部 AI 员工沟通与跟进执行（按时间倒序）。",
+      backToAllExecutions: "返回全部执行",
+      // human-readable trigger source labels (stored triggerType /
+      // triggerSource is verbatim, e.g. event / agent_test).
+      trigger: {
+        manual: "人工输入",
+        schedule: "定时主动",
+        event: "事件触发",
+        agentTest: "人工测试触发",
+        message: "消息触发",
+        other: "其他触发",
+      },
       fleet: {
         title: "员工舰队概览",
         windowLabel: "近 {days} 天",
@@ -19278,6 +19292,9 @@ const messages = {
     on: "启用",
     toggleChannelAria: "启用或停用接入",
     edit: "编辑",
+    copyCallbackUrl: "复制回调地址",
+    copyCallbackUrlAria: "复制回调地址",
+    callbackUrlCopied: "回调地址已复制，请粘贴到开放平台的消息接收/回调地址配置中",
     confirmDelete: "确定删除这个接入?",
     delete: "删除",
     cancel: "取消",
@@ -20260,6 +20277,9 @@ const messages = {
     emptyRecent: "暂无关键事件",
     executionFallback: "执行任务",
     agentFallback: "AI 员工",
+    // customer-dimension entry from the recent events panel.
+    customerPrefix: "客户：",
+    customerCommLink: "沟通记录",
     metric: {
       activeAgents: "在岗 AI 员工",
       totalAgentsPrefix: "总数",

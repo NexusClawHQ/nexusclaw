@@ -5430,6 +5430,20 @@ const messages = {
       nextPage: "Next",
       pageIndicator: "Page {page}",
       colTargetCustomer: "Related Customer",
+      // customer-dimension communication history view.
+      customerHistoryTitle: "Customer Communication History: {customer}",
+      customerHistoryDescription:
+        "All AI employee communications and follow-up executions for this customer (newest first).",
+      backToAllExecutions: "Back to all executions",
+      // human-readable trigger source labels.
+      trigger: {
+        manual: "Manual input",
+        schedule: "Scheduled proactive",
+        event: "Event triggered",
+        agentTest: "Manual test triggered",
+        message: "Message triggered",
+        other: "Other",
+      },
       colLearning: "Learning Status",
       executionQueue: "Execution queue",
       fleet: {
@@ -20172,6 +20186,9 @@ const messages = {
     on: "On",
     toggleChannelAria: "Enable or disable integration",
     edit: "Edit",
+    copyCallbackUrl: "Copy callback URL",
+    copyCallbackUrlAria: "Copy callback URL",
+    callbackUrlCopied: "Callback URL copied. Paste it into the message-receive / callback URL field on the open platform.",
     confirmDelete: "Delete this integration?",
     delete: "Delete",
     cancel: "Cancel",
@@ -21175,6 +21192,9 @@ const messages = {
     emptyRecent: "No key events",
     executionFallback: "Execution Task",
     agentFallback: "AI Employee",
+    // customer-dimension entry from the recent events panel.
+    customerPrefix: "Customer: ",
+    customerCommLink: "History",
     metric: {
       activeAgents: "Active AI Employees",
       totalAgentsPrefix: "Total",

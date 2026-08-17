@@ -8,6 +8,7 @@ import { ReactStep } from '../../modules/agent-runtime/entities/react-step.entit
 import { ToolCallRecord } from '../../modules/agent-runtime/entities/tool-call-record.entity';
 import { ExecutorEngineService } from '../../modules/agent-runtime/executor/executor-engine.service';
 import { ToolRegistryService } from '../../modules/agent-runtime/tool-framework/tool-registry.service';
+import { ToolCallLifecycleService } from '../../modules/agent-runtime/tool-framework/tool-call-lifecycle.service';
 import {
   AUTONOMY_GATE_PORT,
   BEHAVIOR_FEEDBACK_PORT,
@@ -50,7 +51,15 @@ import {
   CommunityCuratedScenarioExemplarUnavailableAdapter,
 } from '../community-runtime-adapters';
 import { RAG_AUTHORIZATION_PORT } from '../../modules/agent-permission/interfaces/rag-authorization.port';
+import { OutboxEvent } from '../../modules/outbox/entities/outbox-event.entity';
+import { Role } from '../../modules/role/entities/role.entity';
+import { User } from '../../modules/user/entities/user.entity';
+import { Workspace } from '../../modules/workspace/entities/workspace.entity';
+import { WorkspaceMember } from '../../modules/workspace/entities/workspace-member.entity';
 import { CommunityAgentRuntimeResolver } from './community-agent-runtime.resolver';
+import { CommunityDemoConsoleController } from '../closed-loop/community-demo-console.controller';
+import { CommunityDemoSeedService } from '../closed-loop/community-demo-seed.service';
+import { CommunityDemoToolsetProvider } from '../closed-loop/community-demo-tools';
 
 @Module({
   imports: [
@@ -65,15 +74,24 @@ import { CommunityAgentRuntimeResolver } from './community-agent-runtime.resolve
       GuardrailLog,
       ObjectPermission,
       ObjectMetadata,
+      OutboxEvent,
+      Workspace,
+      WorkspaceMember,
+      User,
+      Role,
     ]),
   ],
+  controllers: [CommunityDemoConsoleController],
   providers: [
     ExecutorEngineService,
     ToolRegistryService,
+    ToolCallLifecycleService,
     AuditLoggerService,
     OutboxService,
     GovernorLimitService,
     CommunityAgentRuntimeResolver,
+    CommunityDemoToolsetProvider,
+    CommunityDemoSeedService,
     CommunityExecutionAdmissionAdapter,
     CommunityExecutionBudgetAdapter,
     CommunityBehaviorUnavailableAdapter,

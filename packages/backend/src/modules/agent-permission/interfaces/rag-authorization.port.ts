@@ -11,6 +11,8 @@ export interface RagAuthorizationInput {
   sourceAccessLevel: string;
   sourceCreatedBy?: string | null;
   sourceOrgNodeId?: string | null;
+  /** Knowledge source type of the chunk (e.g. 'curated_scenario_exemplar'). */
+  sourceType?: string;
   principalOrgSubtreeIds: ReadonlyArray<string>;
   readableObjectApiNames: ReadonlyArray<string>;
   objectApiName?: string;
@@ -69,8 +71,22 @@ export function evaluateConservativeRagAuthorization(
   const crossWorkspace = crossWorkspaceRagDecision(input);
   if (crossWorkspace) return crossWorkspace;
   if (!input.principalRoleId) return missingRagAuthorizationPolicyDecision();
+  // (2026-08-17 retest): knowledge writers mirror the source TYPE
+  // into `source_object` as a provenance marker (e.g. curated exemplars are
+  // ingested with sourceObject === 'curated_scenario_exemplar'). Such a
+  // marker is not a CRM object reference and can never appear in any role's
+  // object-permission list, so applying the object-read gate to it silently
+  // denied every curated exemplar at the per-row authorization step —
+  // `decisions=[]` even after the SQL scope fixes. The object-read gate is
+  // only meaningful for record-backed knowledge whose sourceObject names a
+  // real object; marker-typed knowledge stays governed by the workspace +
+  // sharing gates below (and, for curated exemplars, the fail-closed
+  // roleCodes + double-review gates in the retrieval owner).
+  const isSourceTypeMarker =
+    !!input.sourceType && input.objectApiName === input.sourceType;
   if (
     input.objectApiName &&
+    !isSourceTypeMarker &&
     !input.readableObjectApiNames.includes(input.objectApiName)
   ) {
     return {

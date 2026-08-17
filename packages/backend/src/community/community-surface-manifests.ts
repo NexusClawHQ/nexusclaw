@@ -1,5 +1,6 @@
 import { CommunityAuthResolver } from './auth/community-auth.resolver';
 import { CommunityAgentRuntimeResolver } from './runtime/community-agent-runtime.resolver';
+import { CommunityDemoConsoleController } from './closed-loop/community-demo-console.controller';
 import { CommunitySourceDisclosureController } from './source-disclosure/community-source-disclosure.module';
 
 /** GraphQL owners reachable from the Community composition. */
@@ -8,9 +9,14 @@ export const COMMUNITY_RESOLVER_MANIFEST = Object.freeze([
   CommunityAgentRuntimeResolver,
 ]);
 
-/** Public REST surface is limited to the AGPL corresponding-source disclosure. */
+/**
+ * Public REST surface: the AGPL corresponding-source disclosure endpoint
+ * plus the static demo console shell (its data access is fully guarded by
+ * the GraphQL auth layer — the shell itself holds no secrets).
+ */
 export const COMMUNITY_CONTROLLER_MANIFEST: readonly Function[] = Object.freeze([
   CommunitySourceDisclosureController,
+  CommunityDemoConsoleController,
 ]);
 
 export const COMMUNITY_ENV_ALLOWLIST = Object.freeze({
@@ -23,7 +29,7 @@ export const COMMUNITY_ENV_ALLOWLIST = Object.freeze({
     'DATABASE_PASSWORD',
     'DATABASE_NAME',
   ]),
-  optional: Object.freeze(['PORT', 'NODE_ENV']),
+  optional: Object.freeze(['PORT', 'NODE_ENV', 'COMMUNITY_DEMO_SEED']),
   sensitive: Object.freeze(['JWT_SECRET', 'DATABASE_URL', 'DATABASE_PASSWORD']),
 });
 
