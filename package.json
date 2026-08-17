@@ -13,7 +13,8 @@
     "build": "npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend && npm run build -w @nexusclaw/dashboard",
     "start": "npm run start -w @nexusclaw/backend",
     "dev:dashboard": "npm run dev -w @nexusclaw/dashboard",
-    "check:i18n": "npm run build -w @nexusclaw/shared && node scripts/check-locale-parity.mjs"
+    "check:i18n": "npm run build -w @nexusclaw/shared && node scripts/check-locale-parity.mjs",
+    "check:dify": "node scripts/check-dify-schema.mjs"
   },
   "engines": {
     "node": ">=22.18.0 <23",
@@ -33,6 +34,7 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.0.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "js-yaml": "^4.1.0"
   }
 }

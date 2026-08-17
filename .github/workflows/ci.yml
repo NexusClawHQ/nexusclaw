@@ -58,6 +58,9 @@ jobs:
       - name: Root workspace — locale parity check (en-US ↔ zh-CN)
         run: npm run check:i18n
 
+      - name: Dify adapter — schema sanity check
+        run: npm run check:dify
+
       - name: Root workspace — audit gate (fail on high/critical)
         run: npm audit --audit-level=high
 
@@ -83,3 +86,24 @@ jobs:
 
       - name: Build backend image
         run: docker build -t nexusclaw-community:ci .
+
+  adapters:
+    name: adapters (n8n typecheck · python unittest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: governance/adapters/n8n/package-lock.json
+
+      - name: n8n adapter — typecheck (published package source)
+        working-directory: governance/adapters/n8n
+        run: |
+          npm ci
+          npm run typecheck
+
+      - name: Python adapter — offline unit tests
+        run: python3 -m unittest discover -s governance/adapters/python/test -v
