@@ -11,9 +11,13 @@
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "verify": "pnpm build && pnpm test && pnpm -F @agent-governance/sidecar verify",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "changeset": "changeset",
+    "release:version": "changeset version",
+    "release:publish": "pnpm -r build && changeset publish"
   },
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "@changesets/cli": "^2.29.0"
   }
 }

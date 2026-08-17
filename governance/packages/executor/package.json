@@ -12,7 +12,10 @@
       "default": "./dist/index.js"
     }
   },
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -39,5 +42,17 @@
   },
   "engines": {
     "node": ">=22.18.0 <23"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NexusClawHQ/nexusclaw.git",
+    "directory": "governance/packages/executor"
+  },
+  "bugs": {
+    "url": "https://github.com/NexusClawHQ/nexusclaw/issues"
+  },
+  "homepage": "https://github.com/NexusClawHQ/nexusclaw/tree/main/governance/packages/executor#readme"
 }

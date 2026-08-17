@@ -3,7 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "agent-governance"
+# Distribution name on PyPI: "agent-governance" is already taken there, so the
+# package ships as "agentgovernance". The import name stays agent_governance.
+name = "agentgovernance"
 version = "0.1.0"
 description = "Governance for AI agents: deny-by-default tool gating, L0-L4 guardrails, human approvals and a full audit chain — via the agent-governance sidecar."
 readme = "README.md"

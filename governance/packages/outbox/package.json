@@ -39,5 +39,17 @@
   },
   "engines": {
     "node": ">=22.18.0 <23"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NexusClawHQ/nexusclaw.git",
+    "directory": "governance/packages/outbox"
+  },
+  "bugs": {
+    "url": "https://github.com/NexusClawHQ/nexusclaw/issues"
+  },
+  "homepage": "https://github.com/NexusClawHQ/nexusclaw/tree/main/governance/packages/outbox#readme"
 }
