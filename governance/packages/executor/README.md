@@ -12,11 +12,9 @@ Apache-2.0 licensed.
 npm install @agent-governance/executor
 ```
 
-> The `@agent-governance/*` packages are not yet on the npm registry — see the
-> [release guide](../RELEASE.md) and the
-> [roadmap](https://github.com/NexusClawHQ/nexusclaw/blob/main/ROADMAP.md).
-> Until publication, consume them from this repository's `governance/`
-> workspace or via the sidecar HTTP surface.
+> Published to npm at 0.1.0 — the nine kernel packages version together
+> (fixed changesets group). The 0.1.0 tarball still carries this older
+> "not yet published" note; the correction ships from the next release on.
 
 Usage and architecture docs live in the
 [governance workspace README](../README.md).

@@ -25,6 +25,20 @@ publish to the real one. The initial 0.1.0 version bump is already applied
 in this tree — once the `agent-governance` organization exists, the first
 release is a single `corepack pnpm release:publish:npmjs`.
 
+> **Post-publish checklist (learned on the 0.1.0 release):** despite
+> `publishConfig.access: public` in every manifest, the packages landed as
+> *restricted* (the org's default for scoped packages won through the
+> changesets → pnpm publish chain), and registry reads 404'd anonymously
+> while propagation settled. After publishing, run for each package:
+>
+> ```sh
+> npm access set status=public @agent-governance/<name> --registry=https://registry.npmjs.org
+> ```
+>
+> then confirm `curl https://registry.npmjs.org/@agent-governance%2f<name>`
+> answers 200 anonymously before announcing. Push the created git tags:
+> `git push origin --tags`.
+
 Commit the version bump (`packages/*/package.json`, `pnpm-lock.yaml`, the
 consumed changeset files) and let CI go green before publishing.
 `changeset publish` rewrites the `workspace:*` dependencies to the published

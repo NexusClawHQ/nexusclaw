@@ -30,14 +30,14 @@ build + tests + sidecar e2e + audit gate), the Governance Dashboard
 (`packages/dashboard`), publish-ready kernel manifests with changesets, the
 `/source` license-URL fix and a zero-finding `npm audit`.
 
+**2026-08-18: the nine `@agent-governance/*` kernel packages are live on npm
+at 0.1.0** — `npm install @agent-governance/contracts` and friends now work
+directly; the "three lines to governed tools" adoption path is installable.
+
 ## Building next
 
 On top of the v0.5.0 adapter base:
 
-- **npm publication of the `@agent-governance/*` kernel** — manifests,
-  changesets and the 0.1.0 version bump are staged in this tree; the single
-  remaining step is creating the `agent-governance` organization on npm, then
-  `corepack pnpm changeset publish` (runbook: `governance/RELEASE.md`).
 - **PyPI publication** of the `agentgovernance` Python client (the plain
   `agent-governance` name is taken on PyPI); until then it installs
   directly from this repository:

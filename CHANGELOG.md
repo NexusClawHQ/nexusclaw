@@ -55,6 +55,10 @@ verified against this tree.
   READMEs, changesets (fixed group, first-release changeset pending) and a
   `governance/RELEASE.md` runbook; the Python client's distribution name is
   corrected to `agentgovernance` (`agent-governance` is taken on PyPI).
+  **Update 2026-08-18: the nine packages are published to npm at 0.1.0 and
+  verified installable from a clean directory.** The org defaulted the
+  scoped packages to restricted despite `publishConfig.access` — fixed with
+  `npm access set status=public` per package and recorded in RELEASE.md.
 - **Regression defenses**: the backend's first unit-test suite locks the
   `/source` disclosure fix and URL validation; `npm run check:i18n` gates
   en/zh locale parity; the dashboard gains unit tests for the GraphQL
