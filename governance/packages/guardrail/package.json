@@ -22,7 +22,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "uuid": "^11.0.0"
+    "uuid": "^14.0.1"
   },
   "peerDependencies": {
     "typeorm": "^0.3.17"
