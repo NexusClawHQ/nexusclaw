@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "fast-check": "^3.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10",
     "@types/node": "^22.0.0"
   },

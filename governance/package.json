@@ -18,7 +18,7 @@
     "release:publish:npmjs": "pnpm -r build && npm_config_registry=https://registry.npmjs.org changeset publish"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "@changesets/cli": "^2.29.0"
   }
 }
