@@ -1,17 +1,21 @@
 {
   "name": "n8n-nodes-nexusclaw-governance",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "NexusClaw agent governance for n8n: gate any tool call (deny by default, L0-L4 guardrails), approve/reject pending approvals, list the audit chain.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": ["dist/credentials/GovernanceApi.credentials.js"],
+    "credentials": [
+      "dist/credentials/GovernanceApi.credentials.js"
+    ],
     "nodes": [
       "dist/nodes/GovernanceGate/GovernanceGate.node.js",
       "dist/nodes/GovernanceApprove/GovernanceApprove.node.js",
