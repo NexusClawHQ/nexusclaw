@@ -30,13 +30,13 @@
     "@agent-governance/guardrail": "workspace:*",
     "@agent-governance/outbox": "workspace:*",
     "@agent-governance/permission": "workspace:*",
-    "express": "^4.21.0"
+    "express": "^5.2.1"
   },
   "peerDependencies": {
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
+    "@types/express": "^5.0.6",
     "@types/node": "^22.0.0",
     "pg": "^8.13.0",
     "reflect-metadata": "^0.2.2",
