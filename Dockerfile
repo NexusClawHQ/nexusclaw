@@ -1,4 +1,4 @@
-FROM node:22.18.0-bookworm-slim AS builder
+FROM node:26.7.0-bookworm-slim AS builder
 
 WORKDIR /app
 COPY package.json ./package.json
@@ -21,7 +21,7 @@ RUN npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend
 # (typescript, vite, vitest, react) before the runtime stage copies node_modules.
 RUN npm prune --omit=dev
 
-FROM node:22.18.0-bookworm-slim AS runtime
+FROM node:26.7.0-bookworm-slim AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=builder /app/package.json ./package.json
