@@ -27,6 +27,9 @@ versions automatically.
 Publishing requires an npm account with 2FA and write access to the
 `@agent-governance` scope — create the organization at
 <https://www.npmjs.com/org/agent-governance> before the first release.
+(Verified 2026-08-17: without the organization, `changeset publish` aborts
+cleanly with `E404 — Scope not found` on the first package and nothing is
+published.)
 
 ## PyPI — the `agentgovernance` Python client
 

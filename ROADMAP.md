@@ -25,10 +25,19 @@ and increasingly as a **library any agent framework can adopt**.
 | Governance gate API (`POST /gate`) + zero-dependency Python client (`wrap_tool`, `run_approved`) | v0.4.0 |
 | n8n nodes (Gate / Approve / Pending), Dify OpenAPI schema, PyPI-ready Python package | v0.5.0 |
 
+Direct community commits on 2026-08-17 (not a sealed snapshot): CI (Node 22 —
+build + tests + sidecar e2e + audit gate), the Governance Dashboard
+(`packages/dashboard`), publish-ready kernel manifests with changesets, the
+`/source` license-URL fix and a zero-finding `npm audit`.
+
 ## Building next
 
 On top of the v0.5.0 adapter base:
 
+- **npm publication of the `@agent-governance/*` kernel** — manifests,
+  changesets and the 0.1.0 version bump are staged in this tree; the single
+  remaining step is creating the `agent-governance` organization on npm, then
+  `corepack pnpm changeset publish` (runbook: `governance/RELEASE.md`).
 - **PyPI publication** of the `agentgovernance` Python client (the plain
   `agent-governance` name is taken on PyPI); until then it installs
   directly from this repository:
