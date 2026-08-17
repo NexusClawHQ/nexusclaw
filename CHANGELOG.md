@@ -66,6 +66,25 @@ verified against this tree.
   manifest and builds only shared + backend, CI gains a docker image build
   gate, and `.env` (quick-start secrets) is gitignored. The full
   `docker compose up` path was re-verified end to end locally.
+- **Dependabot + dependency triage**: dependabot runs weekly across five
+  ecosystems with major-ignore rules (typescript / typeorm / @types/node /
+  node base image). Verified major merges: `bcryptjs` 3 (live sign-in
+  checked against the existing bcryptjs-2-era hash; the empty
+  `@types/bcryptjs` stub removed), `zod` 4, `fast-check` 4, `express` 5 in
+  the sidecar (covered by its e2e loop), `vitest` 4 in governance (with an
+  explicit `vite` ^7 peer after `vite/module-runner` resolution broke).
+  Remaining majors are tracked in
+  [issue #29](https://github.com/NexusClawHQ/nexusclaw/issues/29).
+- **Critical fix + boot gate**: merging `@nestjs/core` 11.2.1 without
+  `@nestjs/common` left the Nest trio misaligned and the backend unable to
+  boot while CI stayed green — nothing booted the real app. `@nestjs/common`
+  is aligned to 11.2.1 (boot + sign-in verified live) and CI now runs a
+  backend boot smoke against the service Postgres (`/source` must answer
+  Apache-2.0, the demo sign-in must issue a token).
+- **Dashboard resilience, now automated**: backend-unreachable polling
+  failures surface as an alert with a Retry action instead of misleading
+  empty lists; jsdom + Testing Library component tests cover the banner
+  appearing, clearing on recovery and the 401 sign-out path (20 tests).
 
 ## [v0.5.0-community] — 2026-08-17
 
