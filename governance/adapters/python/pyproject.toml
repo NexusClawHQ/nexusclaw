@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-governance"
+version = "0.1.0"
+description = "Governance for AI agents: deny-by-default tool gating, L0-L4 guardrails, human approvals and a full audit chain — via the agent-governance sidecar."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]

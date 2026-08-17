@@ -122,6 +122,18 @@ export function createSidecarServer(runtime: SidecarRuntime): SidecarServer {
     }
 
     // APPROVED: record the decision, then resume the paused execution.
+    // Gate-sourced executions (external frameworks) do not run the built-in
+    // ReAct loop — the caller executes the tool locally and reports via
+    // POST /gate/:executionId/complete.
+    const gatedExecution = await runtime.dataSource.getRepository(AgentExecution)
+      .findOneBy({ id: row.recordId });
+    if (gatedExecution?.triggerSource === 'governance_gate') {
+      await runtime.dataSource.getRepository(AgentExecution).update(row.recordId, {
+        status: 'running',
+      });
+      res.json({ instanceId: row.id, decision: normalized, executionId: row.recordId, executionStatus: 'running' });
+      return;
+    }
     await runtime.dataSource.getRepository(ApprovalInstance).update(row.id, {
       status: 'APPROVED',
       completedAt: new Date(),
@@ -142,6 +154,39 @@ export function createSidecarServer(runtime: SidecarRuntime): SidecarServer {
       pausedToolCall: resumeCall,
     });
     res.json({ instanceId: row.id, decision: normalized, executionId: row.recordId, executionStatus: execution.status });
+  });
+
+  app.post('/gate', async (req, res) => {
+    const { toolName, toolInput } = (req.body ?? {}) as {
+      toolName?: string;
+      toolInput?: Record<string, unknown>;
+    };
+    if (!toolName || typeof toolName !== 'string') {
+      res.status(400).json({ error: 'toolName is required' });
+      return;
+    }
+    try {
+      const result = await runtime.gate.gate({
+        toolName,
+        toolInput: toolInput ?? {},
+      });
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error)?.message ?? 'gate failed' });
+    }
+  });
+
+  app.post('/gate/:executionId/complete', async (req, res) => {
+    const { success, output } = (req.body ?? {}) as { success?: boolean; output?: unknown };
+    try {
+      await runtime.gate.complete(req.params.executionId, {
+        success: success !== false,
+        output,
+      });
+      res.json({ executionId: req.params.executionId, status: 'completed' });
+    } catch (error) {
+      res.status(409).json({ error: (error as Error)?.message ?? 'complete failed' });
+    }
   });
 
   app.get('/audit/list', async (_req, res) => {

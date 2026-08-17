@@ -39,7 +39,8 @@ kernel that runs production digital employees in NexusClaw:
 | `guardrail` | extracted (PR-7) — L0–L4 rule matching (AND logic, wildcard conditions), risk assessment (highest risk, priority tie-break), engine with pluggable rule loading (in-memory + TypeORM/Redis) and agent-scoped ruleIds; 10/10 tests |
 | `approval` | extracted (PR-9) — human-in-the-loop decision core: agent sensitive-operation approvals (pause/resume/terminate events), multi-step serial processes, timeouts, CAS-first-writer decisions, audit trails; pluggable events/audit/approver-check ports; 9/9 tests |
 | `executor` | extracted (PR-11) — the governed ReAct loop assembling all packages: deny-by-default tool gate, L0–L4 guardrails with human approval pause/resume, full audit chain (execution → steps → tool calls → outbox events); deterministic closed-loop scenario runs end-to-end against real Postgres (2/2) |
-| `sidecar` | extracted (PR-13) — HTTP surface over the governed executor (POST /executions, GET /approvals/pending, POST /approvals/:id/decide, GET /executions/:id, GET /audit/list) + mini console; `pnpm verify` walks the full closed loop over HTTP against real Postgres |
+| `sidecar` | extracted (PR-13) — HTTP surface over the governed executor (POST /executions, GET /approvals/pending, POST /approvals/:id/decide, GET /executions/:id, GET /audit/list), the per-call governance gate for external frameworks (POST /gate + /gate/:id/complete, deny by default with audit records) + mini console; `pnpm verify` walks both closed loops over HTTP against real Postgres |
+| `adapters/python` | extracted (PR-14) — zero-dependency `agent-governance` client: `wrap_tool`, interrupt-style `run_approved`, blocking `wait=True`, approvals and audit queries; 8 offline unit tests + live integration test against the sidecar |
 
 ## License
 

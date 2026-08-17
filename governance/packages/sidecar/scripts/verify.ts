@@ -31,7 +31,10 @@ async function main(): Promise<void> {
   await admin.query(`CREATE DATABASE ${DB}`);
   await admin.end();
 
-  const runtime = await buildSidecarRuntime({ host: HOST, port: PORT, user: USER, password: PASSWORD, database: DB });
+  const runtime = await buildSidecarRuntime({
+    host: HOST, port: PORT, user: USER, password: PASSWORD, database: DB,
+    gateAllowedTools: ['crm.update_customer', 'demo.send_followup_email'],
+  });
   const server = createSidecarServer(runtime);
   const { url, close } = await server.listen(0);
   try {
@@ -99,6 +102,36 @@ async function main(): Promise<void> {
     const rejected = await post(`/approvals/${mine2.id}/decide`, { decision: 'REJECTED' });
     if (rejected.executionStatus !== 'cancelled') throw new Error(`expected cancelled, got ${rejected.executionStatus}`);
     console.log('STEP5 audit-list + reject-path: ok');
+
+    // 6. gate: granted + no rule match -> allow; caller executes + completes
+    const gateAllow = await post('/gate', { toolName: 'crm.update_customer', toolInput: { customerId: 'C-1' } });
+    if (gateAllow.decision !== 'allow') throw new Error('gate expected allow, got ' + JSON.stringify(gateAllow));
+    await post(`/gate/${gateAllow.executionId}/complete`, { success: true, output: { updated: true } });
+    const gateDone = await get(`/executions/${gateAllow.executionId}`);
+    if (gateDone.execution.status !== 'done') throw new Error('gate execution expected done, got ' + gateDone.execution.status);
+    if (!(gateDone.toolCalls ?? []).some((c: { toolName: string; status: string }) => c.toolName === 'crm.update_customer' && c.status === 'SUCCEEDED')) {
+      throw new Error('gate tool call not recorded as SUCCEEDED');
+    }
+    console.log('STEP6 gate-allow + complete: done (audit row recorded)');
+
+    // 7. gate: L3 rule -> paused; approve -> running; complete -> done
+    const gatePaused = await post('/gate', { toolName: 'demo.send_followup_email', toolInput: { customerId: 'C-1', subject: 'hi' } });
+    if (gatePaused.decision !== 'paused' || gatePaused.riskLevel !== 'L3') {
+      throw new Error('gate expected paused L3, got ' + JSON.stringify(gatePaused));
+    }
+    const gateDecided = await post(`/approvals/${gatePaused.approvalId}/decide`, { decision: 'APPROVED' });
+    if (gateDecided.executionStatus !== 'running') throw new Error('gate approve expected running, got ' + gateDecided.executionStatus);
+    await post(`/gate/${gatePaused.executionId}/complete`, { success: true, output: { sent: true } });
+    const gatePausedDone = await get(`/executions/${gatePaused.executionId}`);
+    if (gatePausedDone.execution.status !== 'done') throw new Error('gated L3 execution expected done after approve+complete');
+    console.log('STEP7 gate-L3 pause -> approve -> complete: done');
+
+    // 8. gate: unlisted tool -> blocked (deny by default)
+    const gateBlocked = await post('/gate', { toolName: 'unlisted.tool', toolInput: {} });
+    if (gateBlocked.decision !== 'blocked' || !gateBlocked.reason.includes('TOOL_NOT_ALLOWED')) {
+      throw new Error('gate expected blocked TOOL_NOT_ALLOWED, got ' + JSON.stringify(gateBlocked));
+    }
+    console.log('STEP8 gate-deny-by-default: blocked');
 
     console.log('LOOP-RESULT: PASS');
   } finally {

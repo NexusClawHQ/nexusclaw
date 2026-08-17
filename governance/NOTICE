@@ -84,8 +84,13 @@ repository, history bundled at backups/agent-governance-pre-consolidation.bundle
 - `packages/sidecar/src/**` — HTTP surface and mini console over the
   extracted packages (new code, mirroring the NexusClaw community console
   pattern); the deterministic scenario model and demo tools follow the
-  governance flow verified in nexusclaw-core @ 9c10c229. No auth (local
-  demo); the enterprise surface lives in the product.
+  governance flow verified in nexusclaw-core @ 9c10c229. The per-call
+  governance gate (gate.ts + /gate routes) extends the same audit chain to
+  external frameworks. No auth (local demo); the enterprise surface lives in
+  the product.
+- `adapters/python/**` — new code (PR-14): stdlib-only client with
+  wrap_tool / run_approved over the sidecar gate API. n8n and Dify adapters
+  are documented follow-ups (adapters/README.md).
 
 Copyright (c) 2026 Shanghai Luyun Internet Technology Co., Ltd.
 Licensed under the Apache License, Version 2.0.

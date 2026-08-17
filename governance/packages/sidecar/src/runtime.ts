@@ -21,6 +21,7 @@ import {
 import { OutboxService, OutboxEvent, InMemoryTransport } from '@agent-governance/outbox';
 import { ToolAccessService } from '@agent-governance/permission';
 import { ExecutorEngine, ToolRegistry } from '@agent-governance/executor';
+import { GateService } from './gate.js';
 import { DEMO_TOOLS } from './demo-tools.js';
 import { ScenarioModel, TOOL_LOOKUP, TOOL_SEND } from './scenario-model.js';
 
@@ -29,6 +30,7 @@ export const DEMO_AGENT_ID = '20000000-0000-4000-8000-000000000001';
 
 export interface SidecarRuntime {
   engine: ExecutorEngine;
+  gate: GateService;
   approvals: ReturnType<typeof buildApprovalAccess>;
   dataSource: DataSource;
   outboxTransport: InMemoryTransport;
@@ -65,6 +67,12 @@ export async function buildSidecarRuntime(options: {
   database?: string;
   workspaceId?: string;
   agentId?: string;
+  /**
+   * Server-side grant list for the per-call governance gate
+   * (POST /gate). Deny by default; also configurable via
+   * SIDECAR_GATE_ALLOWED_TOOLS (comma-separated).
+   */
+  gateAllowedTools?: string[];
 }): Promise<SidecarRuntime> {
   const workspaceId = options.workspaceId ?? DEMO_WORKSPACE_ID;
   const agentId = options.agentId ?? DEMO_AGENT_ID;
@@ -129,8 +137,28 @@ export async function buildSidecarRuntime(options: {
     toolAccess: new ToolAccessService(),
   });
 
+  const gateAllowedTools =
+    options.gateAllowedTools ??
+    (process.env.SIDECAR_GATE_ALLOWED_TOOLS ?? '')
+      .split(',')
+      .map((tool) => tool.trim())
+      .filter(Boolean);
+
+  const gate = new GateService({
+    executions: dataSource.getRepository(AgentExecution),
+    lifecycle: new ToolCallLifecycleService(dataSource.getRepository(ToolCallRecord)),
+    approval,
+    guardrail: new GuardrailEngineService(new InMemoryRuleProvider(guardrailRules)),
+    outbox,
+    toolAccess: new ToolAccessService(),
+    workspaceId,
+    agentId,
+    allowedTools: gateAllowedTools,
+  });
+
   return {
     engine,
+    gate,
     approvals: buildApprovalAccess(dataSource),
     dataSource,
     outboxTransport,

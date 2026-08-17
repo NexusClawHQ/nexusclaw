@@ -22,7 +22,7 @@
       "licenseConcluded": "Apache-2.0",
       "originClass": "public-governance-or-build-overlay",
       "path": "governance/NOTICE",
-      "sha256": "6d33890bc6536354b18fe90595e8ecbb6e6c5b53a477a5e7bebc1587d9dc4f25"
+      "sha256": "4cf6e3fc906ef16aed15caeaed1faeb212eb2c9c498260129813284e9831e4aa"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -30,7 +30,71 @@
       "licenseConcluded": "Apache-2.0",
       "originClass": "public-governance-or-build-overlay",
       "path": "governance/README.md",
-      "sha256": "7b53f2fed159e5daec6d54828abc6e1f1aa785a7137c1117506e80bbbea78fde"
+      "sha256": "6b60449a9e2ffd072a31cefc14ef239fa02fe52d29ef695e902067b27ff7be33"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/README.md",
+      "sha256": "b0d4414474bf73a083df57adcf8e6d104751a8ce7dd4a992324b6b7edc283aa4"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/python/README.md",
+      "sha256": "771ae0bd21a8f3866e75acb7118d344eef6f0fc400971ac5ea828638389ac260"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/python/pyproject.toml",
+      "sha256": "230e3efd6cf3222639a48d5658c15290a0a1567013ae269e1a4e1196d7c0461c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/python/scripts/integration_test.py",
+      "sha256": "4842ee3daa9505f1aaa732952e08e8d534460952b4ee2663fd0e46a1028ded2b"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/python/src/agent_governance/__init__.py",
+      "sha256": "e98e3d7c301d8c647a309dd3e454bcd5aac52dfd4804dd193a3b86f6e8cbf3b1"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/python/src/agent_governance/client.py",
+      "sha256": "1db8294b782ea05cecaa42939a7487eb63a30aa045f5f9ae6af24277bafe7c11"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/python/src/agent_governance/exceptions.py",
+      "sha256": "3d4ea6cbb0fa46e08c1d2a6587c51e8cd58a6adeeb79a7c9750f77edee2ea4b7"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/python/test/test_wrap.py",
+      "sha256": "a31d2bba694abbd66f3be83175ab54a5f3d2f94b29b1106baf125becde3676ff"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -701,8 +765,16 @@
       "copyrightProvenanceStatus": "pending-legal-review",
       "licenseConcluded": "Apache-2.0",
       "originClass": "public-governance-or-build-overlay",
+      "path": "governance/packages/sidecar/scripts/dev-server.ts",
+      "sha256": "ef2afc2138f26dd69ed23f7e0a2d0ecc9470abd4c647d5f6f7ce3bc5768816fc"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
       "path": "governance/packages/sidecar/scripts/verify.ts",
-      "sha256": "e5d3f9ddd2231bd02fc38a66bbc60a731019cbef1bd50713b23416f3c545fa96"
+      "sha256": "ea5951b51d77aa0873d2c3db5af6659966d595de092aac72d4af019b11ac5c7f"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -711,6 +783,14 @@
       "originClass": "public-governance-or-build-overlay",
       "path": "governance/packages/sidecar/src/demo-tools.ts",
       "sha256": "42dfcc11b84a513ef5e3cd33f39b62186e927edc4b239a6cade4364375bd6244"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/packages/sidecar/src/gate.ts",
+      "sha256": "8d6b72cfde17a5636d0e026a6b33fcb275502f3806b0513faefd37e19ae95d10"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -726,7 +806,7 @@
       "licenseConcluded": "Apache-2.0",
       "originClass": "public-governance-or-build-overlay",
       "path": "governance/packages/sidecar/src/runtime.ts",
-      "sha256": "942c426c2387ef8a20025c283596b39e95304d5c143b0cf7e5156e4bcbd4217a"
+      "sha256": "0d474bfa0721a1d98feecd62077a7a82e381c4fa11d900db4d8eebad07968fe7"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -742,7 +822,7 @@
       "licenseConcluded": "Apache-2.0",
       "originClass": "public-governance-or-build-overlay",
       "path": "governance/packages/sidecar/src/server.ts",
-      "sha256": "369788c0cc79f42714d4972f7b57c3be892cc1dfc95637a518ca277ae2cf1e48"
+      "sha256": "51f6519806b6d621792227cbaaf390a41f4b88a1d5ab0f9ef94dad44327bb9b2"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -1980,8 +2060,8 @@
   "reportType": "file-license-and-provenance",
   "schemaVersion": 1,
   "summary": {
-    "copyrightReviewPending": 247,
-    "files": 247,
+    "copyrightReviewPending": 257,
+    "files": 257,
     "unresolved": 0
   },
   "unresolved": []
