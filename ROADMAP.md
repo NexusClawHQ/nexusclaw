@@ -29,11 +29,15 @@ and increasingly as a **library any agent framework can adopt**.
 
 On top of the v0.5.0 adapter base:
 
-- **PyPI publication** of the `agent-governance` Python client, so `pip
-  install agent-governance` works without a local build.
-- **LangGraph / CrewAI recipes** — copy-paste interrupt patterns on top of
-  the Python client (`GovernancePendingApproval` → framework interrupt →
-  `gov.decide` → `run_approved`).
+- **PyPI publication** of the `agentgovernance` Python client (the plain
+  `agent-governance` name is taken on PyPI); until then it installs
+  directly from this repository:
+  `pip install "git+https://github.com/NexusClawHQ/nexusclaw.git#subdirectory=governance/adapters/python"`.
+- **LangGraph / CrewAI recipes** — shipped in
+  `governance/adapters/python/examples/`: the LangGraph recipe (gate →
+  `interrupt()` → `gov.decide` → `run_approved` → audit assert) is verified
+  end-to-end against a live sidecar; the CrewAI pattern composes the same
+  client calls with CrewAI tool conventions.
 - **Adoption ergonomics** — making "three lines to governed tools" true for
   more runtimes and languages.
 - **Deeper n8n / Dify coverage** — richer node parameters and schema surface
