@@ -6,7 +6,8 @@
   "main": "dist/community/community-main.js",
   "scripts": {
     "build": "tsc -p tsconfig.json --incremental false",
-    "start": "node dist/community/community-main.js"
+    "start": "node dist/community/community-main.js",
+    "test": "vitest run"
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",

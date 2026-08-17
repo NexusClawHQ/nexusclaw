@@ -50,6 +50,12 @@ jobs:
           npm ci
           npm run build
 
+      - name: Root workspace — backend unit tests
+        run: npm test -w @nexusclaw/backend
+
+      - name: Root workspace — locale parity check (en-US ↔ zh-CN)
+        run: npm run check:i18n
+
       - name: Root workspace — audit gate (fail on high/critical)
         run: npm audit --audit-level=high
 
