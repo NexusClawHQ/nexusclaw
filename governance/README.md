@@ -17,15 +17,27 @@ kernel that runs production digital employees in NexusClaw:
   execution approval, constitution, autonomy gate, model invocation, budget,
   admission, usage, knowledge context, behavior feedback, and the versioned
   wire contracts (execution context, approval subjects, audit records).
-- **Governor** (`packages/governor`, planned) — rate and context limits.
-- **Outbox** (`packages/outbox`, planned) — transactional audit event delivery.
-- **Guardrail** (`packages/guardrail`, planned) — L0–L4 risk rules.
-- **Audit chain** (`packages/audit-chain`, planned) — executions → steps →
-  tool calls → outbox events.
-- **Approval** (`packages/approval`, planned) — human-in-the-loop pause/resume.
-- **Executor** (`packages/executor`, planned) — the governed ReAct loop.
-- **Adapters** (`adapters/`, planned) — LangGraph / CrewAI / Dify / n8n
-  integration in three lines of code.
+- **Governor** (`packages/governor`) — rate and context limits.
+- **Outbox** (`packages/outbox`) — transactional audit event delivery.
+- **Guardrail** (`packages/guardrail`) — L0–L4 risk rules.
+- **Audit chain** (`packages/audit-chain`) — executions → steps → tool calls
+  → outbox events.
+- **Permission** (`packages/permission`) — deny-by-default tool access, RAG
+  authorization, data-scope filters, field masking.
+- **Approval** (`packages/approval`) — human-in-the-loop pause/resume.
+- **Executor** (`packages/executor`) — the governed ReAct loop assembling all
+  packages.
+- **Sidecar** (`packages/sidecar`) — HTTP surface over the executor: the
+  governed scenario endpoints, the per-call gate API
+  (`POST /gate` + `/gate/:id/complete`) for external frameworks, and a mini
+  console.
+- **Adapters** (`adapters/`) — `python` (zero-dependency client: `wrap_tool`,
+  `run_approved`), `n8n` (Gate / Approve / Pending nodes) and `dify`
+  (importable OpenAPI schema) are extracted; LangGraph / CrewAI recipes are
+  next on the gate API.
+
+Try the closed loop in about two minutes —
+[examples/governance-closed-loop.md](../examples/governance-closed-loop.md).
 
 ## Status
 

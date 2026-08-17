@@ -6,16 +6,45 @@ repository: each snapshot commit carries the source commit and provenance seal,
 and every "verified in this tree" claim below was executed against the
 published tree, not a private build.
 
-Cadence so far: first snapshot **2026-08-15**, then **three snapshots in a
+Cadence so far: first snapshot **2026-08-15**, then **four snapshots in a
 single day** on **2026-08-17**. Watch this file (or the tag feed) for the next
 drop — the snapshot pipeline is routine, not an event.
 
 | Tag | Date | One-liner |
 |---|---|---|
+| [v0.5.0-community] | 2026-08-17 | Framework adapters: n8n nodes, Dify schema, PyPI-ready Python package |
 | [v0.4.0-community] | 2026-08-17 | Governance gate API + zero-dependency Python client |
 | [v0.3.0-community] | 2026-08-17 | The governance core lands as an Apache-2.0 library |
 | [v0.2.0-community] | 2026-08-17 | Browser closed loop: the `/console` governance mini-console |
 | [v0.1.0-community] | 2026-08-15 | First public snapshot: the governed runtime slice |
+
+## [v0.5.0-community] — 2026-08-17
+
+**The gate API grows framework adapters — govern n8n workflows and Dify agents
+out of the box.**
+
+### Added
+
+- **n8n nodes** (`governance/adapters/n8n`, package
+  `n8n-nodes-nexusclaw-governance`): Governance Gate / Approve / Pending
+  Approvals nodes over the gate API, plus sidecar credentials with a health
+  test. Typecheck + build verified in this tree.
+- **Dify integration** (`governance/adapters/dify`): an importable OpenAPI
+  custom-tool schema (gate / complete / pending / decide / audit) with an
+  import guide — no custom plugin code needed on the Dify side.
+- **PyPI-ready Python package**: `governance/adapters/python` builds an
+  sdist + wheel, install-verified in a clean venv.
+
+### Verified in this tree
+
+`pnpm verify` in `governance/` and the Python test suites (offline + live
+integration) run green in the published tree.
+
+### Provenance
+
+Source `5b68ee45` · seal `nexusclaw-community-c212d59100a89a294687` · tree
+sha256 `c212d591` · tarball sha256 `c3ae9090` · export manifest 269 entries ·
+five-role owner approvals in core rc-5b68ee45.
 
 ## [v0.4.0-community] — 2026-08-17
 
@@ -126,6 +155,7 @@ sha256 `b493009c3eb5af63463b9c166dd17e60c99489771fc9b593cc543358315cc5d5`.
 Snapshot model and contribution policy: [CONTRIBUTING.md](CONTRIBUTING.md).
 License: Apache-2.0 — [LICENSE](LICENSE), [NOTICE](NOTICE).
 
+[v0.5.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.5.0-community
 [v0.4.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.4.0-community
 [v0.3.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.3.0-community
 [v0.2.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.2.0-community

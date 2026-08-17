@@ -11,10 +11,10 @@ the self-hostable, auditable **Community edition** (Apache-2.0).
 中文介绍见[下方中文页](#nexusclaw-是什么)。
 
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-007ec6)](LICENSE)
-[![Release: v0.1.0-community](https://img.shields.io/badge/release-v0.1.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.1.0-community)
+[![Release: v0.5.0-community](https://img.shields.io/badge/release-v0.5.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.5.0-community)
 [![Website: nexusclaw.cn](https://img.shields.io/badge/website-nexusclaw.cn-2da44e)](https://nexusclaw.cn)
 
-[Website](https://nexusclaw.cn) · [Why it matters](#why-it-matters) · [Quick start](#quick-start) · [Capability boundary](#capability-boundary-community-v01) · [中文介绍](#nexusclaw-是什么) · [Community](#community--support)
+[Website](https://nexusclaw.cn) · [Why it matters](#why-it-matters) · [Quick start](#quick-start) · [Examples](examples/governance-closed-loop.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md) · [Capability boundary](#capability-boundary-community-v05) · [中文介绍](#nexusclaw-是什么) · [Community](#community--support)
 
 </div>
 
@@ -40,8 +40,10 @@ audit & attribution records**.
 > connectivity, AI-employee runtime, growth loop, governance & trust, data &
 > models, and deployment shapes (see the
 > [capabilities overview](https://nexusclaw.cn/zh/capabilities)).
-> Community v0.1 ships the **governance kernel** of that picture; see the
-> [capability boundary](#capability-boundary-community-v01) below.
+> Community v0.5 ships the **governance kernel** of that picture — as a
+> runnable slice *and* as an Apache-2.0 library with a gate API and framework
+> adapters (Python client, n8n nodes, Dify schema); see the
+> [capability boundary](#capability-boundary-community-v05) below.
 
 ## Why it matters
 
@@ -54,14 +56,17 @@ a self-hosted instance:
 | 🔍 | **Auditable open-source release**: every snapshot is exported deterministically and passes multi-layer leakage scans; SBOM, third-party licenses and the corresponding-source record ship in-tree; running instances expose a `GET /source` compliance endpoint | Inspect `sbom.cdx.json` and `THIRD_PARTY_NOTICES.md` in the repo; call `GET /source` after starting |
 | ⚡ | **Fast to try**: single-host Docker Compose reached full-stack readiness in **35 seconds** (application listening in under 1 second; measured 2026-08-15 on a single-machine Docker environment) | Follow [Quick start](#quick-start) and time it yourself |
 
-## Capability boundary (Community v0.1)
+## Capability boundary (Community v0.5)
 
 | ✅ Included in this snapshot | ⏳ Not included (roadmap, not promises) |
 |---|---|
 | Workspace & member authentication | Visual builder |
 | Governed agent execution (deny-by-default autonomy) | Packaging & template marketplace |
 | Execution audit chain | Enterprise modules |
-| Source transparency (`GET /source` corresponding-source disclosure) | Billing & commercial capabilities |
+| `/console` browser closed loop (run → approve → audit views) | Billing & commercial capabilities |
+| Governance core as Apache-2.0 library (`governance/`, 9 packages, 58 tests) | |
+| Gate API + framework adapters: Python client, n8n nodes, Dify OpenAPI schema | |
+| Source transparency (`GET /source` corresponding-source disclosure) | |
 
 The full platform's six capability domains — **digital employees / growth
 loop / governance & audit / deployment shapes / CLI & developers /
@@ -110,7 +115,7 @@ fails, please open a GitHub issue instead).
 - 🐛 **Bug reports**: [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw/issues) welcome
 - 🔒 **Security**: do not discuss vulnerabilities publicly — follow the private disclosure channels in [SECURITY.md](SECURITY.md)
 - 📄 **Commercial licensing**: commercial-edition inquiries → [docs/licensing-faq.md](docs/licensing-faq.md)
-- 🚧 **Code contributions**: not accepted at v0.1 (`code-contributions-closed`); issues and non-code feedback are welcome — policy in [CONTRIBUTING.md](CONTRIBUTING.md)
+- 🚧 **Code contributions**: not accepted in the current stage (`code-contributions-closed`); issues and non-code feedback are welcome — policy in [CONTRIBUTING.md](CONTRIBUTING.md)
 
 </td>
 </tr>
@@ -120,7 +125,7 @@ fails, please open a GitHub issue instead).
 
 # NexusClaw 中文介绍
 
-[官网](https://nexusclaw.cn) · [能力总览](https://nexusclaw.cn/zh/capabilities) · [快速开始](#快速开始) · [能力边界](#能力边界community-v01) · [社区与支持](#社区与支持)
+[官网](https://nexusclaw.cn) · [能力总览](https://nexusclaw.cn/zh/capabilities) · [快速开始](#快速开始) · [闭环演示](examples/governance-closed-loop.md) · [路线图](ROADMAP.md) · [更新日志](CHANGELOG.md) · [能力边界](#能力边界community-v05) · [社区与支持](#社区与支持)
 
 ## NexusClaw 是什么
 
@@ -133,7 +138,7 @@ NexusClaw 是 AI 原生 CRM 与数字员工治理平台：**数字员工在受�
 <img src="https://nexusclaw.oss-cn-hangzhou.aliyuncs.com/assets/home/platform-architecture-blueprint-v3.png" alt="NexusClaw 平台架构蓝图：企业连接、AI 员工运行时、成长回路、治理与信任、数据与模型、部署形态" width="880">
 
 > 上图为完整平台架构蓝图——六层：企业连接 / AI 员工运行时 / 成长回路 / 治理与信任 / 数据与模型 / 部署形态（详见[官网能力总览](https://nexusclaw.cn/zh/capabilities)）。
-> Community v0.1 开源快照交付其中的**治理内核**，能力边界见[下表](#能力边界community-v01)。
+> Community v0.5 开源快照交付其中的**治理内核**——既是可运行切片，也是带 gate API 与框架适配器（Python 客户端、n8n 节点、Dify schema）的 Apache-2.0 库，能力边界见[下表](#能力边界community-v05)。
 
 ## 为什么值得关注
 
@@ -145,14 +150,17 @@ NexusClaw 是 AI 原生 CRM 与数字员工治理平台：**数字员工在受�
 | 🔍 | **可审计的开源发布**：每个快照经确定性导出与多层泄漏扫描；SBOM、第三方许可与对应源头记录随树发布；运行实例提供 `GET /source` 合规披露端点 | 检查仓库内 `sbom.cdx.json`、`THIRD_PARTY_NOTICES.md`；启动后访问 `GET /source` |
 | ⚡ | **快速上手**：单机 Docker Compose 实测全栈就绪 **35 秒**（应用监听 <1 秒；实测于 2026-08-15，单机 Docker 环境） | 按下方[快速开始](#快速开始)自测 |
 
-## 能力边界（Community v0.1）
+## 能力边界（Community v0.5）
 
 | ✅ 本快照包含 | ⏳ 不包含（roadmap，非承诺） |
 |---|---|
 | 工作区与成员认证 | 可视化构建器 |
 | 受治理的 agent 执行（deny-by-default 自治） | 打包与模板市场 |
 | 执行审计链 | 企业模块 |
-| 源头透明（`GET /source` 对应源头披露） | 计费与商业化能力 |
+| `/console` 浏览器闭环（运行 → 审批 → 审计视图） | 计费与商业化能力 |
+| 治理内核 Apache-2.0 库（`governance/`，9 个包，58 个测试） | |
+| gate API + 框架适配器：Python 客户端、n8n 节点、Dify OpenAPI schema | |
+| 源头透明（`GET /source` 对应源头披露） | |
 
 完整平台的六大能力域——**数字员工 / 成长回路 / 治理与审计 / 部署形态 / CLI 与开发者 / 集成与移动**——
 见[官网能力总览](https://nexusclaw.cn/zh/capabilities)；商业许可（商业版）见
@@ -188,7 +196,7 @@ docker compose up --build
 - 🐛 **问题反馈**：欢迎提交 [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw/issues)
 - 🔒 **安全漏洞**：请勿公开讨论——按 [SECURITY.md](SECURITY.md) 走私有披露渠道
 - 📄 **商业许可**：商业版咨询见 [docs/licensing-faq.md](docs/licensing-faq.md)
-- 🚧 **代码贡献**：v0.1 阶段暂不受理（`code-contributions-closed`），issue 与非代码反馈欢迎，
+- 🚧 **代码贡献**：现阶段暂不受理（`code-contributions-closed`），issue 与非代码反馈欢迎，
   政策详见 [CONTRIBUTING.md](CONTRIBUTING.md)
 
 </td>

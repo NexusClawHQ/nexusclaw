@@ -15,7 +15,7 @@ carries the part that must be trustworthy for that vision to work at all:
 human approvals, and an immutable audit chain — first as a runnable slice,
 and increasingly as a **library any agent framework can adopt**.
 
-## Shipped (Community v0.4.0)
+## Shipped (Community v0.5.0)
 
 | Capability | Since |
 |---|---|
@@ -23,19 +23,21 @@ and increasingly as a **library any agent framework can adopt**.
 | `/console` browser closed loop (L1 proceeds, L3 pauses for approval, resume, audit views) | v0.2.0 |
 | The governance core as Apache-2.0 npm workspace packages (9 packages, 58 tests, `pnpm verify`) | v0.3.0 |
 | Governance gate API (`POST /gate`) + zero-dependency Python client (`wrap_tool`, `run_approved`) | v0.4.0 |
+| n8n nodes (Gate / Approve / Pending), Dify OpenAPI schema, PyPI-ready Python package | v0.5.0 |
 
 ## Building next
 
-Documented follow-ups on top of the v0.4.0 gate API:
+On top of the v0.5.0 adapter base:
 
-- **n8n governance node** — gate n8n workflow tool calls through the sidecar;
-  denials and approvals land on the audit chain like any other execution.
-- **Dify plugin** — same pattern for Dify agents.
-- **More adapter recipes** — copy-paste interrupt patterns for LangGraph and
-  CrewAI on top of the Python client (`GovernancePendingApproval` →
-  framework interrupt → `gov.decide` → `run_approved`).
+- **PyPI publication** of the `agent-governance` Python client, so `pip
+  install agent-governance` works without a local build.
+- **LangGraph / CrewAI recipes** — copy-paste interrupt patterns on top of
+  the Python client (`GovernancePendingApproval` → framework interrupt →
+  `gov.decide` → `run_approved`).
 - **Adoption ergonomics** — making "three lines to governed tools" true for
   more runtimes and languages.
+- **Deeper n8n / Dify coverage** — richer node parameters and schema surface
+  as adoption feedback arrives.
 
 ## Exploring (later, in this repo's scope)
 
