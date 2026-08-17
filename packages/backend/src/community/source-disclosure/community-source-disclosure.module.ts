@@ -75,7 +75,7 @@ export class CommunitySourceDisclosureController {
   } {
     return {
       license: 'Apache-2.0',
-      licenseUrl: 'https://www.gnu.org/licenses/agpl-3.0.html',
+      licenseUrl: 'https://www.apache.org/licenses/LICENSE-2.0',
       correspondingSourceUrl: assertCommunitySourceUrl(
         this.config.get<string>('COMMUNITY_SOURCE_URL'),
         this.config.get<string>('NODE_ENV', 'production'),
