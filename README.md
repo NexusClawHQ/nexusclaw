@@ -16,7 +16,7 @@ the self-hostable, auditable **Community edition** (Apache-2.0).
 [![Release: v0.5.0-community](https://img.shields.io/badge/release-v0.5.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.5.0-community)
 [![Website: nexusclaw.cn](https://img.shields.io/badge/website-nexusclaw.cn-2da44e)](https://nexusclaw.cn)
 
-[Website](https://nexusclaw.cn) · [Why it matters](#why-it-matters) · [Quick start](#quick-start) · [Examples](examples/governance-closed-loop.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md) · [Capability boundary](#capability-boundary-community-v05) · [中文介绍](#nexusclaw-是什么) · [Community](#community--support)
+[Website](https://nexusclaw.cn) · [Why it matters](#why-it-matters) · [Quick start](#quick-start) · [Governance Dashboard](#governance-dashboard) · [Examples](examples/governance-closed-loop.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md) · [Capability boundary](#capability-boundary-community-v05) · [中文介绍](#nexusclaw-是什么) · [Community](#community--support)
 
 </div>
 

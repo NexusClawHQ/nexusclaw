@@ -124,6 +124,16 @@ pre,
   margin-bottom: 20px;
 }
 
+.feed-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  margin-bottom: 4px;
+  color: var(--bad);
+  font-size: 13px;
+}
+
 .tab {
   background: none;
   border: none;

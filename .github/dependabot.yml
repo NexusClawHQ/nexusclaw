@@ -8,6 +8,18 @@ updates:
       prefix: 'Community deps'
     labels:
       - dependencies
+    ignore:
+      # Type definitions stay on the Node 22 line this repo pins
+      # (engines >=22.18.0 <23); majors are deliberate owner decisions.
+      - dependency-name: '@types/node'
+        update-types:
+          - version-update:semver-major
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+      - dependency-name: typeorm
+        update-types:
+          - version-update:semver-major
 
   - package-ecosystem: npm
     directory: /governance
@@ -17,6 +29,16 @@ updates:
       prefix: 'Community deps'
     labels:
       - dependencies
+    ignore:
+      - dependency-name: '@types/node'
+        update-types:
+          - version-update:semver-major
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+      - dependency-name: typeorm
+        update-types:
+          - version-update:semver-major
 
   - package-ecosystem: npm
     directory: /governance/adapters/n8n
@@ -35,6 +57,12 @@ updates:
       prefix: 'Community deps'
     labels:
       - dependencies
+    ignore:
+      # The runtime base image stays on the Node 22 LTS line (engines
+      # >=22.18.0 <23); moving majors is a deliberate owner decision.
+      - dependency-name: node
+        update-types:
+          - version-update:semver-major
 
   - package-ecosystem: github-actions
     directory: /

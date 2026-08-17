@@ -189,6 +189,8 @@ export function App() {
   if (!token) return <LoginView t={t} onSignedIn={handleSignedIn} />;
 
   const pendingCount = feed.approvals.length;
+  const feedBroken =
+    feed.error !== null && !feed.loading && !feed.error.includes('unauthorized');
   const tabs: Array<{ id: Tab; label: string }> = [
     { id: 'run', label: t('tab.run') },
     { id: 'executions', label: t('tab.executions') },
@@ -249,6 +251,14 @@ export function App() {
         </div>
       </header>
       <nav className="tabs">
+        {feedBroken && (
+          <div className="feed-error" role="alert">
+            <span>{t('common.error')}</span>
+            <button className="ghost" onClick={refresh}>
+              {t('common.retry')}
+            </button>
+          </div>
+        )}
         {tabs.map((entry) => (
           <button
             key={entry.id}
