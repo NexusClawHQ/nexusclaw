@@ -12,11 +12,49 @@ drop — the snapshot pipeline is routine, not an event.
 
 | Tag | Date | One-liner |
 |---|---|---|
+| [Unreleased] | 2026-08-17 | Direct community-repo commits (not a sealed snapshot): license fix, audit zero, CI, Governance Dashboard, publish prep |
 | [v0.5.0-community] | 2026-08-17 | Framework adapters: n8n nodes, Dify schema, PyPI-ready Python package |
 | [v0.4.0-community] | 2026-08-17 | Governance gate API + zero-dependency Python client |
 | [v0.3.0-community] | 2026-08-17 | The governance core lands as an Apache-2.0 library |
 | [v0.2.0-community] | 2026-08-17 | Browser closed loop: the `/console` governance mini-console |
 | [v0.1.0-community] | 2026-08-15 | First public snapshot: the governed runtime slice |
+
+## [Unreleased] — direct community-repo commits, 2026-08-17
+
+Unlike the sealed snapshots below, these changes were committed directly in
+the public repository (branch `community/fixes-dashboard`); every claim was
+verified against this tree.
+
+### Fixed
+
+- `GET /source` disclosed `licenseUrl: …gnu.org/licenses/agpl-3.0.html` while
+  the repository and every manifest are Apache-2.0 — the URL now points at
+  the Apache-2.0 license text. Remaining AGPL mentions in the tree are
+  historical notes (relicensing record, licensing FAQ) and stay.
+
+### Security
+
+- `npm audit` went from 6 findings (2 high / 4 moderate) to **0**: `ws`
+  8.21.3 via `@nestjs/graphql` 13.4.5, `@apollo/server` 5.5.1 (already the
+  declared range — the lockfile had drifted to 4.13.0), `uuid` 11.1.1. No
+  downgrades; the new root `.npmrc` documents the `legacy-peer-deps` setup
+  the lockfile had always required (the graphql-playground plugin pinned by
+  `@nestjs/apollo` 13.x peers `@apollo/server ^4` only).
+
+### Added
+
+- **CI** (`.github/workflows/ci.yml`): Node 22 — root `npm ci + build`,
+  `npm audit --audit-level=high` gate, governance `pnpm verify` against a
+  Postgres service container; README badge.
+- **Governance Dashboard** (`packages/dashboard`, React + Vite,
+  Apache-2.0): execution timeline, approval queue, tool-call records and the
+  outbox event stream over the public community GraphQL surface; en/zh UI.
+  `npm run dev:dashboard`. README gains a 30-second closed-loop GIF.
+- **Publish preparation** for the `@agent-governance/*` kernel:
+  `publishConfig.access: public`, repository/homepage/bugs, per-package
+  READMEs, changesets (fixed group, first-release changeset pending) and a
+  `governance/RELEASE.md` runbook; the Python client's distribution name is
+  corrected to `agentgovernance` (`agent-governance` is taken on PyPI).
 
 ## [v0.5.0-community] — 2026-08-17
 
