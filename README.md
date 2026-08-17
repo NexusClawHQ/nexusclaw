@@ -32,9 +32,13 @@ NexusClaw: a self-hostable, auditable runtime slice focused on the
 safety-critical path — **authenticated intent → executor → governed tools →
 audit & attribution records**.
 
-<img src="https://nexusclaw.cn/assets/home/platform-overview.png" alt="NexusClaw platform planes: business context, agent execution chain, governance and trust layer, enterprise connectivity" width="860">
+<img src="https://nexusclaw.oss-cn-hangzhou.aliyuncs.com/assets/home/hero-dashboard-v3.webp" alt="NexusClaw command center: AI digital-employee fleet, execution traces, audit event stream, approval queue and model routing" width="860">
 
-> The image above shows the full platform planes (see the
+<img src="https://nexusclaw.oss-cn-hangzhou.aliyuncs.com/assets/home/platform-architecture-blueprint-v3.png" alt="NexusClaw platform architecture blueprint: enterprise connectivity, agent runtime, growth loop, governance and trust, data and models, deployment shapes" width="880">
+
+> The blueprint above shows the full platform's six layers — enterprise
+> connectivity, AI-employee runtime, growth loop, governance & trust, data &
+> models, and deployment shapes (see the
 > [capabilities overview](https://nexusclaw.cn/zh/capabilities)).
 > Community v0.1 ships the **governance kernel** of that picture; see the
 > [capability boundary](#capability-boundary-community-v01) below.
@@ -118,9 +122,9 @@ NexusClaw 是 AI 原生 CRM 与数字员工治理平台：**数字员工在受�
 本仓库（`nexusclaw-community`）是 NexusClaw 的开源社区版——可自部署、可审计的运行时切片，
 聚焦安全关键路径：**已认证意图 → 执行器 → 受控工具 → 审计与归因记录**。
 
-<img src="https://nexusclaw.cn/assets/home/platform-overview.png" alt="NexusClaw 平台运行平面：业务上下文、Agent 执行链、治理与信任层、企业连接" width="860">
+<img src="https://nexusclaw.oss-cn-hangzhou.aliyuncs.com/assets/home/platform-architecture-blueprint-v3.png" alt="NexusClaw 平台架构蓝图：企业连接、AI 员工运行时、成长回路、治理与信任、数据与模型、部署形态" width="880">
 
-> 上图为完整平台运行平面概览（详见[官网能力总览](https://nexusclaw.cn/zh/capabilities)）。
+> 上图为完整平台架构蓝图——六层：企业连接 / AI 员工运行时 / 成长回路 / 治理与信任 / 数据与模型 / 部署形态（详见[官网能力总览](https://nexusclaw.cn/zh/capabilities)）。
 > Community v0.1 开源快照交付其中的**治理内核**，能力边界见[下表](#能力边界community-v01)。
 
 ## 为什么值得关注
