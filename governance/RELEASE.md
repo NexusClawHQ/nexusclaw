@@ -15,9 +15,15 @@ Per release, from `governance/`:
 
 ```sh
 corepack pnpm install
-corepack pnpm changeset version    # apply pending .changeset/*.md — the first one ships 0.1.0
-corepack pnpm release:publish      # workspace build + changeset publish
+corepack pnpm changeset version        # apply pending .changeset/*.md
+corepack pnpm release:publish:npmjs    # workspace build + publish, registry pinned to registry.npmjs.org
 ```
+
+The `release:publish:npmjs` variant pins the registry explicitly, so
+maintainers whose default npm registry is a mirror (e.g. npmmirror) still
+publish to the real one. The initial 0.1.0 version bump is already applied
+in this tree — once the `agent-governance` organization exists, the first
+release is a single `corepack pnpm release:publish:npmjs`.
 
 Commit the version bump (`packages/*/package.json`, `pnpm-lock.yaml`, the
 consumed changeset files) and let CI go green before publishing.
