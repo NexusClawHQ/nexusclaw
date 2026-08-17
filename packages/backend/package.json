@@ -30,7 +30,7 @@
     "graphql": "^16.14.0",
     "graphql-scalars": "^1.26.0",
     "js-yaml": "^4.1.1",
-    "pg": "^8.21.0",
+    "pg": "^8.23.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "typeorm": "^0.3.27",
