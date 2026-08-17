@@ -54,11 +54,17 @@ verified against this tree.
   `publishConfig.access: public`, repository/homepage/bugs, per-package
   READMEs, changesets (fixed group, first-release changeset pending) and a
   `governance/RELEASE.md` runbook; the Python client's distribution name is
-  corrected to `agentgovernance` (`agent-governance` is taken on PyPI).
+  corrected to `nexusclaw-agent-governance` (`agent-governance` is taken on PyPI).
   **Update 2026-08-18: the nine packages are published to npm at 0.1.0 and
   verified installable from a clean directory.** The org defaulted the
   scoped packages to restricted despite `publishConfig.access` — fixed with
   `npm access set status=public` per package and recorded in RELEASE.md.
+  **The Python client is live on PyPI the same day** as
+  [`nexusclaw-agent-governance` 0.1.0](https://pypi.org/project/nexusclaw-agent-governance/)
+  (clean-venv install + import verified). The planned name
+  `agentgovernance` was rejected by PyPI's project-name similarity guard
+  against the taken `agent-governance`, so the distribution carries the
+  repository brand; the import name stays `agent_governance`.
 - **Regression defenses**: the backend's first unit-test suite locks the
   `/source` disclosure fix and URL validation; `npm run check:i18n` gates
   en/zh locale parity; the dashboard gains unit tests for the GraphQL

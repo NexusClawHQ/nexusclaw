@@ -1,3 +1,11 @@
+Metadata-Version: 2.4
+Name: agentgovernance
+Version: 0.1.0
+Summary: Governance for AI agents: deny-by-default tool gating, L0-L4 guardrails, human approvals and a full audit chain — via the agent-governance sidecar.
+License: Apache-2.0
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+
 # agent-governance (Python client)
 
 Governance for AI agent tools — deny by default, L0–L4 guardrails, human
@@ -9,7 +17,7 @@ sidecar](../../packages/sidecar). Zero dependencies (stdlib only).
 ```sh
 # from this repository (works today, no PyPI needed):
 pip install "git+https://github.com/NexusClawHQ/nexusclaw.git#subdirectory=governance/adapters/python"
-# or from PyPI once published: pip install nexusclaw-agent-governance
+# or from PyPI once published: pip install agentgovernance
 ```
 
 ```python

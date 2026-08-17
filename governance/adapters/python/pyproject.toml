@@ -3,9 +3,12 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-# Distribution name on PyPI: "agent-governance" is already taken there, so the
-# package ships as "agentgovernance". The import name stays agent_governance.
-name = "agentgovernance"
+# Distribution name on PyPI: the plain "agent-governance" is already taken,
+# and "agentgovernance" is rejected by PyPI's project-name similarity guard
+# (too close to the taken name). The distribution therefore ships under the
+# repository's brand as "nexusclaw-agent-governance"; the import name stays
+# agent_governance.
+name = "nexusclaw-agent-governance"
 version = "0.1.0"
 description = "Governance for AI agents: deny-by-default tool gating, L0-L4 guardrails, human approvals and a full audit chain — via the agent-governance sidecar."
 readme = "README.md"

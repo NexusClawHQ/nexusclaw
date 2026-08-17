@@ -34,14 +34,17 @@ build + tests + sidecar e2e + audit gate), the Governance Dashboard
 at 0.1.0** — `npm install @agent-governance/contracts` and friends now work
 directly; the "three lines to governed tools" adoption path is installable.
 
+**Same day: the Python client is live on PyPI as
+[`nexusclaw-agent-governance` 0.1.0](https://pypi.org/project/nexusclaw-agent-governance/)** —
+`pip install nexusclaw-agent-governance` (import name stays `agent_governance`).
+The plain `agent-governance` name is taken, and the compressed
+`agentgovernance` variant is rejected by PyPI's project-name similarity
+guard, hence the branded distribution name.
+
 ## Building next
 
 On top of the v0.5.0 adapter base:
 
-- **PyPI publication** of the `agentgovernance` Python client (the plain
-  `agent-governance` name is taken on PyPI); until then it installs
-  directly from this repository:
-  `pip install "git+https://github.com/NexusClawHQ/nexusclaw.git#subdirectory=governance/adapters/python"`.
 - **LangGraph / CrewAI recipes** — shipped in
   `governance/adapters/python/examples/`: the LangGraph recipe (gate →
   `interrupt()` → `gov.decide` → `run_approved` → audit assert) is verified

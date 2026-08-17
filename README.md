@@ -13,6 +13,7 @@ the self-hostable, auditable **Community edition** (Apache-2.0).
 [![CI](https://github.com/NexusClawHQ/nexusclaw/actions/workflows/ci.yml/badge.svg)](https://github.com/NexusClawHQ/nexusclaw/actions/workflows/ci.yml)
 [![npm: n8n-nodes-nexusclaw-governance](https://img.shields.io/npm/v/n8n-nodes-nexusclaw-governance)](https://www.npmjs.com/package/n8n-nodes-nexusclaw-governance)
 [![npm: @agent-governance/contracts](https://img.shields.io/npm/v/@agent-governance%2Fcontracts)](https://www.npmjs.com/package/@agent-governance/contracts)
+[![PyPI: nexusclaw-agent-governance](https://img.shields.io/pypi/v/nexusclaw-agent-governance)](https://pypi.org/project/nexusclaw-agent-governance/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-007ec6)](LICENSE)
 [![Release: v0.5.0-community](https://img.shields.io/badge/release-v0.5.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.5.0-community)
 [![Website: nexusclaw.cn](https://img.shields.io/badge/website-nexusclaw.cn-2da44e)](https://nexusclaw.cn)

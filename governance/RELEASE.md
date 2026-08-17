@@ -51,9 +51,9 @@ Publishing requires an npm account with 2FA and write access to the
 cleanly with `E404 — Scope not found` on the first package and nothing is
 published.)
 
-## PyPI — the `agentgovernance` Python client
+## PyPI — the `nexusclaw-agent-governance` Python client
 
-The distribution name is **`agentgovernance`** — the plain `agent-governance`
+The distribution name is **`nexusclaw-agent-governance`** — the plain `agent-governance`
 name is already taken on PyPI. The import name stays `agent_governance`; the
 mismatch is intentional and normal for Python distributions.
 
