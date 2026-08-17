@@ -55,6 +55,11 @@ verified against this tree.
   READMEs, changesets (fixed group, first-release changeset pending) and a
   `governance/RELEASE.md` runbook; the Python client's distribution name is
   corrected to `agentgovernance` (`agent-governance` is taken on PyPI).
+- **Regression defenses**: the backend's first unit-test suite locks the
+  `/source` disclosure fix and URL validation; `npm run check:i18n` gates
+  en/zh locale parity; the dashboard gains unit tests for the GraphQL
+  client (401/error paths), i18n interpolation and formatters. All run in
+  CI.
 
 ## [v0.5.0-community] — 2026-08-17
 
