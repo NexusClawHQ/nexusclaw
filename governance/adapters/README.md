@@ -23,16 +23,24 @@ the same audit chain (`agent_executions` → `tool_call_records` →
 See [python/README.md](python/README.md). Offline unit tests (8) + a live
 integration test against the sidecar.
 
-## n8n/ — next
+## n8n/ — shipped
 
-A community node (`nexusclaw-governance-node`) with a single **Governance
-Gate** node: call `POST /gate`, branch `allow` / `paused` / `blocked`; pair
-with the **Approve Decision** node for `POST /approvals/:id/decide`. Any
-agent workflow node placed after the gate is governed; the branch outputs
-carry `executionId` / `approvalId` for expressions.
+`n8n-nodes-nexusclaw-governance` — three nodes over the gate API:
 
-## dify/ — next
+- **Governance Gate** — `POST /gate`; route downstream nodes on
+  `{{ $json.decision }}` (allow / paused / blocked). Outputs carry
+  `executionId` / `approvalId` / `riskLevel` / `reason` for expressions.
+- **Governance Approve** — `POST /approvals/:id/decide` (APPROVED returns
+  the gated execution to running; REJECTED cancels it).
+- **Governance Pending Approvals** — `GET /approvals/pending`, one item per
+  waiting approval with its paused tool call.
 
-A Dify tool plugin wrapping the same endpoints: import the client as a
-custom tool package (`gate`, `decide`, `audit`), so agent apps built on Dify
-route their tool calls through the governance sidecar.
+Credentials carry the sidecar base URL (+ optional bearer token) and test
+against `GET /health`. Build: `npm install && npm run build` in `n8n/`.
+
+## dify/ — shipped (zero-code path)
+
+An OpenAPI custom-tool schema (`openapi.yaml`) importable via
+Dify → Tools → Custom → Import OpenAPI Schema: five tools (`governance_gate`,
+`governance_complete`, `governance_pending`, `governance_decide`,
+`governance_audit_list`). See [dify/README.md](dify/README.md).

@@ -40,7 +40,9 @@ kernel that runs production digital employees in NexusClaw:
 | `approval` | extracted (PR-9) — human-in-the-loop decision core: agent sensitive-operation approvals (pause/resume/terminate events), multi-step serial processes, timeouts, CAS-first-writer decisions, audit trails; pluggable events/audit/approver-check ports; 9/9 tests |
 | `executor` | extracted (PR-11) — the governed ReAct loop assembling all packages: deny-by-default tool gate, L0–L4 guardrails with human approval pause/resume, full audit chain (execution → steps → tool calls → outbox events); deterministic closed-loop scenario runs end-to-end against real Postgres (2/2) |
 | `sidecar` | extracted (PR-13) — HTTP surface over the governed executor (POST /executions, GET /approvals/pending, POST /approvals/:id/decide, GET /executions/:id, GET /audit/list), the per-call governance gate for external frameworks (POST /gate + /gate/:id/complete, deny by default with audit records) + mini console; `pnpm verify` walks both closed loops over HTTP against real Postgres |
-| `adapters/python` | extracted (PR-14) — zero-dependency `agent-governance` client: `wrap_tool`, interrupt-style `run_approved`, blocking `wait=True`, approvals and audit queries; 8 offline unit tests + live integration test against the sidecar |
+| `adapters/python` | extracted (PR-14) — zero-dependency `agent-governance` client: `wrap_tool`, interrupt-style `run_approved`, blocking `wait=True`, approvals and audit queries; 8 offline unit tests + live integration test against the sidecar; sdist/wheel built and install-verified |
+| `adapters/n8n` | extracted (PR-14) — `n8n-nodes-nexusclaw-governance`: Governance Gate / Approve / Pending nodes over the gate API, sidecar credentials with health test |
+| `adapters/dify` | extracted (PR-14) — importable OpenAPI custom-tool schema (gate / complete / pending / decide / audit) |
 
 ## License
 

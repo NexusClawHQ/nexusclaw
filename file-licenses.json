@@ -30,7 +30,7 @@
       "licenseConcluded": "Apache-2.0",
       "originClass": "public-governance-or-build-overlay",
       "path": "governance/README.md",
-      "sha256": "6b60449a9e2ffd072a31cefc14ef239fa02fe52d29ef695e902067b27ff7be33"
+      "sha256": "f64d41b4fe4fdbf52dde4acc7d068750593aa5caa1b464080b5b7a14b8c7ecef"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -38,7 +38,103 @@
       "licenseConcluded": "Apache-2.0",
       "originClass": "public-governance-or-build-overlay",
       "path": "governance/adapters/README.md",
-      "sha256": "b0d4414474bf73a083df57adcf8e6d104751a8ce7dd4a992324b6b7edc283aa4"
+      "sha256": "2910d6fc3763bb6012819e988fec19e2fea8da45a80f2a998a6ec966b011eb45"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/dify/README.md",
+      "sha256": "53219a36c5169ed84ad16f2ccd388abfd30ecc53449fe23552afe91e389a12ee"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/dify/openapi.yaml",
+      "sha256": "87dd1cb709d3169f403ab15823ac7883a44dcca49c276986636d012d56accb3c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/credentials/GovernanceApi.credentials.ts",
+      "sha256": "5b6664a630056c5855d2fd7c3f79484fd30ef454defceb6dda94c1c4748f3558"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/index.ts",
+      "sha256": "c26aab6478367fad658a7630dd8a01fe02aaabc0998e3899d967426d58590650"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/nodes/GovernanceApprove/GovernanceApprove.node.ts",
+      "sha256": "1abee925cf1d6b2ced38f75a8a5887ac145514609b07d89809e91785fec9bdf4"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/nodes/GovernanceApprove/governance-approve.svg",
+      "sha256": "65c32da2396cbcd6207df767af2a1880782b06e5febc1c3c22f12cee39b84366"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/nodes/GovernanceGate/GovernanceGate.node.ts",
+      "sha256": "a9d08e01a87fa0b8ce804c96e7780e232f4f13849d451bdfcdd9c69c413a1e92"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/nodes/GovernanceGate/governance-gate.svg",
+      "sha256": "2b2ecf50ec1bfcd92c6afc0411f5643129ddacf40c3fd528a2c68b8467aa2509"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/nodes/GovernancePending/GovernancePending.node.ts",
+      "sha256": "9f952ea26aec3a72d3d1e1ec803c24047f16c9e2ac162a334b80156106583fd2"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/nodes/GovernancePending/governance-pending.svg",
+      "sha256": "35b2d677700ddee673fdb9afcb8e6d6df9ab1005b1343da0713d5d0cbed4f70c"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/package.json",
+      "sha256": "c96b86f3c9d75bba809a5da8c760193f8464a1975622d6a113876bb4c2a50b04"
+    },
+    {
+      "copyrightClass": "project-owned-or-attributed",
+      "copyrightProvenanceStatus": "pending-legal-review",
+      "licenseConcluded": "Apache-2.0",
+      "originClass": "public-governance-or-build-overlay",
+      "path": "governance/adapters/n8n/tsconfig.json",
+      "sha256": "df3155987f669784248ec159fde0fecfe5847a7fe8ad7a19c244a439b309de18"
     },
     {
       "copyrightClass": "project-owned-or-attributed",
@@ -2060,8 +2156,8 @@
   "reportType": "file-license-and-provenance",
   "schemaVersion": 1,
   "summary": {
-    "copyrightReviewPending": 257,
-    "files": 257,
+    "copyrightReviewPending": 269,
+    "files": 269,
     "unresolved": 0
   },
   "unresolved": []

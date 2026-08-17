@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: agent-governance sidecar
+  description: >
+    Governance for AI agent tools — deny by default, L0-L4 guardrails,
+    human approvals and a full audit chain. Import this schema in Dify as a
+    custom tool (Tools → Custom → Import OpenAPI Schema), point the server
+    at your agent-governance sidecar, and your Dify agents can gate their
+    tool calls, decide pending approvals and read the audit chain.
+  version: 0.1.0
+servers:
+  - url: http://127.0.0.1:7899
+paths:
+  /gate:
+    post:
+      operationId: governance_gate
+      summary: Gate a tool call (allow | paused | blocked)
+      description: >
+        Asks the sidecar whether a tool may run. Grants and risk rules live
+        server-side (deny by default). L2/L3 risk returns "paused" with an
+        approvalId awaiting a human decision; every decision lands on the
+        audit chain.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [toolName]
+              properties:
+                toolName:
+                  type: string
+                  description: The tool the agent wants to invoke
+                toolInput:
+                  type: object
+                  additionalProperties: true
+                  description: Input payload of the gated tool call
+      responses:
+        "200":
+          description: Gate decision
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  decision:
+                    type: string
+                    enum: [allow, paused, blocked]
+                  executionId:
+                    type: string
+                  toolCallId:
+                    type: string
+                  approvalId:
+                    type: string
+                    description: Present when decision is paused
+                  riskLevel:
+                    type: string
+                    description: Present when decision is paused (L2/L3)
+                  reason:
+                    type: string
+                    description: Present when decision is blocked
+  /gate/{executionId}/complete:
+    post:
+      operationId: governance_complete
+      summary: Report the outcome of a gated tool call
+      description: >
+        After an allowed or approved tool executed locally, report its
+        outcome so the audit chain records the result.
+      parameters:
+        - name: executionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  default: true
+                output:
+                  description: Tool output recorded on the audit chain
+  /approvals/pending:
+    get:
+      operationId: governance_pending
+      summary: List approvals awaiting a human decision
+      responses:
+        "200":
+          description: Pending approvals with their paused tool calls
+  /approvals/{approvalId}/decide:
+    post:
+      operationId: governance_decide
+      summary: Approve or reject a pending approval
+      parameters:
+        - name: approvalId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision]
+              properties:
+                decision:
+                  type: string
+                  enum: [APPROVED, REJECTED]
+                comment:
+                  type: string
+      responses:
+        "200":
+          description: Decision result with the gated execution status
+  /audit/list:
+    get:
+      operationId: governance_audit_list
+      summary: List recent executions with their audit chains
+      responses:
+        "200":
+          description: Executions with steps and tool-call records
