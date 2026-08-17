@@ -1,7 +1,7 @@
 {
   "foreignRegistries": [],
   "incompatible": [],
-  "lockDigest": "sha256:4825fc61bc6a0d4b0fa88527a6d0191ec03f27a901fdde5f07bd73b100519f91",
+  "lockDigest": "sha256:58866ddbe6898557406e7137f693139d92e97c7f488e77193af9364f21e8b1e9",
   "packages": [
     {
       "integrityHash": {
@@ -585,14 +585,14 @@
     },
     {
       "integrityHash": null,
-      "license": "AGPL-3.0-only",
+      "license": "Apache-2.0",
       "licenseSource": "workspace-package",
       "name": "@nexusclaw/backend",
       "version": "0.1.0-community"
     },
     {
       "integrityHash": null,
-      "license": "AGPL-3.0-only",
+      "license": "Apache-2.0",
       "licenseSource": "workspace-package",
       "name": "@nexusclaw/shared",
       "version": "0.1.1"
@@ -2900,16 +2900,6 @@
     {
       "integrityHash": {
         "alg": "SHA-512",
-        "content": "9b2453dc38963c7aa1a393eb25a211c9a32fda48187f499456004d39832e087e4a8b5c8489069ffd926e43ada7be9738e302f95836d35fbc86262d4d79ebf0f3"
-      },
-      "license": "MIT",
-      "licenseSource": "package-lock",
-      "name": "negotiator",
-      "version": "0.6.4"
-    },
-    {
-      "integrityHash": {
-        "alg": "SHA-512",
         "content": "f0e7ecfc051087c31a11cae5ab9c4e5f4090f72a53179765efc9a394c35f38ad3c7f3a604c741140f07170f944b48c34c91a70b3e668ff7afee5645bcbbbb71a"
       },
       "license": "MIT",
@@ -2929,7 +2919,7 @@
     },
     {
       "integrityHash": null,
-      "license": "AGPL-3.0-only",
+      "license": "Apache-2.0",
       "licenseSource": "workspace-package",
       "name": "nexusclaw-community",
       "version": "0.1.0-community"
@@ -4188,7 +4178,7 @@
   "policyId": "nexusclaw-community-dependency-licenses/v1",
   "schemaVersion": 1,
   "summary": {
-    "components": 419,
+    "components": 418,
     "foreignRegistries": 0,
     "incompatible": 0,
     "unresolved": 0

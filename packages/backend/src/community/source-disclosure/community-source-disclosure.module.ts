@@ -69,12 +69,12 @@ export class CommunitySourceDisclosureController {
   @Get()
   @Header('Cache-Control', 'public, max-age=300')
   getSourceDisclosure(): {
-    license: 'AGPL-3.0-only';
+    license: 'Apache-2.0';
     licenseUrl: string;
     correspondingSourceUrl: string;
   } {
     return {
-      license: 'AGPL-3.0-only',
+      license: 'Apache-2.0',
       licenseUrl: 'https://www.gnu.org/licenses/agpl-3.0.html',
       correspondingSourceUrl: assertCommunitySourceUrl(
         this.config.get<string>('COMMUNITY_SOURCE_URL'),

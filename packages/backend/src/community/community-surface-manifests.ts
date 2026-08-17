@@ -10,7 +10,7 @@ export const COMMUNITY_RESOLVER_MANIFEST = Object.freeze([
 ]);
 
 /**
- * Public REST surface: the AGPL corresponding-source disclosure endpoint
+ * Public REST surface: the source-transparency disclosure endpoint
  * plus the static demo console shell (its data access is fully guarded by
  * the GraphQL auth layer — the shell itself holds no secrets).
  */

@@ -296,7 +296,6 @@ The NexusClaw Community license does not relicense these components. Each compon
 | `msgpackr-extract` | `3.0.4` | `MIT` | `sha256:d00470775464c789c7ac04cfba3bf1b79ef149790eb72556d1c51d8f50c8e7f3` |
 | `multer` | `2.2.0` | `MIT` | `sha256:cc8f87aafbf72a74bafed2a8f6925d8895e1c716b36bd3df7ee0c46be54e87bb` |
 | `negotiator` | `0.6.3` | `MIT` | `sha256:553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b` |
-| `negotiator` | `0.6.4` | `MIT` | `sha256:553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b` |
 | `negotiator` | `1.0.0` | `MIT` | `sha256:553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b` |
 | `negotiator` | `1.0.0` | `MIT` | `sha256:553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b` |
 | `node-abort-controller` | `3.1.1` | `MIT` | `sha256:3ed030086e7f0b82f7c8d86b7c66342b6c820d76062458192cd4990a99f95dfa` |
@@ -3028,7 +3027,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ### `sha256:553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b`
 
-Applies to: `negotiator@0.6.3`, `negotiator@0.6.4`, `negotiator@1.0.0`
+Applies to: `negotiator@0.6.3`, `negotiator@1.0.0`
 
 ```text
 (The MIT License)

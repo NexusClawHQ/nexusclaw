@@ -1,0 +1,43 @@
+{
+  "name": "@agent-governance/outbox",
+  "version": "0.0.0",
+  "description": "Transactional outbox: enqueue events inside the producing transaction with a coalesced, transport-pluggable wake-up.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "uuid": "^11.0.0",
+    "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/uuid": "^10.0.0",
+    "pg": "^8.13.0",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "engines": {
+    "node": ">=22.18.0 <23"
+  }
+}

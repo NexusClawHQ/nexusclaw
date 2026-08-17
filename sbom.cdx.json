@@ -1570,7 +1570,7 @@
     {
       "licenses": [
         {
-          "expression": "AGPL-3.0-only"
+          "expression": "Apache-2.0"
         }
       ],
       "name": "@nexusclaw/backend",
@@ -1591,7 +1591,7 @@
     {
       "licenses": [
         {
-          "expression": "AGPL-3.0-only"
+          "expression": "Apache-2.0"
         }
       ],
       "name": "@nexusclaw/shared",
@@ -7823,33 +7823,6 @@
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "9b2453dc38963c7aa1a393eb25a211c9a32fda48187f499456004d39832e087e4a8b5c8489069ffd926e43ada7be9738e302f95836d35fbc86262d4d79ebf0f3"
-        }
-      ],
-      "licenses": [
-        {
-          "expression": "MIT"
-        }
-      ],
-      "name": "negotiator",
-      "properties": [
-        {
-          "name": "nexusclaw:license-source",
-          "value": "package-lock"
-        },
-        {
-          "name": "nexusclaw:lock-path",
-          "value": "node_modules/negotiator"
-        }
-      ],
-      "purl": "pkg:npm/negotiator@0.6.4",
-      "type": "library",
-      "version": "0.6.4"
-    },
-    {
-      "hashes": [
-        {
-          "alg": "SHA-512",
           "content": "f0e7ecfc051087c31a11cae5ab9c4e5f4090f72a53179765efc9a394c35f38ad3c7f3a604c741140f07170f944b48c34c91a70b3e668ff7afee5645bcbbbb71a"
         }
       ],
@@ -11280,7 +11253,7 @@
     "component": {
       "licenses": [
         {
-          "expression": "AGPL-3.0-only"
+          "expression": "Apache-2.0"
         }
       ],
       "name": "nexusclaw-community",
@@ -11306,7 +11279,7 @@
     },
     {
       "name": "nexusclaw:lock-digest",
-      "value": "sha256:4825fc61bc6a0d4b0fa88527a6d0191ec03f27a901fdde5f07bd73b100519f91"
+      "value": "sha256:58866ddbe6898557406e7137f693139d92e97c7f488e77193af9364f21e8b1e9"
     }
   ],
   "specVersion": "1.6",

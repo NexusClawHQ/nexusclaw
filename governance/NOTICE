@@ -1,0 +1,91 @@
+# NOTICE
+
+agent-governance is the framework-neutral governance core, consolidated into
+this repository (owner decision 2026-08-17: single repo, single license
+Apache-2.0). Extraction provenance (from the pre-consolidation standalone
+repository, history bundled at backups/agent-governance-pre-consolidation.bundle):
+
+- `packages/contracts/src/agent-interfaces.ts` — derived from
+  `packages/backend/src/modules/agent-runtime/interfaces/index.ts`
+  (nexusclaw-core @ 9c10c229), with `ReleaseExecutionSnapshotV1`,
+  `CandidateIsolationBinding`, `Sha256Digest`, `AIRuntimeCapability` and the
+  `LlmProviderConfig` structural shape inlined to keep the package
+  dependency-free.
+- `packages/contracts/src/runtime-boundary-ports.ts` — derived from
+  `packages/backend/src/modules/agent-runtime/contracts/runtime-boundary-ports.ts`
+  (nexusclaw-core @ 9c10c229), import path adapted for this repository.
+- `packages/governor/src/**` — derived from
+  `packages/backend/src/modules/governor-limit/**`
+  (nexusclaw-core @ 9c10c229); the Nest decorator and unused logger were
+  removed for framework neutrality. The Nest/GraphQL interceptor stays in the
+  product (future `@agent-governance/nest` package).
+- `packages/outbox/src/**` — derived from
+  `packages/backend/src/modules/outbox/**` and
+  `packages/backend/src/common/contracts/outbox-event.ts`
+  (nexusclaw-core @ 9c10c229); Nest decorators/injection and the
+  observability span decorator were removed; the trace context is sourced
+  from an injectable provider (default fails closed), and the
+  pg_notify/BullMQ bridge is behind `OutboxNotifyTransport` (PG NOTIFY
+  default, in-memory for tests). Worker/listener/cleanup (delivery side)
+  stays in the product for a follow-up extraction.
+- `packages/audit-chain/src/**` — derived from
+  `packages/backend/src/modules/agent-runtime/entities/{agent-execution,react-step,tool-call-record}.entity.ts`,
+  `…/tool-framework/tool-call-lifecycle.service.ts`,
+  `…/executor/execution-state-machine.ts`,
+  `packages/backend/src/common/security/{redact-sensitive-payload,apply-json-redaction-pointers}.ts`
+  and the canonical helpers of `shared/agent-executable-assets`
+  (nexusclaw-core @ 9c10c229). GraphQL decorators and the Agent relation
+  were stripped (presentation stays product-side); Nest injection removed
+  (constructor takes the repository); product executable-assets types are
+  structural stand-ins; `CandidateIsolationBinding.isolationSnapshotHash`
+  was added to the inlined contracts type to match the product shape.
+- `packages/permission/src/**` — derived from
+  `packages/backend/src/modules/agent-permission/**` and the
+  `getAllowedTools` resolution of
+  `packages/backend/src/modules/agent-runtime/context-builder/context-builder.service.ts`
+  (nexusclaw-core @ 9c10c229). SEMANTIC FIX: the product's empty allow-list
+  meant "no restriction" because the context builder always injected 6
+  hardcoded CRM defaults; the standalone package inverts this — empty
+  allow-list denies unless `allowEmptyList: true`, and `resolveAllowedTools`
+  defaults to no tools instead of the legacy CRM default set. Nest
+  decorators/HttpException replaced with plain classes/Errors.
+- `packages/guardrail/src/**` — derived from
+  `packages/backend/src/modules/guardrail/services/{rule-matcher,risk-assessor,guardrail-engine}.service.ts`,
+  `…/interfaces/index.ts` and the guardrail rule/log entities
+  (nexusclaw-core @ 9c10c229). Nest decorators/injection removed; rule
+  loading (TypeORM + Redis cache) is behind `RuleProvider` with in-memory and
+  TypeORM implementations. The action actuator (EventEmitter2 + approval
+  port), audit logger/query, rule config and learning owners stay in the
+  product for a follow-up extraction.
+- `packages/approval/src/**` — derived from
+  `packages/backend/src/modules/approval/entities/{approval-instance,approval-step,approval-process,approval-policy-revision}.entity.ts`
+  and the decision-core slice of
+  `packages/backend/src/modules/approval/services/approval-engine.service.ts`
+  (nexusclaw-core @ 9c10c229): createAgentApproval / processDecision /
+  processTimeout / getAuditTrail / step configuration and the CAS
+  first-writer save. Nest injection, EventEmitter2, the guardrail audit
+  logger and queue-membership checks are behind ports (events/audit/
+  approver-check) with no-op and exact-match defaults. AI agent steps
+  (model router), risk-assessment internals, policy human resolver and the
+  v2 subject lifecycle stay product-side for a follow-up extraction.
+  Column types were made explicit and a redundant duplicate index removed
+  (the product uses hand-written migrations, so synchronize never exposed
+  the collision).
+- `packages/executor/src/**` — the governed ReAct loop, written as the
+  convergence of the extracted packages (contracts / audit-chain / approval /
+  guardrail / permission / outbox). It mirrors the governance flow of
+  `nexusclaw-core`'s `agent-runtime/executor/executor-engine.service.ts`
+  (nexusclaw-core @ 9c10c229): deny-by-default tool gate, L0–L4 guardrail
+  evaluation, L2/L3 approval pause with `guardrail_pending` + outbox paused
+  event, one-shot approved-tool resume with history rebuild, and the
+  execution/step/tool-call/outbox audit chain. The product's learning loop,
+  model routing, cognition and prompt machinery are deliberately not part of
+  this package.
+- `packages/sidecar/src/**` — HTTP surface and mini console over the
+  extracted packages (new code, mirroring the NexusClaw community console
+  pattern); the deterministic scenario model and demo tools follow the
+  governance flow verified in nexusclaw-core @ 9c10c229. No auth (local
+  demo); the enterprise surface lives in the product.
+
+Copyright (c) 2026 Shanghai Luyun Internet Technology Co., Ltd.
+Licensed under the Apache License, Version 2.0.

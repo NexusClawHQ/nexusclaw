@@ -1,0 +1,51 @@
+{
+  "name": "@agent-governance/sidecar",
+  "version": "0.0.0",
+  "description": "Governance sidecar: an HTTP surface over the governed executor with a deterministic demo scenario and mini console.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/index.js",
+    "verify": "tsx scripts/verify.ts"
+  },
+  "dependencies": {
+    "@agent-governance/approval": "workspace:*",
+    "@agent-governance/audit-chain": "workspace:*",
+    "@agent-governance/contracts": "workspace:*",
+    "@agent-governance/executor": "workspace:*",
+    "@agent-governance/guardrail": "workspace:*",
+    "@agent-governance/outbox": "workspace:*",
+    "@agent-governance/permission": "workspace:*",
+    "express": "^4.21.0"
+  },
+  "peerDependencies": {
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.0.0",
+    "pg": "^8.13.0",
+    "reflect-metadata": "^0.2.2",
+    "tsx": "^4.19.0",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=22.18.0 <23"
+  }
+}
