@@ -2,7 +2,7 @@
   "name": "@nexusclaw/backend",
   "version": "0.1.0-community",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "main": "dist/community/community-main.js",
   "scripts": {
     "build": "tsc -p tsconfig.json --incremental false",

@@ -7,10 +7,10 @@
 **Digital employees deliver real business output inside governed boundaries — not just software seats.**
 
 An AI-native CRM and digital-employee governance platform. This repository is
-the self-hostable, auditable **Community edition** (AGPL-3.0-only).
+the self-hostable, auditable **Community edition** (Apache-2.0).
 中文介绍见[下方中文页](#nexusclaw-是什么)。
 
-[![License: AGPL-3.0-only](https://img.shields.io/badge/license-AGPL--3.0--only-007ec6)](LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-007ec6)](LICENSE)
 [![Release: v0.1.0-community](https://img.shields.io/badge/release-v0.1.0--community-8250df)](https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.1.0-community)
 [![Website: nexusclaw.cn](https://img.shields.io/badge/website-nexusclaw.cn-2da44e)](https://nexusclaw.cn)
 
@@ -61,13 +61,13 @@ a self-hosted instance:
 | Workspace & member authentication | Visual builder |
 | Governed agent execution (deny-by-default autonomy) | Packaging & template marketplace |
 | Execution audit chain | Enterprise modules |
-| AGPL source compliance (`GET /source` corresponding-source disclosure) | Billing & commercial capabilities |
+| Source transparency (`GET /source` corresponding-source disclosure) | Billing & commercial capabilities |
 
 The full platform's six capability domains — **digital employees / growth
 loop / governance & audit / deployment shapes / CLI & developers /
 integrations & mobile** — are covered on the
 [capabilities overview](https://nexusclaw.cn/zh/capabilities). Commercial
-licensing (dual license) is covered in
+licensing (commercial edition) is covered in
 [docs/licensing-faq.md](docs/licensing-faq.md).
 
 ## Quick start
@@ -109,7 +109,7 @@ fails, please open a GitHub issue instead).
 
 - 🐛 **Bug reports**: [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw/issues) welcome
 - 🔒 **Security**: do not discuss vulnerabilities publicly — follow the private disclosure channels in [SECURITY.md](SECURITY.md)
-- 📄 **Commercial licensing**: dual-license inquiries → [docs/licensing-faq.md](docs/licensing-faq.md)
+- 📄 **Commercial licensing**: commercial-edition inquiries → [docs/licensing-faq.md](docs/licensing-faq.md)
 - 🚧 **Code contributions**: not accepted at v0.1 (`code-contributions-closed`); issues and non-code feedback are welcome — policy in [CONTRIBUTING.md](CONTRIBUTING.md)
 
 </td>
@@ -152,10 +152,10 @@ NexusClaw 是 AI 原生 CRM 与数字员工治理平台：**数字员工在受�
 | 工作区与成员认证 | 可视化构建器 |
 | 受治理的 agent 执行（deny-by-default 自治） | 打包与模板市场 |
 | 执行审计链 | 企业模块 |
-| AGPL 源头合规（`GET /source` 对应源头披露） | 计费与商业化能力 |
+| 源头透明（`GET /source` 对应源头披露） | 计费与商业化能力 |
 
 完整平台的六大能力域——**数字员工 / 成长回路 / 治理与审计 / 部署形态 / CLI 与开发者 / 集成与移动**——
-见[官网能力总览](https://nexusclaw.cn/zh/capabilities)；商业许可（双许可）见
+见[官网能力总览](https://nexusclaw.cn/zh/capabilities)；商业许可（商业版）见
 [docs/licensing-faq.md](docs/licensing-faq.md)。
 
 ## 快速开始
@@ -187,7 +187,7 @@ docker compose up --build
 
 - 🐛 **问题反馈**：欢迎提交 [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw/issues)
 - 🔒 **安全漏洞**：请勿公开讨论——按 [SECURITY.md](SECURITY.md) 走私有披露渠道
-- 📄 **商业许可**：双许可咨询见 [docs/licensing-faq.md](docs/licensing-faq.md)
+- 📄 **商业许可**：商业版咨询见 [docs/licensing-faq.md](docs/licensing-faq.md)
 - 🚧 **代码贡献**：v0.1 阶段暂不受理（`code-contributions-closed`），issue 与非代码反馈欢迎，
   政策详见 [CONTRIBUTING.md](CONTRIBUTING.md)
 
@@ -268,7 +268,7 @@ external LLM credential is required for the deterministic smoke path.
 
 ## License and security
 
-The Community snapshot is licensed under `AGPL-3.0-only`; see [LICENSE](LICENSE),
+The Community snapshot is licensed under `Apache-2.0`; see [LICENSE](LICENSE),
 [NOTICE](NOTICE), and [docs/licensing-faq.md](docs/licensing-faq.md). Dependency
 licenses remain their respective owners' licenses.
 

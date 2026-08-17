@@ -2,7 +2,7 @@
   "name": "nexusclaw-community",
   "version": "0.1.0-community",
   "private": true,
-  "license": "AGPL-3.0-only",
+  "license": "Apache-2.0",
   "packageManager": "npm@11.6.0",
   "workspaces": [
     "packages/shared",

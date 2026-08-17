@@ -1,7 +1,7 @@
 # Corresponding Source Operations
 
 > This document describes the NexusClaw Community runtime mechanism. It is
-> general operational information, not legal advice. The GNU AGPL v3 license
+> general operational information, not legal advice. The Apache-2.0 license
 > controls if this document conflicts with it.
 
 ## Required configuration
@@ -47,4 +47,4 @@ Repeat the checks after every modification, rebuild, proxy change or source URL
 change. A repository landing page that can move independently of the deployed
 artifact should link onward to an immutable tag, commit or archive.
 
-Authoritative license text: [GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.html).
+Authoritative license text: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
