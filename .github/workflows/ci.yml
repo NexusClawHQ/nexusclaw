@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: build · test · audit (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22']
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+      SIDECAR_PGHOST: localhost
+      SIDECAR_PGPORT: '5432'
+      SIDECAR_PGUSER: postgres
+      SIDECAR_PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Root workspace — install & build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Root workspace — audit gate (fail on high/critical)
+        run: npm audit --audit-level=high
+
+      - name: Governance workspace — pnpm verify (build + tests + sidecar e2e)
+        working-directory: governance
+        run: |
+          corepack enable
+          corepack pnpm install --frozen-lockfile
+          corepack pnpm verify
