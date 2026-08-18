@@ -67,7 +67,7 @@
 
 - [x] **I1** `[AC-9.1]` （结论：answerer 瀑布接口语义完全兼容，无需降级为文档配方；结论与源码引用归档于适配包 README） spike：以 dsh 官方 SDK 文档与源码核实权限插件接口形状，结论归档（含不匹配时的降级预案）。
 - [x] **I2** `[AC-9.1]` `dsh-plugin-governance-gate` 适配包：权限询问→`POST /gate`，paused 经 dsh 审批 UI 或本控制台。🧪（以 I1 结论为准）
-- [ ] **I3** `[AC-9.2]` 生态登记：dsh 插件清单/topic 可发现 + 回链本仓库。
+- [x] **I3** `[AC-9.2]`（npm 已发布 dsh-plugin-governance-gate@0.1.0（账号 luyun-nexusclaw，公网可装，干净目录 4 文件验证）；dsh-plugin topic 已加仓库，README 回链本仓库） 生态登记：dsh 插件清单/topic 可发现 + 回链本仓库。
 
 ## Phase J — 社区模式松动（P2-6）
 
