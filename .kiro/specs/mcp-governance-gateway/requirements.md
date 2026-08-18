@@ -1,9 +1,9 @@
-# Requirements — MCP 治理网关（把 gate 装进 MCP 的分发面）
+# Requirements — MCP 治理网关与热点对标优化包（P0–P2）
 
-> Spec ID: `mcp-governance-gateway`
+> Spec ID: `mcp-governance-gateway`（代号保留；MCP 网关为旗舰工作流，本 spec 覆盖 2026-08-18 热点对标分析的全部 P0/P1/P2 优化项）
 > 状态: **Draft — 评审中**
-> 上游: 无（首个面向 MCP 生态的 spec）；战略依据: 2026-08-18 热点对比分析（MCP 2026-07-28 规范刻意不定义审批协议，网关补位）
-> 定位宣言: agent 获取工具的主通道已经是 MCP。让 agent 以标准 MCP 客户端身份连上本网关，它的每一次 `tools/call` 就自动经过 deny-by-default 权限、L0–L4 风险评估、L2/L3 人工审批与审计链——**治理零改造地进入 MCP 分发面**。
+> 上游: 无；战略依据: 2026-08-18 热点对比分析（对标 OpenClaw / deepseek-harness / Microsoft AGT / MCP 2026-07-28 规范 / OTel GenAI semconv）
+> 定位宣言: 六个工作流——**P0-1** MCP 网关（旗舰）、**P0-2** 一命令启动、**P0-3** 命名碰撞应对、**P1-4** OTel 审计导出、**P1-5** deepseek-harness 权限插件、**P2-6** 社区模式与对比矩阵。旗舰一句话：agent 以标准 MCP 客户端身份连上本网关，它的每一次 `tools/call` 就自动经过 deny-by-default 权限、L0–L4 风险评估、L2/L3 人工审批与审计链——**治理零改造地进入 MCP 分发面**。
 
 ---
 
@@ -63,6 +63,34 @@ agent-governance MCP 网关（sidecar 新人格）
 - **AC-5.3 测试与门禁**：全部既有门禁保持绿；新增协议级 e2e（内存 MCP fixture 覆盖聚合/拒绝/暂停-批准/暂停-拒绝四路径与 elicitation 两分支）。
 - **AC-5.4 命名纪律**：新代码与路径遵循社区边界命名规则（无商业词汇），`packages/shared` 零改动。
 
+### US-6 零配置启动（评估者 · P0-2，对标 deepseek-harness 的 npx 一命令）
+
+- **AC-6.1 一命令启动**：当评估者执行 `npx @agent-governance/sidecar`（或等价单容器 `docker run`）时，系统应当在不编辑任何文件、不 provision Postgres 的条件下于 30 秒内提供可用 gate API 与演示闭环。
+- **AC-6.2 存储模式矩阵**：系统应当支持 memory（默认，评估）/ SQLite（单机持久）/ Postgres（生产，现状）三种模式，仅凭环境变量切换且审计链结构跨模式一致。
+- **AC-6.3 生产不回归**：现有 docker compose 生产路径与文档保持不变；memory/SQLite 模式在文档中明确标注为评估/单机用途。
+
+### US-7 定位与命名碰撞应对（增长 · P0-3，Microsoft AGT 撞名）
+
+- **AC-7.1 AGT 对比页**：docs 应当提供与 Microsoft Agent Governance Toolkit 的对比页（形态/语言/审批/审计/合规/集成面），只陈述可验证事实、不贬低对方，并含"何时选 AGT"的诚实段落。
+- **AC-7.2 关键词收窄**：README 标题区与仓库描述应当强化差异化关键词（approvals、audit chain、human-in-the-loop），不在 "agent governance" 通用词上与 AGT 正面争夺 SEO。
+- **AC-7.3 对比矩阵扩展**：docs 应当补齐 vs LangGraph interrupts、vs harness 内建权限（Claude Code / OpenClaw）两页对比（与 P2-6 联动）。
+
+### US-8 可观测互操作（平台 · P1-4，OTel GenAI semconv）
+
+- **AC-8.1 OTel 导出**：当启用 OTLP 导出时，系统应当把审计链映射为 OpenTelemetry GenAI 语义约定 span（execution→`invoke_agent`、tool call→`execute_tool`、审批→span event），属性命名对齐实现时点的最新 semconv。
+- **AC-8.2 outbox 接缝**：OTel exporter 应当作为 outbox 的可选消费方（默认路径不变），未启用时零成本。
+- **AC-8.3 验证示例**：文档应当提供 Langfuse 或 Jaeger 的接收验证示例（导出→查询到治理事件的端到端步骤）。
+
+### US-9 harness 插件生态（分发 · P1-5，deepseek-harness 权限即插件）
+
+- **AC-9.1 dsh 权限插件**：应当交付把 gate 接入 deepseek-harness 权限插件位的适配包；插件 API 细节以其官方 SDK 为准，spike 结论先归档再实现。
+- **AC-9.2 生态发布**：插件应当在 dsh 插件清单/topic 生态可发现（README + 官方要求的登记），并链接回本仓库。
+
+### US-10 社区模式松动（维护者 · P2-6）
+
+- **AC-10.1 有限开放**：CONTRIBUTING 应当开放 examples/docs/recipes 类 PR 通道（代码 PR 通道保持关闭并写明开放条件），政策变更经维护者签署后生效。
+- **AC-10.2 good-first-issue**：仓库应当提供首批 ≥3 个 good-first-issue（对应本 spec 各工作流的文档/示例任务），打标可检索。
+
 ## 4. 非目标（明确不做）
 
 - 不做下游凭证的 OAuth 完整资源服务器实现（下游认证凭证由运营者经 env 提供）。
@@ -70,3 +98,6 @@ agent-governance MCP 网关（sidecar 新人格）
 - 不做 elicitation 的宿主端 UI（由 MCP 客户端按协议呈现）。
 - 不做多实例网关路由/高可用（单实例口径，同 playground 限流纪律）。
 - 不做 stdio 传输的一等支持（v1 交付 Streamable HTTP；stdio 仅记录为后续方向）。
+- 不做全量文档站（对比页以 docs/ 目录交付；docs 站另行立项）。
+- 不做代码贡献的全面开放（仅开 examples/docs/recipes 通道；全面开放的触发条件写入 CONTRIBUTING）。
+- 不做 dsh 插件的功能对等（只做权限插件位，不复制其 harness 能力）。

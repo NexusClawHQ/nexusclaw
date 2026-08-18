@@ -33,16 +33,52 @@
 - [ ] **D3** `[AC-3.2]` 三宿主一屏配置示例：Claude Code / OpenClaw / deepseek-harness（文档）。
 - [ ] **D4** `[AC-4.2]` README（EN+ZH）"作为 MCP 网关"章节 + 审批协议留白叙事；CHANGELOG/ROADMAP 对齐。
 
-## Phase E — 门禁与收尾
+## Phase E — 门禁与收尾（旗舰链）
 
 - [ ] **E1** `[AC-5.3]` 协议 e2e（内存 fixture）：聚合 / 拒绝 / 暂停-批准 / 暂停-拒绝四路径全链。
 - [ ] **E2** `[AC-5.2]` 依赖与 license 门禁：SDK 仅入 sidecar、其余八包零依赖断言、THIRD_PARTY_NOTICES 与 file-licenses 重生成。
 - [ ] **E3** `[AC-5.3]` 全门禁回归：root build / vitest / pnpm verify / check:boundary / check:i18n 全绿。
 - [ ] **E4** `[AC-5.4]` 命名与边界自查：无商业词汇、`packages/shared` 零 diff。
 
+## Phase F — 零配置启动（P0-2）
+
+- [ ] **F1** `[AC-6.2]` 存储抽象：memory（默认）/ sqlite / postgres 三模式端口实现，模式仅凭环境变量切换。🧪
+- [ ] **F2** `[AC-6.2]` 审计链跨模式等价测试：同一场景三模式产出同构审计记录。🧪
+- [ ] **F3** `[AC-6.1]` `npx @agent-governance/sidecar` bin 包装器 + 单容器 `docker run` 入口；内置 demo 场景默认加载。🧪
+- [ ] **F4** `[AC-6.1]` 30 秒就绪实测记录归档（同 playground T2 纪律）。
+- [ ] **F5** `[AC-6.3]` 生产路径回归：现有 compose 文档与行为不变；memory/sqlite 用途标注（README EN+ZH）。
+
+## Phase G — 对比页与定位收窄（P0-3 + P2-6 矩阵）
+
+- [ ] **G1** `[AC-7.1]` `docs/compare-vs-agt.md`：与 Microsoft AGT 的事实对比（形态/语言/审批/审计/合规/集成面）+ "何时选 AGT"段落。
+- [ ] **G2** `[AC-7.2]` README（EN+ZH）标题区与仓库描述关键词收窄：approvals / audit chain / human-in-the-loop。
+- [ ] **G3** `[AC-7.3]` `docs/compare-vs-langgraph-interrupts.md`：interrupts 框内建 vs 跨框架 sidecar 的适用场景。
+- [ ] **G4** `[AC-7.3]` `docs/compare-vs-harness-permissions.md`：Claude Code / OpenClaw 内建权限 vs 独立治理层。
+- [ ] **G5** 三页对比的事实核查清单归档（每行主张可链接到代码或文档）。
+
+## Phase H — OTel 审计导出（P1-4）
+
+- [ ] **H1** `[AC-8.1]` span 映射实现：execution→`invoke_agent`、tool call→`execute_tool`、审批→event；semconv 属性命名以测试断言防漂移。🧪
+- [ ] **H2** `[AC-8.2]` outbox 可选消费方：OTLP/HTTP JSON 自实现导出（零依赖红线），未启用零成本。🧪
+- [ ] **H3** `[AC-8.3]` Langfuse 或 Jaeger 接收验证示例（导出→查询到治理事件端到端）。
+- [ ] **H4** 全门禁回归与 license 自查（无新增运行时依赖）。
+
+## Phase I — deepseek-harness 权限插件（P1-5）
+
+- [ ] **I1** `[AC-9.1]` spike：以 dsh 官方 SDK 文档与源码核实权限插件接口形状，结论归档（含不匹配时的降级预案）。
+- [ ] **I2** `[AC-9.1]` `dsh-plugin-governance-gate` 适配包：权限询问→`POST /gate`，paused 经 dsh 审批 UI 或本控制台。🧪（以 I1 结论为准）
+- [ ] **I3** `[AC-9.2]` 生态登记：dsh 插件清单/topic 可发现 + 回链本仓库。
+
+## Phase J — 社区模式松动（P2-6）
+
+- [ ] **J1** `[AC-10.1]` CONTRIBUTING 修订提案：开放 examples/docs/recipes PR 通道 + 代码 PR 开放条件成文；**维护者签署后生效**。
+- [ ] **J2** `[AC-10.2]` 首批 good-first-issue ×3（本 spec 各工作流的文档/示例任务），打标可检索。
+
 ## 完成定义（DoD）
 
-- AC-1.1 … AC-5.4 每条至少一个任务 + 测试或文档步骤覆盖。
-- 四条 e2e 路径（放行/拒绝/暂停批准/暂停拒绝）在内存 fixture 上全绿。
-- 未配置 MCP 时 sidecar 与现状逐字节一致的回归测试在 CI 常驻。
-- MCP 演示可在无外部凭证、无外部 MCP server 的环境复现。
+- AC-1.1 … AC-10.2 每条至少一个任务 + 测试或文档步骤覆盖。
+- 旗舰链：四条 e2e 路径（放行/拒绝/暂停批准/暂停拒绝）在内存 fixture 上全绿；未配置 MCP 时 sidecar 与现状逐字节一致的回归测试 CI 常驻。
+- 零配置链：`npx` 一命令 30 秒就绪有实测记录；审计记录跨三存储模式等价。
+- 定位链：三页对比上线且每行主张经事实核查；README 关键词收窄完成。
+- 互操作链：OTel 导出示例在 Langfuse 或 Jaeger 端到端复现。
+- 生态与社区链：dsh spike 结论归档（实现或降级二选一有据）；CONTRIBUTING 修订经维护者签署；good-first-issue ≥3。

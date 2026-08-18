@@ -1,7 +1,7 @@
-# Design — MCP 治理网关
+# Design — MCP 治理网关与热点对标优化包
 
 > Spec ID: `mcp-governance-gateway` · 上游: [requirements.md](./requirements.md)
-> 状态: Draft · 复用红线: gate / approvals / audit-chain / guardrail 四包**零改动**，本 spec 只新增"协议适配层"
+> 状态: Draft · 复用红线: 旗舰工作流（§1–§8 MCP 网关）中 gate / approvals / audit-chain / guardrail 四包**零改动**；并行工作流（§9–§12）的改动面只允许落在 `sidecar` 包、`docs/` 与仓库政策文件，核心八包零依赖红线全程保持
 
 ---
 
@@ -89,6 +89,39 @@ meta-tool 自身也走 gate（授权给所有已连接宿主），保证"查询�
 | `sidecar-noop.spec`（回归） | 未配置 MCP 时 sidecar 与现状逐字节一致 |
 | e2e（内存 MCP fixture） | 四路径全链：聚合→放行→暂停批准→暂停拒绝 |
 
-## 8. 实施顺序
+## 9. 零配置启动（P0-2）
 
-Phase A（协议地基）→ B（治理接线）→ C（审批闭环）→ D（演示与文档）→ E（门禁）。详见 [tasks.md](./tasks.md)。
+**存储模式矩阵**（新增 `@agent-governance/sidecar` 的存储抽象，核心包端口不变）：
+
+| 模式 | 触发 | 用途 | 红线 |
+|---|---|---|---|
+| memory | 默认（未配置 DSN 时） | 评估/演示 | 重启即焚，文档明示 |
+| sqlite | `SIDECAR_STORAGE=sqlite` | 单机持久 | 零 provision |
+| postgres | 现状 env | 生产 | 行为与今日完全一致 |
+
+审计链写入走现有 outbox/audit-chain 端口，存储实现按模式选择——**审计记录结构跨模式一致**（等价性测试守卫）。`npx @agent-governance/sidecar` 是 npm bin 包装器：下载→默认 memory 模式→内置 demo 场景；`docker run` 单容器同语义。30 秒就绪口径以实测记录（同 playground T2 纪律）。
+
+## 10. OTel 审计导出（P1-4）
+
+**span 映射表**（对齐实现时点最新 GenAI semconv，写入测试断言防漂移）：
+
+| 审计链对象 | OTel 映射 |
+|---|---|
+| execution | `invoke_agent` span（trace 根） |
+| react step | span event |
+| tool call | `execute_tool` span（子），属性含 toolName/riskLevel/permissionCheck/guardrailCheck |
+| 审批（决定+审批人+意见） | `execute_tool` 上的 span event |
+
+**依赖决策**：不引 OTel SDK 进核心包——exporter 作为 sidecar 可选模块，以最小 OTLP/HTTP JSON 编码自实现（零依赖红线延续）；SDK 路线留作规模后再议。消费方为 outbox 事件流（§AC-8.2），未启用零成本。验证示例交付 Langfuse 与 Jaeger 二选一起步。
+
+## 11. deepseek-harness 权限插件（P1-5）
+
+dsh "一切皆插件"（权限亦是插件位）。**两段式**：Phase I1 spike 先归档其插件 API 的权限接口形状（以官方 SDK 文档与源码为准，外部事实不臆造）；I2 再实现 `dsh-plugin-governance-gate`——把 dsh 的权限询问转发为 `POST /gate`，paused 时经 dsh 自身的审批 UI 或我们控制台完成。发布按其生态要求登记（plugin 清单/topic）。**外部依赖风险显式化**：若其权限插件接口与我们 gate 语义不匹配，spike 结论决定降级为"文档级集成配方"并记录原因。
+
+## 12. 对比页与定位（P0-3 + P2-6）
+
+三页 docs 对比（`docs/compare-vs-agt.md`、`docs/compare-vs-langgraph-interrupts.md`、`docs/compare-vs-harness-permissions.md`），统一纪律：**只列可验证事实 + 各自适用场景 + "何时选对方"段落**——对比页是 SEO 入口与诚实信号，不是攻击位。README 标题区关键词收窄为 approvals / audit chain / human-in-the-loop（通用词 "agent governance" 不与 AGT 争）。
+
+## 13. 实施顺序
+
+旗舰链 Phase A（协议地基）→ B（治理接线）→ C（审批闭环）→ D（演示与文档）→ E（门禁）；并行链 F（零配置启动）→ G（对比页与定位）→ H（OTel 导出）→ I（dsh 插件）→ J（社区模式）。F 的 D1/D2 演示路径与 A–E 的 demo 共用内存下游 server。详见 [tasks.md](./tasks.md)。
