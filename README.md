@@ -120,6 +120,24 @@ Permissions, guardrails, L3 approvals and the audit chain stay identical in
 both modes (the console and dashboard badge shows which one is active); a
 partial configuration refuses to boot rather than silently downgrading.
 
+### C — Zero-config evaluation (one command, no .env, no Postgres)
+
+```sh
+npx @agent-governance/sidecar
+# gate API + console + MCP gateway demo ready in ~1s (embedded Postgres via PGlite)
+```
+
+Storage modes, switched by `SIDECAR_STORAGE`: `memory` (default here —
+ephemeral, eval), `local` (persisted to `./.agent-governance-data`) and
+`postgres` (production — today's behavior, unchanged). The audit-chain schema
+is byte-identical across modes because every mode runs real Postgres.
+Single container:
+
+```sh
+docker build -f packages/sidecar/Dockerfile -t agent-governance-sidecar .   # from governance/
+docker run -p 7899:7899 -v ag-sidecar-data:/app/data agent-governance-sidecar
+```
+
 ## Packages
 
 The kernel is a set of framework-neutral npm packages under
@@ -279,7 +297,7 @@ fails, please open a GitHub issue instead).
 - 🐛 **Bug reports**: [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues) welcome
 - 🔒 **Security**: do not discuss vulnerabilities publicly — follow the private disclosure channels in [SECURITY.md](SECURITY.md)
 - 📄 **Commercial licensing**: commercial-edition inquiries → [docs/licensing-faq.md](docs/licensing-faq.md)
-- 🚧 **Code contributions**: not accepted in the current stage (`code-contributions-closed`); issues and non-code feedback are welcome — policy in [CONTRIBUTING.md](CONTRIBUTING.md)
+- 🤝 **Contributions**: docs & examples PRs are open (Apache-2.0 inbound=outbound + DCO sign-off); kernel code stays gated until the CLA is published — policy in [CONTRIBUTING.md](CONTRIBUTING.md)
 
 </td>
 </tr>

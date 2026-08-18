@@ -225,7 +225,7 @@ export function createSidecarServer(runtime: SidecarRuntime): SidecarServer {
     app,
     async listen(port: number) {
       const server = await new Promise<import('node:http').Server>((resolve) => {
-        const s = app.listen(port, '127.0.0.1', () => resolve(s));
+        const s = app.listen(port, process.env.SIDECAR_LISTEN_HOST ?? '127.0.0.1', () => resolve(s));
       });
       const address = server.address();
       const actualPort = typeof address === 'object' && address ? address.port : port;

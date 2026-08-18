@@ -31,6 +31,8 @@
     "@agent-governance/guardrail": "workspace:*",
     "@agent-governance/outbox": "workspace:*",
     "@agent-governance/permission": "workspace:*",
+    "@electric-sql/pglite": "^0.5.5",
+    "@electric-sql/pglite-socket": "^0.2.8",
     "@modelcontextprotocol/sdk": "^1.30.0",
     "express": "^5.2.1"
   },
@@ -61,5 +63,8 @@
   "bugs": {
     "url": "https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues"
   },
-  "homepage": "https://github.com/NexusClawHQ/nexusclaw-agent-governance/tree/main/governance/packages/sidecar#readme"
+  "homepage": "https://github.com/NexusClawHQ/nexusclaw-agent-governance/tree/main/governance/packages/sidecar#readme",
+  "bin": {
+    "agent-governance-sidecar": "./dist/bin/sidecar.js"
+  }
 }

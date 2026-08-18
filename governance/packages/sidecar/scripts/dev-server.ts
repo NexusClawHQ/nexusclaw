@@ -11,12 +11,9 @@
  */
 import 'reflect-metadata';
 import pg from 'pg';
-import type { GuardrailRule } from '@agent-governance/guardrail';
-import { buildSidecarRuntime, DEMO_WORKSPACE_ID } from '../src/runtime.js';
+import { buildSidecarRuntime } from '../src/runtime.js';
 import { createSidecarServer } from '../src/server.js';
-import { createMcpGateway, PENDING_LOOKUP_TOOL } from '../src/mcp/gateway.js';
-import { buildMemoryDemoUpstream } from '../src/mcp/memory-upstream.js';
-import { httpUpstream, parseUpstreamEnv, type Upstream } from '../src/mcp/upstream.js';
+import { attachMcpGateway, bootstrapMcpFromEnv } from '../src/mcp/bootstrap.js';
 
 const HOST = process.env.SIDECAR_PGHOST ?? 'localhost';
 const PORT = Number(process.env.SIDECAR_PGPORT ?? 5432);
@@ -32,51 +29,19 @@ async function main(): Promise<void> {
   await admin.query(`CREATE DATABASE ${DB}`);
   await admin.end();
 
-  const mcpDemo = process.env.SIDECAR_MCP_DEMO === 'memory';
-  const mcpUpstreams = parseUpstreamEnv(process.env.SIDECAR_MCP_UPSTREAMS);
-  const mcpEnabled = mcpDemo || mcpUpstreams.length > 0;
-
-  const upstreams: Upstream[] = [];
-  const extraRules: GuardrailRule[] = [];
-  const allowed = ['crm.update_customer', 'demo.send_followup_email'];
-  if (mcpEnabled) {
-    if (mcpDemo) {
-      upstreams.push(await buildMemoryDemoUpstream());
-      allowed.push('memory__echo', 'memory__counter', 'memory__send_notice');
-      extraRules.push({
-        id: '30000000-0000-4000-8000-000000000003',
-        workspaceId: DEMO_WORKSPACE_ID,
-        name: 'MCP demo send_notice — requires human approval',
-        riskLevel: 'L3',
-        priority: 3,
-        isActive: true,
-        conditions: { operation: 'memory__send_notice' },
-      });
-    }
-    for (const { name, url, token } of mcpUpstreams) {
-      upstreams.push(await httpUpstream(name, url, token));
-    }
-    allowed.push(PENDING_LOOKUP_TOOL);
-  }
+  const mcp = await bootstrapMcpFromEnv();
+  const allowed = ['crm.update_customer', 'demo.send_followup_email', ...mcp.extraAllowedTools];
 
   const runtime = await buildSidecarRuntime({
     host: HOST, port: PORT, user: USER, password: PASSWORD, database: DB,
     gateAllowedTools: allowed,
-    extraGuardrailRules: extraRules,
+    extraGuardrailRules: mcp.extraGuardrailRules,
   });
   const server = createSidecarServer(runtime);
-  if (mcpEnabled) {
-    const gateway = await createMcpGateway({
-      runtime,
-      upstreams,
-      allowedTools: allowed,
-      exposeDeniedTools: process.env.SIDECAR_MCP_EXPOSE_DENIED === 'true',
-    });
-    gateway.attach(server.app);
-  }
+  await attachMcpGateway(server.app, runtime, mcp, allowed);
   const { url, close } = await server.listen(LISTEN);
   console.log(`SIDECAR_READY ${url}`);
-  console.log(mcpEnabled ? `SIDECAR_MCP_READY ${url}/mcp (stateless Streamable HTTP)` : 'SIDECAR_MCP_DISABLED');
+  console.log(mcp.enabled ? `SIDECAR_MCP_READY ${url}/mcp (stateless Streamable HTTP)` : 'SIDECAR_MCP_DISABLED');
 
   const shutdown = async () => {
     await close();

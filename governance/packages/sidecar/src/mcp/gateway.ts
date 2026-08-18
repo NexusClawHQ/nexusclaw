@@ -61,7 +61,16 @@ export async function createMcpGateway(options: McpGatewayOptions): Promise<McpG
 
   const aggregated: AggregatedTool[] = [];
   for (const upstream of options.upstreams) {
-    for (const tool of await upstream.listTools()) {
+    // A dead downstream degrades to "its tools are absent" — the gateway
+    // itself must not fail because one upstream is unreachable (AC-A2).
+    let tools: UpstreamTool[] = [];
+    try {
+      tools = await upstream.listTools();
+    } catch (error) {
+      console.warn(`[mcp-gateway] upstream "${upstream.name}" unavailable (${String(error)}); its tools are hidden`);
+      continue;
+    }
+    for (const tool of tools) {
       aggregated.push({ ...tool, upstream, aggregatedName: `${upstream.name}__${tool.name}` });
     }
   }

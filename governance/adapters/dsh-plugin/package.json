@@ -1,0 +1,31 @@
+{
+  "name": "dsh-plugin-governance-gate",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness (dsh) approval answerer backed by the agent-governance sidecar — every approval/request is decided by the deny-by-default gate, L0–L4 rules and the organizational audit chain.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "agent-governance",
+    "governance",
+    "approvals",
+    "audit"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NexusClawHQ/nexusclaw-agent-governance",
+    "directory": "governance/adapters/dsh-plugin"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

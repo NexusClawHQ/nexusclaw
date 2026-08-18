@@ -223,6 +223,50 @@ READMEs link all three from the auditability section, sharpening the
 differentiator keywords (approvals · audit chain · human-in-the-loop) rather
 than competing on the generic "agent governance" term.
 
+### 2026-08-18 — optimization package: zero-config start, OTel export, dsh plugin, community mode (Phases F/H/I/J + A2/D2/D3/E2)
+
+**F — zero-config start.** `npx @agent-governance/sidecar` boots the full
+sidecar — gate API, console, MCP gateway demo — in **746 ms** (measured;
+container 979 ms) with no `.env` and no provisioned Postgres: the `memory`
+and `local` storage modes run an **embedded Postgres (PGlite/WASM)** on a
+local socket, so the audit-chain schema is byte-identical across
+memory/local/postgres (cross-mode equivalence test + restart-persistence
+test). A `uuid_generate_v4` shim covers TypeORM's generated-uuid defaults.
+Single-container Dockerfile (built and verified: health + real MCP
+handshake). Production Postgres mode and docs unchanged.
+
+**H — OTel audit export.** `SIDECAR_OTLP_ENDPOINT` mirrors completed/failed
+executions as OTLP/HTTP-JSON traces in GenAI semconv shapes
+(`invoke_agent` root whose traceId equals the execution id, nested
+`execute_tool` spans with `gen_ai.tool.name` + permission/guardrail
+attributes, approval decisions as span events). Zero new dependencies; the
+outbox event table is the seam; failed exports retry without dropping
+records. Wire-format e2e against a local OTLP sink; Jaeger/Langfuse guide
+in [docs/otel-export.md](docs/otel-export.md).
+
+**I — deepseek-harness plugin.** Spike verified the dsh approval-answerer
+waterfall (`'approval/request'(req, next)`, fail-closed outcomes) —
+semantics match the gate 1:1. Shipped
+[`dsh-plugin-governance-gate`](governance/adapters/dsh-plugin): every dsh
+approval ask is decided by the sidecar gate; L2/L3 waits for the human in
+the sidecar console; unreachable/timeout delegates via `next()` (or
+hard-reject with `GOVERNANCE_FAIL_CLOSED=1`). npm publish pending
+credentials (one command in the adapter README).
+
+**J — community.** CONTRIBUTING now opens the docs & examples PR channel
+(Apache-2.0 inbound=outbound + DCO), kernel code stays CLA-gated; good-first
+issues [#33](https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues/33)–[#35](https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues/35) seeded.
+
+**Flagship chain follow-ups:** unreachable MCP upstreams now degrade to
+hidden tools instead of failing the gateway (tested); the live smoke is
+scripted (`scripts/mcp-smoke.ts`, six-path SMOKE_PASS); three-host MCP
+client configs documented ([docs/mcp-client-config.md](docs/mcp-client-config.md));
+a kernel dependency red-line test now blocks new external runtime deps
+(legacy `uuid`×3 / `zod`×1 grandfathered as tracked debt). Governance suite:
+**199 tests green**. Known follow-ups: THIRD_PARTY_NOTICES/file-licenses
+regenerate at the next sealed snapshot (private-repo pipeline); dsh plugin
+npm publish.
+
 ## [v0.5.0-community] — 2026-08-17
 
 **The gate API grows framework adapters — govern n8n workflows and Dify agents

@@ -28,12 +28,15 @@ import { ScenarioModel, TOOL_LOOKUP, TOOL_SEND } from './scenario-model.js';
 export const DEMO_WORKSPACE_ID = '00000000-0000-4000-8000-000000000001';
 export const DEMO_AGENT_ID = '20000000-0000-4000-8000-000000000001';
 
+export type SidecarStorageMode = 'postgres' | 'memory' | 'local';
+
 export interface SidecarRuntime {
   engine: ExecutorEngine;
   gate: GateService;
   approvals: ReturnType<typeof buildApprovalAccess>;
   dataSource: DataSource;
   outboxTransport: InMemoryTransport;
+  storage: SidecarStorageMode;
   close(): Promise<void>;
 }
 
@@ -75,24 +78,74 @@ export async function buildSidecarRuntime(options: {
   gateAllowedTools?: string[];
   /** Extra workspace guardrail rules (e.g. the MCP demo L3 rule). */
   extraGuardrailRules?: GuardrailRule[];
+  /**
+   * Storage mode. `postgres` (default — today's behavior, env-configurable)
+   * | `memory` (embedded Postgres via PGlite, in-memory, eval/demo) |
+   * `local` (PGlite persisted to localDataDir). The audit-chain schema is
+   * byte-identical across modes because every mode runs real Postgres.
+   */
+  storage?: SidecarStorageMode;
+  /** Directory for `local` mode (default: ./.agent-governance-data). */
+  localDataDir?: string;
 }): Promise<SidecarRuntime> {
   const workspaceId = options.workspaceId ?? DEMO_WORKSPACE_ID;
   const agentId = options.agentId ?? DEMO_AGENT_ID;
 
-  const dataSource = new DataSource({
-    type: 'postgres',
-    host: options.host ?? process.env.SIDECAR_PGHOST ?? 'localhost',
-    port: options.port ?? Number(process.env.SIDECAR_PGPORT ?? 5432),
-    username: options.user ?? process.env.SIDECAR_PGUSER ?? 'postgres',
-    password: options.password ?? process.env.SIDECAR_PGPASSWORD ?? 'postgres',
-    database: options.database ?? process.env.SIDECAR_PGDATABASE ?? 'nexusclaw_sidecar',
-    entities: [
-      AgentExecution, ReactStep, ToolCallRecord,
-      ApprovalInstance, ApprovalStep, ApprovalProcess, ApprovalPolicyRevisionEntity,
-      GuardrailRule, GuardrailLog, OutboxEvent,
-    ],
-    synchronize: true,
-  });
+  const storage: SidecarStorageMode =
+    options.storage ?? (process.env.SIDECAR_STORAGE as SidecarStorageMode) ?? 'postgres';
+  const entities = [
+    AgentExecution, ReactStep, ToolCallRecord,
+    ApprovalInstance, ApprovalStep, ApprovalProcess, ApprovalPolicyRevisionEntity,
+    GuardrailRule, GuardrailLog, OutboxEvent,
+  ];
+
+  let dataSource: DataSource;
+  let embedded: { server: { stop(): Promise<void> }; pg: { close(): Promise<void> } } | undefined;
+  if (storage === 'memory' || storage === 'local') {
+    // Zero-provision modes: a real Postgres (PGlite/WASM) served on a local
+    // socket — same engine family as production, so the audit chain keeps
+    // the exact same schema and semantics.
+    const { PGlite } = await import('@electric-sql/pglite');
+    const { PGLiteSocketServer } = await import('@electric-sql/pglite-socket');
+    const dataDir = options.localDataDir
+      ?? process.env.SIDECAR_STORAGE_LOCAL_DIR
+      ?? (storage === 'local' ? '.agent-governance-data' : undefined);
+    const pg = dataDir ? new PGlite(dataDir) : new PGlite();
+    const server = new PGLiteSocketServer({ db: pg, port: 0, host: '127.0.0.1' });
+    let address = { host: '127.0.0.1', port: 0 };
+    server.addEventListener('listening', (event) => {
+      address = (event as CustomEvent<{ host: string; port: number }>).detail;
+    });
+    await server.start();
+    // TypeORM's `PrimaryGeneratedColumn('uuid')` emits a uuid_generate_v4()
+    // default; PGlite's core only ships gen_random_uuid() (PG13+), so shim
+    // the legacy name before schema sync.
+    await pg.query(
+      'create or replace function uuid_generate_v4() returns uuid as $$ select gen_random_uuid() $$ language sql',
+    );
+    embedded = { server, pg };
+    dataSource = new DataSource({
+      type: 'postgres',
+      host: address.host,
+      port: address.port,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'pglite',
+      entities,
+      synchronize: true,
+    });
+  } else {
+    dataSource = new DataSource({
+      type: 'postgres',
+      host: options.host ?? process.env.SIDECAR_PGHOST ?? 'localhost',
+      port: options.port ?? Number(process.env.SIDECAR_PGPORT ?? 5432),
+      username: options.user ?? process.env.SIDECAR_PGUSER ?? 'postgres',
+      password: options.password ?? process.env.SIDECAR_PGPASSWORD ?? 'postgres',
+      database: options.database ?? process.env.SIDECAR_PGDATABASE ?? 'nexusclaw_sidecar',
+      entities,
+      synchronize: true,
+    });
+  }
   await dataSource.initialize();
 
   const guardrailRules = [
@@ -165,8 +218,13 @@ export async function buildSidecarRuntime(options: {
     approvals: buildApprovalAccess(dataSource),
     dataSource,
     outboxTransport,
+    storage,
     async close() {
       await dataSource.destroy();
+      if (embedded) {
+        await embedded.server.stop();
+        await embedded.pg.close();
+      }
     },
   };
 }

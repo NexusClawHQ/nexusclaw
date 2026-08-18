@@ -224,3 +224,32 @@ describe('MCP governance gateway', () => {
     }
   });
 });
+
+describe('upstream degradation (AC-A2)', () => {
+  it('an unreachable upstream degrades to hidden tools, not a gateway failure', async () => {
+    const broken: import('../src/mcp/upstream.js').Upstream = {
+      name: 'broken',
+      async listTools() { throw new Error('ECONNREFUSED'); },
+      async callTool() { throw new Error('unreachable'); },
+      async close() {},
+    };
+    const gateway = await createMcpGateway({
+      runtime,
+      upstreams: [broken, await buildMemoryDemoUpstream()],
+      allowedTools: ALLOWED,
+    });
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    await gateway.createServer().connect(serverTransport);
+    const degraded = new Client({ name: 'degraded-client', version: '0.0.1' });
+    await degraded.connect(clientTransport);
+    try {
+      const listed = await degraded.listTools();
+      const names = (listed.tools ?? []).map((tool) => tool.name);
+      expect(names.some((name) => name.startsWith('broken__'))).toBe(false);
+      expect(names).toContain('memory__echo');
+    } finally {
+      await degraded.close().catch(() => undefined);
+      await gateway.close().catch(() => undefined);
+    }
+  });
+});

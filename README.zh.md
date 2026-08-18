@@ -85,6 +85,23 @@ L3 跟进邮件暂停等待审批、批准后恢复执行、审计链全程可�
 在相同治理门下运行——权限、护栏、L3 审批与审计链两种模式完全一致，
 部分配置会拒绝启动而不是静默降级。
 
+**C — 零配置评估（一条命令，无 .env、无 Postgres）**
+
+```sh
+npx @agent-governance/sidecar
+# 约 1 秒就绪：gate API + 控制台 + MCP 网关演示（内嵌 Postgres，PGlite）
+```
+
+存储模式由 `SIDECAR_STORAGE` 切换：`memory`（此处默认——即焚，评估用）、
+`local`（持久化到 `./.agent-governance-data`）、`postgres`（生产——即现有
+行为，不变）。三种模式审计链结构逐字节一致——因为每种模式跑的都是真
+Postgres。单容器：
+
+```sh
+docker build -f packages/sidecar/Dockerfile -t agent-governance-sidecar .   # 在 governance/ 下执行
+docker run -p 7899:7899 -v ag-sidecar-data:/app/data agent-governance-sidecar
+```
+
 ## 包
 
 `governance/packages/`（Apache-2.0，已发布至 npm）：
@@ -182,8 +199,7 @@ L0–L4 护栏、人工审批与审计链分别对应哪些控制项、每条记
 - 🐛 **问题反馈**：欢迎提交 [GitHub Issues](https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues)
 - 🔒 **安全漏洞**：请勿公开讨论——按 [SECURITY.md](SECURITY.md) 走私有披露渠道
 - 📄 **商业许可**：商业版咨询见 [docs/licensing-faq.md](docs/licensing-faq.md)
-- 🚧 **代码贡献**：现阶段暂不受理（`code-contributions-closed`），issue 与非代码反馈欢迎，
-  政策详见 [CONTRIBUTING.md](CONTRIBUTING.md)
+- 🤝 **参与贡献**：docs 与 examples 的 PR 已开放（Apache-2.0 inbound=outbound + DCO 签署）；内核代码在 CLA 发布前保持受限——政策详见 [CONTRIBUTING.md](CONTRIBUTING.md)
 
 </td>
 </tr>
