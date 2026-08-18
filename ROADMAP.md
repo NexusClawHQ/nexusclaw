@@ -50,14 +50,17 @@ zero-dependency demo, and a BYO real-model path (`COMMUNITY_LLM_*`) lets
 evaluators watch a real LLM run under identical governance gates. Design
 records and the frozen mockup live under `.kiro/specs/`.
 
+**Also 2026-08-18: the LangGraph / CrewAI recipes shipped** in
+[`governance/adapters/python/README.md`](governance/adapters/python/README.md):
+complete copy-paste compositions — a gate-check / interrupt / execute node
+split for LangGraph (so `interrupt()` re-execution never double-fires the
+gate), and `wait=True` governed tools for CrewAI — plus the framework-free
+core pattern. All snippets are syntax-checked.
+
 ## Building next
 
 On top of the v0.5.0 adapter base:
 
-- **LangGraph / CrewAI recipes** — documented in
-  `governance/adapters/python/README.md` (the `wrap_tool` interrupt pattern:
-  gate → `interrupt()` → `gov.decide` → `run_approved`); the CrewAI pattern
-  composes the same client calls with CrewAI tool conventions.
 - **Adoption ergonomics** — making "three lines to governed tools" true for
   more runtimes and languages.
 - **Deeper n8n / Dify coverage** — richer node parameters and schema surface

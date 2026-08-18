@@ -153,6 +153,18 @@ under the title (`English | [中文](README.zh.md)` / `[English](README.md) |
 中文`). Content is unchanged — this is a reorganization, not a rewrite; the
 operational guide stays English-only at the end of README.md.
 
+### 2026-08-18 — LangGraph / CrewAI recipes in the Python adapter README
+
+[`governance/adapters/python/README.md`](governance/adapters/python/README.md)
+now carries complete, copy-pasteable compositions instead of a sketch: a
+three-node LangGraph recipe (gate-check → interrupt-only human gate →
+execute) that stays correct under `interrupt()` node re-execution, a CrewAI
+recipe using `wait=True` governed tools inside a crew, and the framework-free
+core pattern (`try/except GovernancePendingApproval` → `decide` →
+`run_approved`). Every snippet was syntax-checked; the client API surface
+used (`gate`, `complete`, `decide`, `run_approved`, `wrap_tool(wait=)`)
+matches the shipped client.
+
 ## [v0.5.0-community] — 2026-08-17
 
 **The gate API grows framework adapters — govern n8n workflows and Dify agents
