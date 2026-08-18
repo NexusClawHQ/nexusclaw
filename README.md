@@ -223,6 +223,12 @@ so an exclusion-based export can never re-leak enterprise assets. Dependency
 and file-level licenses ship in-tree (`sbom.cdx.json`, `THIRD_PARTY_NOTICES.md`,
 `file-licenses.json`).
 
+For audit and compliance review,
+[docs/compliance-mapping.md](docs/compliance-mapping.md) maps the kernel's
+capabilities — deny-by-default permissions, L0–L4 guardrails, human
+approvals, the audit chain — to SOC 2, EU AI Act, ISO 27001 and 等保 2.0
+control areas, with the exact evidence each record provides.
+
 Operators who deploy the reference slice must publish the source matching
 their deployed version and configure `COMMUNITY_SOURCE_URL`; every API
 response advertises it and `GET /source` returns it — see

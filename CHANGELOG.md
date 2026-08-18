@@ -165,6 +165,17 @@ core pattern (`try/except GovernancePendingApproval` → `decide` →
 used (`gate`, `complete`, `decide`, `run_approved`, `wrap_tool(wait=)`)
 matches the shipped client.
 
+### 2026-08-18 — compliance mapping document (docs/compliance-mapping.md)
+
+A new audit-facing document maps the kernel's capabilities to SOC 2 Trust
+Services Criteria (CC6.x/CC7.x/CC8.1/CC9.2), EU AI Act provisions (Arts. 9,
+10, 12, 14, 15, 26, 27), ISO/IEC 27001:2022 Annex A and 等保 2.0 control
+areas — each row naming the kernel capability and the exact audit-chain
+evidence an auditor can extract (`/audit/list`, execution detail, approval
+records, outbox stream). A "what this kernel does not provide" section
+states the honest boundaries (external tamper-evidence, retention lifecycle,
+SIEM connectors). Both READMEs link to it from their auditability sections.
+
 ## [v0.5.0-community] — 2026-08-17
 
 **The gate API grows framework adapters — govern n8n workflows and Dify agents

@@ -137,6 +137,10 @@ L3 跟进邮件暂停等待审批、批准后恢复执行、审计链全程可�
 审计行为 fail-open：参考切片实现保守策略或在能力缺失时返回稳定的不可用码
 （[docs/architecture.md](docs/architecture.md)）。
 
+面向审计与合规评审的映射（SOC 2 / EU AI Act / ISO 27001 / 等保 2.0）见
+[docs/compliance-mapping.md](docs/compliance-mapping.md)：默认拒绝权限、
+L0–L4 护栏、人工审批与审计链分别对应哪些控制项、每条记录能提供什么证据。
+
 ## 社区与支持
 
 <table>
