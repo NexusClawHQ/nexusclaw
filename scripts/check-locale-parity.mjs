@@ -23,11 +23,26 @@ const flatten = (node, prefix = '', out = new Set()) => {
 const en = flatten(require('../packages/shared/dist/locales/en-US.js'));
 const zh = flatten(require('../packages/shared/dist/locales/zh-CN.js'));
 
+// The Community locale tree carries no commercial UI vocabulary (the demo
+// console and governance dashboard ship inline key tables of their own).
+// This ceiling is the regression gate that keeps an enterprise locale tree
+// from ever being re-imported by a snapshot export.
+const MAX_COMMUNITY_LOCALE_KEYS = 400;
+
 const missingInZh = [...en].filter((key) => !zh.has(key));
 const missingInEn = [...zh].filter((key) => !en.has(key));
 
 console.log(`en-US keys: ${en.size}`);
 console.log(`zh-CN keys: ${zh.size}`);
+
+if (en.size > MAX_COMMUNITY_LOCALE_KEYS || zh.size > MAX_COMMUNITY_LOCALE_KEYS) {
+  console.error(
+    `locale key-count ceiling exceeded: max ${MAX_COMMUNITY_LOCALE_KEYS}, ` +
+      `got en=${en.size}, zh=${zh.size}. ` +
+      'The Community locale must stay minimal — see docs/snapshot-export-policy.md.',
+  );
+  process.exit(1);
+}
 
 if (missingInZh.length > 0 || missingInEn.length > 0) {
   if (missingInZh.length > 0) {

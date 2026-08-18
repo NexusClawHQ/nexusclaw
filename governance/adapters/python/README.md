@@ -8,7 +8,7 @@ sidecar](../../packages/sidecar). Zero dependencies (stdlib only).
 
 ```sh
 # from this repository (works today, no PyPI needed):
-pip install "git+https://github.com/NexusClawHQ/nexusclaw.git#subdirectory=governance/adapters/python"
+pip install "git+https://github.com/NexusClawHQ/nexusclaw-agent-governance.git#subdirectory=governance/adapters/python"
 # or from PyPI once published: pip install nexusclaw-agent-governance
 ```
 

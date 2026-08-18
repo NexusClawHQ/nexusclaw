@@ -9,20 +9,10 @@ import {
   type GrowthEntry,
 } from '../api';
 import type { Translator } from '../i18n';
-import {
-  CommercialPreviewCard,
-  EmptyState,
-  formatDuration,
-  StatusChip,
-} from '../components/ui';
-import { COMMERCIAL_PREVIEW } from '../components/ui';
+import { EmptyState, formatDuration, StatusChip } from '../components/ui';
 
-const GROWTH_LOOP_PREVIEW = COMMERCIAL_PREVIEW.find(
-  (capability) => capability.key === 'growthLoop',
-)!;
-
-/** Training & growth — the flagship showcase surface (AC-6.1–6.6).
- *  Timeline + replay-compare, everything derived from governance data. */
+/** Training & growth (AC-6.1–6.6): timeline + replay-compare, everything
+ *  derived from governance data. */
 export function GrowthView({
   t,
   token,
@@ -200,11 +190,6 @@ export function GrowthView({
           </div>
         </div>
       )}
-
-      <div className="panel">
-        <p className="muted">{t('growth.stats.source')}</p>
-        <CommercialPreviewCard capability={GROWTH_LOOP_PREVIEW} t={t} />
-      </div>
     </section>
   );
 }

@@ -1,8 +1,8 @@
-# Community Architecture and Boundary
+# Reference slice: architecture and boundary
 
 ## Runtime path
 
-The Community snapshot preserves one auditable vertical slice:
+The reference slice preserves one auditable vertical slice:
 
 ```text
 authenticated caller

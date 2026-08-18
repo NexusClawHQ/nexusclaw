@@ -34,11 +34,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NexusClawHQ/nexusclaw.git",
+    "url": "git+https://github.com/NexusClawHQ/nexusclaw-agent-governance.git",
     "directory": "governance/packages/permission"
   },
   "bugs": {
-    "url": "https://github.com/NexusClawHQ/nexusclaw/issues"
+    "url": "https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues"
   },
-  "homepage": "https://github.com/NexusClawHQ/nexusclaw/tree/main/governance/packages/permission#readme"
+  "homepage": "https://github.com/NexusClawHQ/nexusclaw-agent-governance/tree/main/governance/packages/permission#readme"
 }

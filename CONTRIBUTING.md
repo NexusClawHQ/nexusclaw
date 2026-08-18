@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for helping improve NexusClaw Community. Issues, security reports,
+Thank you for helping improve agent-governance. Issues, security reports,
 design feedback and reproducible bug reports are welcome.
 
 ## Snapshot contribution model

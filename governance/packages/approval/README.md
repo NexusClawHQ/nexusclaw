@@ -2,7 +2,7 @@
 
 Human-in-the-loop approval decision core: agent sensitive-operation approvals, multi-step decisions, timeouts, audit trails.
 
-Part of the [NexusClaw Community](https://github.com/NexusClawHQ/nexusclaw)
+Part of the [NexusClaw Community](https://github.com/NexusClawHQ/nexusclaw-agent-governance)
 governance kernel (`governance/` pnpm workspace — 9 Apache-2.0 packages).
 Apache-2.0 licensed.
 

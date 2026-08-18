@@ -56,7 +56,7 @@ jobs:
           DATABASE_HOST=localhost DATABASE_PORT=5432 DATABASE_USER=postgres DATABASE_PASSWORD=postgres \
             DATABASE_NAME=nexusclaw_community \
             JWT_SECRET=ci-smoke-secret-at-least-32-characters-long \
-            COMMUNITY_SOURCE_URL=https://github.com/NexusClawHQ/nexusclaw \
+            COMMUNITY_SOURCE_URL=https://github.com/NexusClawHQ/nexusclaw-agent-governance \
             PORT=3000 NODE_ENV=production \
             node packages/backend/dist/community/community-main.js &
           for i in $(seq 1 30); do curl -sf http://localhost:3000/source >/dev/null && break; sleep 1; done
@@ -73,6 +73,9 @@ jobs:
 
       - name: Root workspace — locale parity check (en-US ↔ zh-CN)
         run: npm run check:i18n
+
+      - name: Root workspace — community boundary gate
+        run: npm run check:boundary
 
       - name: Dify adapter — schema sanity check
         run: npm run check:dify

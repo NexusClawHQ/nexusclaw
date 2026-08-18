@@ -26,8 +26,7 @@ const LEVEL_LABEL_KEYS: Record<(typeof RISK_LEVELS)[number], Parameters<Translat
 };
 
 /** Employee profile (frozen mockup §5.4): hero + in-page tabs with the
- *  CONFIG sub-page as the product-grade centerpiece. Everything read-only;
- *  edit affordances surface as commercial hints, never fake controls. */
+ *  CONFIG sub-page as the centerpiece. Everything read-only. */
 export function EmployeeDetailView({
   t,
   token,
@@ -190,7 +189,6 @@ export function EmployeeDetailView({
               <div className="panel">
                 <div className="panel-head">
                   <h3 style={{ margin: 0 }}>{t('emp.cfg.basic')}</h3>
-                  <span className="hint-chip">{t('product.modal.commercialEdit')}</span>
                 </div>
                 <dl className="kv-grid">
                   <div><dt>{t('emp.cfg.name')}</dt><dd>{detail.name}</dd></div>
@@ -212,15 +210,10 @@ export function EmployeeDetailView({
                     </p>
                   </div>
                 </div>
-                <div className="commercial-inline">
-                  <span className="chip warn">{t('product.badge')}</span>
-                  <span style={{ fontSize: 12.5, color: 'var(--muted)' }}>{t('product.cap.modelRouting')}</span>
-                </div>
               </div>
               <div className="panel">
                 <div className="panel-head">
                   <h3 style={{ margin: 0 }}>{t('emp.cfg.prompt')}</h3>
-                  <span className="hint-chip">{t('product.modal.commercialEdit')}</span>
                 </div>
                 <pre className="json" style={{ maxHeight: 120 }}>{detail.prompt ?? '—'}</pre>
                 <p className="muted" style={{ margin: '6px 0 0', fontSize: 12 }}>
@@ -270,7 +263,6 @@ export function EmployeeDetailView({
               <div className="panel">
                 <div className="panel-head">
                   <h3 style={{ margin: 0 }}>{t('emp.cfg.autonomy')}</h3>
-                  <span className="hint-chip">{t('policy.readonly')}</span>
                 </div>
                 <div className="level-track">
                   {RISK_LEVELS.map((level) => (

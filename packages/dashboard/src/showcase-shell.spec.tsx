@@ -100,7 +100,6 @@ describe('showcase shell (spec product-showcase-dashboard)', () => {
       'Audit chain',
       'Training & growth',
       'Governance policy',
-      'Full product',
     ]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
@@ -125,19 +124,6 @@ describe('showcase shell (spec product-showcase-dashboard)', () => {
     expect(screen.getAllByText('demo.customer_lookup').length).toBeGreaterThan(0);
     expect(screen.getByText('Capabilities · tools')).toBeTruthy();
     expect(screen.getByText('Autonomy · risk levels')).toBeTruthy();
-  });
-
-  it('shows the product console with commercial modules opening a dialog on click', async () => {
-    window.location.hash = '#/product';
-    stubGraphql();
-    render(<App />);
-    await waitFor(() => expect(screen.getAllByText('Commercial').length).toBe(8));
-    await waitFor(() => expect(screen.getAllByText('In this repo').length).toBe(6));
-    // Clicking a commercial module opens the commercial-edition dialog.
-    screen.getAllByText('Visual builder')[0].click();
-    await waitFor(() => expect(screen.getByRole('dialog')).toBeTruthy());
-    expect(screen.getAllByText(/design employees and flows without code/i).length).toBe(2);
-    expect(screen.getByRole('dialog').textContent).toContain('Commercial-edition capability');
   });
 });
 

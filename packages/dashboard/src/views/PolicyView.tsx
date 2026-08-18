@@ -2,16 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { fetchAgentDetail, type AgentDetail } from '../api';
 import type { Translator } from '../i18n';
-import {
-  CommercialPreviewCard,
-  EmptyState,
-  RiskBadge,
-} from '../components/ui';
-import { COMMERCIAL_PREVIEW } from '../components/ui';
-
-const VISUAL_BUILDER_PREVIEW = COMMERCIAL_PREVIEW.find(
-  (capability) => capability.key === 'visualBuilder',
-)!;
+import { EmptyState, RiskBadge } from '../components/ui';
 
 /** Governance policy view (AC-7.1/7.2): read-only sensitiveOps rendering. */
 export function PolicyView({
@@ -91,10 +82,6 @@ export function PolicyView({
           </div>
         ))
       )}
-      <div className="panel">
-        <p className="muted">{t('policy.readonly')}</p>
-        <CommercialPreviewCard capability={VISUAL_BUILDER_PREVIEW} t={t} />
-      </div>
     </section>
   );
 }

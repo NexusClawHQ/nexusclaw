@@ -67,7 +67,7 @@ export const PLAYGROUND_PAGE_HTML = `<!doctype html>
   .btn.reject { background:var(--bad-soft); border-color:#e3b3b3; color:var(--bad); font-weight:600; }
   .btn:disabled { opacity:.5; cursor:default; }
   pre.json { background:var(--json-bg); color:var(--json-ink); border-radius:var(--radius-sm); padding:10px; margin:4px 0; max-height:170px; overflow:auto; white-space:pre-wrap; word-break:break-all; font-size:11.5px; font-family:ui-monospace,Menlo,monospace; }
-  .cta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .cta-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
   .cta { border:1px solid var(--border); border-radius:var(--radius-md); background:var(--panel); padding:12px; display:flex; flex-direction:column; gap:5px; box-shadow:var(--shadow-1); font-size:12.5px; }
   .cmd { background:var(--json-bg); color:var(--json-ink); border-radius:var(--radius-sm); padding:6px 9px; font-family:ui-monospace,Menlo,monospace; font-size:11px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
   .copy { background:transparent; border:1px solid rgba(215,224,245,.4); color:#d7e0f5; border-radius:4px; padding:1px 8px; font-size:11px; cursor:pointer; }
@@ -107,16 +107,12 @@ export const PLAYGROUND_PAGE_HTML = `<!doctype html>
   <section class="cta-grid">
     <div class="cta">
       <b id="t-cta1b"></b><span id="t-cta1"></span>
-      <a href="https://github.com/NexusClawHQ/nexusclaw" id="ghLink">nexusclaw ↗</a>
+      <a href="https://github.com/NexusClawHQ/nexusclaw-agent-governance" id="ghLink">nexusclaw-agent-governance ↗</a>
     </div>
     <div class="cta">
       <b id="t-cta2b"></b>
       <div class="cmd"><span>docker compose up --build</span><button class="copy" data-copy="docker compose up --build" id="t-copy1"></button></div>
       <div class="cmd"><span>open http://localhost:3000/app</span><button class="copy" data-copy="open http://localhost:3000/app" id="t-copy2"></button></div>
-    </div>
-    <div class="cta">
-      <b id="t-cta3b"></b><span id="t-cta3"></span>
-      <a href="https://nexusclaw.cn/zh/capabilities" id="comLink">nexusclaw.cn ↗</a>
     </div>
   </section>
 
@@ -144,7 +140,7 @@ export const PLAYGROUND_PAGE_HTML = `<!doctype html>
       'approve': '批准', 'reject': '拒绝',
       'st.running': '运行中…', 'st.pending': 'L3 等待你的批准', 'st.done': '已完成', 'st.failed': '失败',
       'cta1b': '★ GitHub 仓库', 'cta1': 'Apache-2.0 · 治理内核 9 个 npm 包',
-      'cta2b': '⌘ 自托管完整版', 'cta3b': '◈ 了解商业版', 'cta3': '可视化构建器 · 成长回路 · 模型路由',
+      'cta2b': '⌘ 自托管参考实现',
       'copy': '复制', 'copied': '已复制',
       'footer': '会话 30 分钟无活动自动清理 · 无注册 · 确定性剧本（无 LLM、无真实外发）',
       'err.session': '会话创建失败，请稍后再试，或按下方指引自托管完整版。',
@@ -168,7 +164,7 @@ export const PLAYGROUND_PAGE_HTML = `<!doctype html>
       'approve': 'Approve', 'reject': 'Reject',
       'st.running': 'running…', 'st.pending': 'L3 awaiting your approval', 'st.done': 'done', 'st.failed': 'failed',
       'cta1b': '★ GitHub repo', 'cta1': 'Apache-2.0 · 9 governance npm packages',
-      'cta2b': '⌘ Self-host the full stack', 'cta3b': '◈ Commercial edition', 'cta3': 'Visual builder · growth loop · model routing',
+      'cta2b': '⌘ Self-host the reference implementation',
       'copy': 'copy', 'copied': 'copied',
       'footer': 'Sessions auto-recycle after 30 idle minutes · no signup · deterministic scenario (no LLM, no real outbound)',
       'err.session': 'Session creation failed — try later or self-host via the commands below.',
@@ -190,7 +186,6 @@ export const PLAYGROUND_PAGE_HTML = `<!doctype html>
     document.getElementById('t-auditChip').textContent = t('audit.chip');
     document.getElementById('t-cta1b').textContent = t('cta1b'); document.getElementById('t-cta1').textContent = t('cta1');
     document.getElementById('t-cta2b').textContent = t('cta2b');
-    document.getElementById('t-cta3b').textContent = t('cta3b'); document.getElementById('t-cta3').textContent = t('cta3');
     document.getElementById('t-copy1').textContent = t('copy'); document.getElementById('t-copy2').textContent = t('copy');
     document.getElementById('t-footer').textContent = t('footer');
     document.getElementById('langToggle').textContent = lang === 'zh' ? 'English' : '中文';

@@ -2,7 +2,7 @@
 
 Guardrail rule engine: L0–L4 risk matching and assessment with pluggable rule loading.
 
-Part of the [NexusClaw Community](https://github.com/NexusClawHQ/nexusclaw)
+Part of the [NexusClaw Community](https://github.com/NexusClawHQ/nexusclaw-agent-governance)
 governance kernel (`governance/` pnpm workspace — 9 Apache-2.0 packages).
 Apache-2.0 licensed.
 

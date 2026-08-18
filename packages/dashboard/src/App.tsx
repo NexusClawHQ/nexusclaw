@@ -28,7 +28,6 @@ import { EmployeesView } from './views/EmployeesView';
 import { EmployeeDetailView } from './views/EmployeeDetailView';
 import { GrowthView } from './views/GrowthView';
 import { PolicyView } from './views/PolicyView';
-import { ProductView } from './views/ProductView';
 import { Icon, type IconName } from './components/icons';
 
 const TOKEN_KEY = 'nexusclaw.dashboard.token';
@@ -42,8 +41,7 @@ type Section =
   | 'approvals'
   | 'audit'
   | 'growth'
-  | 'policy'
-  | 'product';
+  | 'policy';
 
 interface CommunityFeed {
   agents: AgentSummary[];
@@ -111,7 +109,6 @@ function parseHash(hash: string): { section: Section; employeeId: string | null 
     'audit',
     'growth',
     'policy',
-    'product',
   ];
   if (segments[0] === 'employees' && segments[1]) {
     return { section: 'employees', employeeId: segments[1] };
@@ -278,10 +275,7 @@ export function App() {
     },
     {
       group: t('nav.group.platform'),
-      items: [
-        { id: 'policy', label: t('nav.policy'), icon: 'policy' },
-        { id: 'product', label: t('nav.product'), icon: 'product' },
-      ],
+      items: [{ id: 'policy', label: t('nav.policy'), icon: 'policy' }],
     },
   ];
 
@@ -346,8 +340,6 @@ export function App() {
     );
   } else if (route.section === 'policy') {
     active = <PolicyView t={t} token={token} agents={feed.agents} />;
-  } else if (route.section === 'product') {
-    active = <ProductView t={t} onGo={go} />;
   } else if (route.section === 'employees') {
     active = (
       <EmployeesView

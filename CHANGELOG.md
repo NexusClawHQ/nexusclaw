@@ -1,6 +1,6 @@
 # Changelog
 
-The public shipping log of the NexusClaw Community edition. Every entry below
+The public shipping log of the agent-governance repository. Every entry below
 is a sealed, deterministic snapshot exported from the private source-of-truth
 repository: each snapshot commit carries the source commit and provenance seal,
 and every "verified in this tree" claim below was executed against the
@@ -12,7 +12,7 @@ drop — the snapshot pipeline is routine, not an event.
 
 | Tag | Date | One-liner |
 |---|---|---|
-| [Unreleased] | 2026-08-18 | Direct community-repo commits (not a sealed snapshot): product-showcase dashboard at /app, rebuilt /console, BYO real-model path, governance-derived training & growth |
+| [Unreleased] | 2026-08-18 | Direct community-repo commits (not a sealed snapshot): repository repositioned as the agent-governance kernel, reference dashboard at /app, rebuilt /console, BYO real-model path, governance-derived training & growth |
 | [v0.5.0-community] | 2026-08-17 | Framework adapters: n8n nodes, Dify schema, PyPI-ready Python package |
 | [v0.4.0-community] | 2026-08-17 | Governance gate API + zero-dependency Python client |
 | [v0.3.0-community] | 2026-08-17 | The governance core lands as an Apache-2.0 library |
@@ -21,7 +21,18 @@ drop — the snapshot pipeline is routine, not an event.
 
 ## [Unreleased] — direct community-repo commits
 
-### 2026-08-18 — product showcase, BYO real-model path, unified design system
+### 2026-08-18 — repository repositioned as the governance kernel
+
+The repository now presents itself as the open-source **governance kernel**
+(`agent-governance`) with a runnable reference slice, not as a product
+community edition: the root README was rewritten library-first (NexusClaw is
+credited as the builder; the platform story stays on the commercial site),
+the root package is renamed `agent-governance-monorepo` (0.1.0), and the
+roadmap and boundary sections were aligned with the kernel framing. Entries
+in this file that predate the repositioning use the older community-edition
+wording and refer to the same tree.
+
+### 2026-08-18 — reference dashboard, BYO real-model path, unified design system
 
 Unlike the sealed snapshots below, these changes were committed directly in
 the public repository (branch `community-showcase-and-byo`); every claim was
@@ -31,11 +42,10 @@ the composed stack).
 
 #### Added
 
-- **Product-showcase dashboard at `/app`** — sidebar capability map (overview
-  / digital employees / training & growth / approvals / audit chain /
-  governance policy / product console), served from the backend image via
-  `express.static` with zero new dependencies. Commercial capabilities
-  render as honest preview cards and dialogs — no fake interactions.
+- **Reference dashboard at `/app`** — overview / digital employees /
+  training & growth / approvals / audit chain / governance policy views,
+  served from the backend image via `express.static` with zero new
+  dependencies.
 - **Digital-employee configuration view** — in-page tabs (overview /
   configuration / executions / growth) with a kv-grid profile, read-only
   system prompt, model source, tool capability rows (risk level + action +
@@ -123,7 +133,7 @@ verified against this tree.
   the sidecar (covered by its e2e loop), `vitest` 4 in governance (with an
   explicit `vite` ^7 peer after `vite/module-runner` resolution broke).
   Remaining majors are tracked in
-  [issue #29](https://github.com/NexusClawHQ/nexusclaw/issues/29).
+  [issue #29](https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues/29).
 - **Critical fix + boot gate**: merging `@nestjs/core` 11.2.1 without
   `@nestjs/common` left the Nest trio misaligned and the backend unable to
   boot while CI stayed green — nothing booted the real app. `@nestjs/common`
@@ -272,8 +282,8 @@ sha256 `b493009c3eb5af63463b9c166dd17e60c99489771fc9b593cc543358315cc5d5`.
 Snapshot model and contribution policy: [CONTRIBUTING.md](CONTRIBUTING.md).
 License: Apache-2.0 — [LICENSE](LICENSE), [NOTICE](NOTICE).
 
-[v0.5.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.5.0-community
-[v0.4.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.4.0-community
-[v0.3.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.3.0-community
-[v0.2.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.2.0-community
-[v0.1.0-community]: https://github.com/NexusClawHQ/nexusclaw/releases/tag/v0.1.0-community
+[v0.5.0-community]: https://github.com/NexusClawHQ/nexusclaw-agent-governance/releases/tag/v0.5.0-community
+[v0.4.0-community]: https://github.com/NexusClawHQ/nexusclaw-agent-governance/releases/tag/v0.4.0-community
+[v0.3.0-community]: https://github.com/NexusClawHQ/nexusclaw-agent-governance/releases/tag/v0.3.0-community
+[v0.2.0-community]: https://github.com/NexusClawHQ/nexusclaw-agent-governance/releases/tag/v0.2.0-community
+[v0.1.0-community]: https://github.com/NexusClawHQ/nexusclaw-agent-governance/releases/tag/v0.1.0-community

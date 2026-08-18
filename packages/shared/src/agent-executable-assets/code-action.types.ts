@@ -1,18 +1,25 @@
 /**
- * Action handler ABI, tool catalog descriptor and runtime SDK contracts.
+ * Tool catalog descriptor and resolved-tool contracts (Community subset).
  *
- * Every field here is frozen by executable-asset design §6.2 (catalog/export),
- * §7.1 (ABI), §8.1-8.5 (SDK) and §10.3 (descriptor checksum). Do not rename,
- * retype or add fields without a contract-version change. The backend and CLI
- * MUST import these types from `@nexusclaw/shared` and MUST NOT redeclare them.
+ * Every field here is frozen by executable-asset design §6.2 (catalog/export)
+ * and §10.3 (descriptor checksum). Do not rename, retype or add fields without
+ * a contract-version change. The backend MUST import these types from
+ * `@nexusclaw/shared` and MUST NOT redeclare them.
+ *
+ * The verified-isolate SDK surface (principal/context facade, records/
+ * connectors/AI/logger bindings) is NOT part of the Community edition — see
+ * ROADMAP.md.
  */
 import type { JsonValue } from './json-value';
-import {
-  ACTION_CONTRACT_VERSION,
-  AGENT_CODE_TOOL_EXPORT_SCHEMA_VERSION,
-  RUNTIME_API_VERSION_V2,
-  VERIFIED_ISOLATE_PROVIDER_ID,
-} from './contract-versions';
+
+// ---- Frozen version literals --------------------------------------------------
+// Single source of the schema/provider ids referenced by the contracts below.
+
+export const AGENT_CODE_TOOL_EXPORT_SCHEMA_VERSION = 'agent-code-tool/v1' as const;
+export const ACTION_CONTRACT_VERSION = 'nexus-code-action/v1' as const;
+export const RUNTIME_API_VERSION_V2 = 'runtime/v2' as const;
+export const VERIFIED_ISOLATE_PROVIDER_ID =
+  'nexusclaw-verified-isolate-v1' as const;
 
 // ---- Decimal money (design §6.2 / §8.4) -------------------------------------
 
@@ -140,175 +147,3 @@ export interface ResolvedAgentExecutableToolV1 {
   readonly runtimeProviderId: typeof VERIFIED_ISOLATE_PROVIDER_ID;
   readonly exportDescriptor: Readonly<AgentCodeToolExportV1>;
 }
-
-// ---- SDK: principal & context (design §8.1) --------------------------------
-
-export interface CodeActionPrincipalV1 {
-  readonly workspaceId: string;
-  readonly agentId: string;
-  readonly agentVersionId: string;
-  readonly serviceIdentityId: string;
-  readonly roleId: string;
-  readonly orgNodeId?: string;
-  readonly triggeredByUserId?: string;
-  readonly executionKind: 'agent' | 'flow';
-  readonly executionId: string;
-  readonly releaseSetId: string;
-  readonly traceId: string;
-  readonly correlationId: string;
-}
-
-/**
- * The frozen host-injected facade exposed inside the verified isolate. Legacy
- * runtime/v1 namespaces (`http`/`email`/`events`) NEVER appear on v1 actions
- * (design §1.4, §8). Only records/connectors/ai/clock/limits/logger cross.
- */
-export interface CodeActionContextV1 {
-  readonly principal: CodeActionPrincipalV1;
-  readonly records: CodeRecordsV1;
-  readonly connectors: CodeConnectorsV1;
-  readonly ai: CodeAiV1;
-  readonly clock: { readonly executionStartedAt: string };
-  readonly limits: CodeLimitsV1;
-  readonly logger: CodeLoggerV1;
-}
-
-/** The single v1 handler ABI: default export assignable to this. */
-export type CodeAction<TInput extends JsonValue, TOutput extends JsonValue> = (
-  ctx: CodeActionContextV1,
-  input: TInput,
-) => Promise<TOutput>;
-
-// ---- SDK: records (design §8.2) ---------------------------------------------
-
-export type RecordScalar = string | number | boolean | null;
-
-export type RecordFilterV1 =
-  | { op: 'and' | 'or'; filters: RecordFilterV1[] }
-  | {
-      op: 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte';
-      field: string;
-      value: RecordScalar;
-    }
-  | { op: 'in' | 'not_in'; field: string; values: RecordScalar[] }
-  | {
-      op: 'contains' | 'starts_with' | 'ends_with';
-      field: string;
-      value: string;
-    }
-  | { op: 'is_null' | 'is_not_null'; field: string };
-
-export interface CodeRecordsV1 {
-  get(args: {
-    objectApiName: string;
-    recordId: string;
-    select: string[];
-  }): Promise<{
-    id: string;
-    version: number;
-    values: Record<string, JsonValue>;
-  } | null>;
-  query(args: {
-    objectApiName: string;
-    select: string[];
-    where?: RecordFilterV1;
-    orderBy?: ReadonlyArray<{
-      field: string;
-      direction: 'asc' | 'desc';
-      nulls: 'first' | 'last';
-    }>;
-    first: number;
-    after?: string;
-  }): Promise<{
-    nodes: ReadonlyArray<{
-      id: string;
-      version: number;
-      values: Record<string, JsonValue>;
-    }>;
-    pageInfo: { endCursor?: string; hasNextPage: boolean };
-  }>;
-  create(args: {
-    objectApiName: string;
-    values: Record<string, JsonValue>;
-  }): Promise<{ id: string; version: number }>;
-  update(args: {
-    objectApiName: string;
-    recordId: string;
-    values: Record<string, JsonValue>;
-    expectedVersion: number;
-  }): Promise<{ id: string; version: number }>;
-  delete(args: {
-    objectApiName: string;
-    recordId: string;
-    expectedVersion: number;
-  }): Promise<{ id: string; recycled: true }>;
-}
-
-// ---- SDK: connectors (design §8.3) ------------------------------------------
-
-export interface CodeConnectorsV1 {
-  call<TInput extends JsonValue, TOutput extends JsonValue>(args: {
-    bindingKey: string;
-    operation: string;
-    input: TInput;
-  }): Promise<{
-    data: TOutput;
-    operationId: string;
-    status: 'succeeded';
-  }>;
-}
-
-// ---- SDK: AI (design §8.4) --------------------------------------------------
-
-export interface CodeAiGenerateUsageV1 {
-  readonly inputTokens: number;
-  readonly outputTokens: number;
-  readonly cost: {
-    readonly amount: DecimalMoneyAmount;
-    readonly currency: CurrencyCode;
-    readonly pricingVersion: PricingVersion;
-  };
-}
-
-export interface CodeAiGenerateResultV1<T extends JsonValue> {
-  readonly data: T;
-  readonly modelAlias: string;
-  readonly usage: CodeAiGenerateUsageV1;
-  readonly invocationId: string;
-  readonly providerStamp: {
-    readonly providerClass: string;
-    readonly routePolicyRevisionId: string;
-    readonly fallbackIndex: number;
-  };
-}
-
-export interface CodeAiV1 {
-  generate<T extends JsonValue>(args: {
-    policyKey: string;
-    input: JsonValue;
-    outputSchemaRef: string;
-    maxOutputTokens?: number;
-  }): Promise<CodeAiGenerateResultV1<T>>;
-}
-
-// ---- SDK: logger & limits (design §8.5) -------------------------------------
-
-export interface CodeLoggerV1 {
-  debug(event: string, fields?: Record<string, JsonValue>): void;
-  info(event: string, fields?: Record<string, JsonValue>): void;
-  warn(event: string, fields?: Record<string, JsonValue>): void;
-  error(event: string, fields?: Record<string, JsonValue>): void;
-}
-
-export interface CodeLimitsV1 {
-  getUsage(): Readonly<Record<string, number>>;
-  getLimit(): Readonly<Record<string, number>>;
-}
-
-// ---- Re-exported version literals for convenience ---------------------------
-
-export {
-  ACTION_CONTRACT_VERSION,
-  RUNTIME_API_VERSION_V2,
-  VERIFIED_ISOLATE_PROVIDER_ID,
-};

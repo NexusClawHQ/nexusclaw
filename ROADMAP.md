@@ -1,21 +1,21 @@
 # Roadmap
 
-> Direction, not promises. This page says where the Community edition is
-> heading next and what deliberately stays out of it. It is updated with the
+> Direction, not promises. This page says where this repository is heading
+> next and what deliberately stays out of it. It is updated with the
 > snapshots — the [CHANGELOG](CHANGELOG.md) records what actually shipped.
 > Dates are omitted on purpose: cadence is fast, and a date miss would be a
 > worse signal than no date.
 
 ## Where this is going
 
-The full NexusClaw platform is an AI-native CRM where digital employees
-execute real business tasks inside governed boundaries. The Community edition
-carries the part that must be trustworthy for that vision to work at all:
-**the governance kernel** — deny-by-default permissions, L0–L4 guardrails,
-human approvals, and an immutable audit chain — first as a runnable slice,
-and increasingly as a **library any agent framework can adopt**.
+This repository is the governance kernel NexusClaw runs its digital employees
+on, open-sourced as a **library any agent framework can adopt**: deny-by-default
+permissions, L0–L4 guardrails, human approvals, and an immutable audit chain —
+first as a runnable slice, and increasingly as a framework-neutral library
+that works with LangGraph, CrewAI, n8n, Dify or a plain script. The platform
+around the kernel stays commercial at [nexusclaw.cn](https://nexusclaw.cn).
 
-## Shipped (Community v0.5.0)
+## Shipped (v0.5.0)
 
 | Capability | Since |
 |---|---|
@@ -42,25 +42,22 @@ The plain `agent-governance` name is taken, and the compressed
 guard, hence the branded distribution name.
 
 **Also 2026-08-18 (direct community commits, branch `community-showcase-and-byo`):
-the Community frontends became the product showcase.** The Governance
-Dashboard is served at `/app` as a full capability map — digital employees
-with a product-grade configuration view, training & growth timelines derived
-from approval decisions, replay-compare, governance policy, and an honest
-commercial-preview product console. `/console` was rebuilt on the same
-unified design-token table (guard-tested) as a zero-dependency demo, and a
-BYO real-model path (`COMMUNITY_LLM_*`) lets evaluators watch a real LLM run
-under identical governance gates. Design records and the frozen mockup live
-under `.kiro/specs/`.
+the reference frontends landed.** The Governance Dashboard is served at `/app` —
+digital employees with a configuration view, training & growth timelines derived
+from approval decisions, replay-compare, governance policy. `/console` was
+rebuilt on the same unified design-token table (guard-tested) as a
+zero-dependency demo, and a BYO real-model path (`COMMUNITY_LLM_*`) lets
+evaluators watch a real LLM run under identical governance gates. Design
+records and the frozen mockup live under `.kiro/specs/`.
 
 ## Building next
 
 On top of the v0.5.0 adapter base:
 
-- **LangGraph / CrewAI recipes** — shipped in
-  `governance/adapters/python/examples/`: the LangGraph recipe (gate →
-  `interrupt()` → `gov.decide` → `run_approved` → audit assert) is verified
-  end-to-end against a live sidecar; the CrewAI pattern composes the same
-  client calls with CrewAI tool conventions.
+- **LangGraph / CrewAI recipes** — documented in
+  `governance/adapters/python/README.md` (the `wrap_tool` interrupt pattern:
+  gate → `interrupt()` → `gov.decide` → `run_approved`); the CrewAI pattern
+  composes the same client calls with CrewAI tool conventions.
 - **Adoption ergonomics** — making "three lines to governed tools" true for
   more runtimes and languages.
 - **Deeper n8n / Dify coverage** — richer node parameters and schema surface
@@ -74,9 +71,9 @@ On top of the v0.5.0 adapter base:
   (custom tools, custom rule stores, real model invocation behind the same
   contracts).
 - richer audit-chain querying over the sidecar HTTP surface.
-- examples for more deployment shapes of the Community runtime.
+- examples for more deployment shapes of the reference slice.
 
-## Deliberately out of the Community edition
+## Deliberately out of this repository
 
 These stay in the commercial platform — their absence must never make
 permission or audit behavior fail open ([docs/architecture.md](docs/architecture.md)):
@@ -89,7 +86,7 @@ Commercial licensing is covered in [docs/licensing-faq.md](docs/licensing-faq.md
 
 ## How to influence the order
 
-Open a [GitHub issue](https://github.com/NexusClawHQ/nexusclaw/issues) with
+Open a [GitHub issue](https://github.com/NexusClawHQ/nexusclaw-agent-governance/issues) with
 the use case you need first — concrete adoption blockers carry the most
 weight. See [CONTRIBUTING.md](CONTRIBUTING.md) for the proposal model;
 security reports follow [SECURITY.md](SECURITY.md).
