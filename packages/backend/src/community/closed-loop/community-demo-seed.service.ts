@@ -4,6 +4,8 @@ import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
 
 import { Agent } from '../../modules/agent/entities/agent.entity';
+import { AgentExecution } from '../../modules/agent-runtime/entities/agent-execution.entity';
+import { ApprovalInstance } from '../../modules/approval/entities/approval-instance.entity';
 import { ObjectMetadata } from '../../modules/object-metadata/entities/object-metadata.entity';
 import { ObjectPermission } from '../../modules/permission/entities/object-permission.entity';
 import { Role } from '../../modules/role/entities/role.entity';
@@ -12,6 +14,12 @@ import { Workspace } from '../../modules/workspace/entities/workspace.entity';
 import { WorkspaceMember } from '../../modules/workspace/entities/workspace-member.entity';
 import {
   COMMUNITY_DEMO_AGENT_ID,
+  COMMUNITY_DEMO_GROWTH_APPR_APPROVED_ID,
+  COMMUNITY_DEMO_GROWTH_APPR_REJECTED_ID,
+  COMMUNITY_DEMO_GROWTH_EXEC_APPROVED_ID,
+  COMMUNITY_DEMO_GROWTH_EXEC_REJECTED_ID,
+  COMMUNITY_DEMO_GROWTH_PROCESS_APPROVED_ID,
+  COMMUNITY_DEMO_GROWTH_PROCESS_REJECTED_ID,
   COMMUNITY_DEMO_MEMBER_ID,
   COMMUNITY_DEMO_OBJECT_METADATA_ID,
   COMMUNITY_DEMO_OBJECT_PERMISSION_ID,
@@ -51,6 +59,10 @@ export class CommunityDemoSeedService implements OnApplicationBootstrap {
     private readonly objectPermissions: Repository<ObjectPermission>,
     @InjectRepository(Agent)
     private readonly agents: Repository<Agent>,
+    @InjectRepository(AgentExecution)
+    private readonly executions: Repository<AgentExecution>,
+    @InjectRepository(ApprovalInstance)
+    private readonly approvals: Repository<ApprovalInstance>,
   ) {}
 
   async onApplicationBootstrap(): Promise<void> {
@@ -192,6 +204,167 @@ export class CommunityDemoSeedService implements OnApplicationBootstrap {
       });
     }
 
+    await this.seedGrowthHistory(workspaceId);
+
     this.logger.log('Community demo seed ready (demo/nexusclaw-demo)');
+  }
+
+  /**
+   * Growth seed (spec product-showcase-dashboard AC-6.5): two backdated
+   * historical executions — one approved to completion, one rejected at the
+   * L3 gate with a coaching comment — so the training & growth view carries
+   * real, honest content on first boot. Idempotent: fixed UUIDs, inserted
+   * only when missing.
+   */
+  private async seedGrowthHistory(workspaceId: string): Promise<void> {
+    const now = Date.now();
+    const day = 86_400_000;
+
+    const approvedAt = new Date(now - 2 * day);
+    const rejectedAt = new Date(now - 1 * day);
+
+    if (
+      !(await this.executions.findOne({
+        where: { id: COMMUNITY_DEMO_GROWTH_EXEC_APPROVED_ID },
+      }))
+    ) {
+      await this.executions.insert({
+        id: COMMUNITY_DEMO_GROWTH_EXEC_APPROVED_ID,
+        workspaceId,
+        agentId: COMMUNITY_DEMO_AGENT_ID,
+        triggerType: 'manual',
+        triggerSource: 'web',
+        status: 'done',
+        rawInput: '查询客户 C-1001 并发送跟进邮件。',
+        outputSummary:
+          'Customer C-1001 looked up (L1, audited); follow-up email approved by reviewer and sent (L3).',
+        totalInputTokens: 96,
+        totalOutputTokens: 128,
+        createdAt: approvedAt,
+        completedAt: new Date(approvedAt.getTime() + 4_200),
+        durationMs: 4_200,
+      });
+    }
+
+    if (
+      !(await this.approvals.findOne({
+        where: { id: COMMUNITY_DEMO_GROWTH_APPR_APPROVED_ID },
+      }))
+    ) {
+      await this.approvals.insert({
+        id: COMMUNITY_DEMO_GROWTH_APPR_APPROVED_ID,
+        workspaceId,
+        processId: COMMUNITY_DEMO_GROWTH_PROCESS_APPROVED_ID,
+        recordId: COMMUNITY_DEMO_GROWTH_EXEC_APPROVED_ID,
+        submittedBy: COMMUNITY_DEMO_USER_ID,
+        objectName: 'AgentExecution',
+        status: 'APPROVED',
+        submittedAt: new Date(approvedAt.getTime() + 3_000),
+        completedAt: new Date(approvedAt.getTime() + 3_800),
+        history: [
+          {
+            stepIndex: 0,
+            stepName: 'Agent Sensitive Operation',
+            action: 'SUBMITTED',
+            actorId: COMMUNITY_DEMO_USER_ID,
+            actorName: 'executor',
+            comments:
+              '__pausedToolCall__:' +
+              JSON.stringify({
+                toolName: COMMUNITY_DEMO_TOOL_SEND_EMAIL,
+                toolInput: {
+                  customerId: 'C-1001',
+                  subject: 'Follow-up: service check-in',
+                },
+                riskLevel: 'L3',
+                description:
+                  'Outbound follow-up email to a customer — requires human approval',
+              }),
+            timestamp: new Date(approvedAt.getTime() + 3_000).toISOString(),
+          },
+          {
+            stepIndex: 1,
+            stepName: 'Agent Sensitive Operation',
+            action: 'APPROVED',
+            actorId: COMMUNITY_DEMO_USER_ID,
+            actorName: 'Demo Operator',
+            comments: '内容准确、语气得体，批准发送。',
+            timestamp: new Date(approvedAt.getTime() + 3_800).toISOString(),
+          },
+        ],
+      });
+    }
+
+    if (
+      !(await this.executions.findOne({
+        where: { id: COMMUNITY_DEMO_GROWTH_EXEC_REJECTED_ID },
+      }))
+    ) {
+      await this.executions.insert({
+        id: COMMUNITY_DEMO_GROWTH_EXEC_REJECTED_ID,
+        workspaceId,
+        agentId: COMMUNITY_DEMO_AGENT_ID,
+        triggerType: 'manual',
+        triggerSource: 'web',
+        status: 'cancelled',
+        rawInput: '马上给客户发一封限时折扣邮件。',
+        outputSummary:
+          'Follow-up email rejected by reviewer — execution cancelled at the L3 gate.',
+        totalInputTokens: 64,
+        totalOutputTokens: 88,
+        createdAt: rejectedAt,
+        completedAt: new Date(rejectedAt.getTime() + 3_100),
+        durationMs: 3_100,
+      });
+    }
+
+    if (
+      !(await this.approvals.findOne({
+        where: { id: COMMUNITY_DEMO_GROWTH_APPR_REJECTED_ID },
+      }))
+    ) {
+      await this.approvals.insert({
+        id: COMMUNITY_DEMO_GROWTH_APPR_REJECTED_ID,
+        workspaceId,
+        processId: COMMUNITY_DEMO_GROWTH_PROCESS_REJECTED_ID,
+        recordId: COMMUNITY_DEMO_GROWTH_EXEC_REJECTED_ID,
+        submittedBy: COMMUNITY_DEMO_USER_ID,
+        objectName: 'AgentExecution',
+        status: 'REJECTED',
+        submittedAt: new Date(rejectedAt.getTime() + 2_400),
+        completedAt: new Date(rejectedAt.getTime() + 3_100),
+        history: [
+          {
+            stepIndex: 0,
+            stepName: 'Agent Sensitive Operation',
+            action: 'SUBMITTED',
+            actorId: COMMUNITY_DEMO_USER_ID,
+            actorName: 'executor',
+            comments:
+              '__pausedToolCall__:' +
+              JSON.stringify({
+                toolName: COMMUNITY_DEMO_TOOL_SEND_EMAIL,
+                toolInput: {
+                  customerId: 'C-1001',
+                  subject: 'Limited-time discount — act now',
+                },
+                riskLevel: 'L3',
+                description:
+                  'Outbound follow-up email to a customer — requires human approval',
+              }),
+            timestamp: new Date(rejectedAt.getTime() + 2_400).toISOString(),
+          },
+          {
+            stepIndex: 1,
+            stepName: 'Agent Sensitive Operation',
+            action: 'REJECTED',
+            actorId: COMMUNITY_DEMO_USER_ID,
+            actorName: 'Demo Operator',
+            comments: '语气过于急切——先确认客户预算，再谈折扣方案。',
+            timestamp: new Date(rejectedAt.getTime() + 3_100).toISOString(),
+          },
+        ],
+      });
+    }
   }
 }

@@ -41,3 +41,20 @@ export const COMMUNITY_DEMO_CUSTOMER_ID = 'C-1001';
  */
 export const COMMUNITY_DEMO_LOOKUP_RESULT_MARKER = 'demo lookup result';
 export const COMMUNITY_DEMO_SEND_RESULT_MARKER = 'demo-dry-run';
+
+/** Growth-seed identities (spec product-showcase-dashboard AC-6.5): two
+ *  backdated historical executions with decided approvals, so the training &
+ *  growth view has real, honest content on first boot. Fixed UUIDs keep the
+ *  seed idempotent across restarts and deterministic across exports. */
+export const COMMUNITY_DEMO_GROWTH_EXEC_APPROVED_ID =
+  '9e200000-0000-4000-8000-000000000001';
+export const COMMUNITY_DEMO_GROWTH_EXEC_REJECTED_ID =
+  '9e200000-0000-4000-8000-000000000002';
+export const COMMUNITY_DEMO_GROWTH_APPR_APPROVED_ID =
+  '9e200000-0000-4000-8000-000000000003';
+export const COMMUNITY_DEMO_GROWTH_APPR_REJECTED_ID =
+  '9e200000-0000-4000-8000-000000000004';
+export const COMMUNITY_DEMO_GROWTH_PROCESS_APPROVED_ID =
+  '9e200000-0000-4000-8000-000000000005';
+export const COMMUNITY_DEMO_GROWTH_PROCESS_REJECTED_ID =
+  '9e200000-0000-4000-8000-000000000006';
