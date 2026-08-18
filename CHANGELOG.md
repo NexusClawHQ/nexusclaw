@@ -145,6 +145,14 @@ verified against this tree.
   empty lists; jsdom + Testing Library component tests cover the banner
   appearing, clearing on recovery and the 401 sign-out path (20 tests).
 
+### 2026-08-18 — bilingual README: language toggle + README.zh.md
+
+The Chinese introduction that lived inline in README.md moved to its own
+[README.zh.md](README.zh.md), and both files carry a language toggle directly
+under the title (`English | [中文](README.zh.md)` / `[English](README.md) |
+中文`). Content is unchanged — this is a reorganization, not a rewrite; the
+operational guide stays English-only at the end of README.md.
+
 ## [v0.5.0-community] — 2026-08-17
 
 **The gate API grows framework adapters — govern n8n workflows and Dify agents
