@@ -8,16 +8,25 @@ export function EmployeesView({
   agents,
   loading,
   onOpen,
+  onNew,
 }: {
   t: Translator;
   agents: AgentSummary[];
   loading: boolean;
   onOpen: (id: string) => void;
+  onNew: () => void;
 }) {
   return (
     <section className="view">
-      <h2>{t('emp.title')}</h2>
-      <p className="muted">{t('emp.subtitle')}</p>
+      <div className="view-head">
+        <div>
+          <h2>{t('emp.title')}</h2>
+          <p className="muted">{t('emp.subtitle')}</p>
+        </div>
+        <button className="primary" onClick={onNew}>
+          + {t('emp.new.button')}
+        </button>
+      </div>
       {loading ? (
         <p className="muted">{t('common.loading')}</p>
       ) : agents.length === 0 ? (

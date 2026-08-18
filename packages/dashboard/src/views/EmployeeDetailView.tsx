@@ -1,21 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   fetchAgentDetail,
   fetchModelSource,
+  updateAgentConfig,
   type AgentDetail,
   type ModelSource,
+  type SensitiveOpRule,
 } from '../api';
 import type { Translator } from '../i18n';
-import {
-  EmptyState,
-  formatPercent,
-  RiskBadge,
-} from '../components/ui';
+import { EmptyState, formatPercent } from '../components/ui';
 
 type SubTab = 'overview' | 'config' | 'exec' | 'growth';
 
 const RISK_LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4'] as const;
+const RULE_ACTIONS = ['allow', 'audit', 'confirm', 'approve', 'block'] as const;
 
 const LEVEL_LABEL_KEYS: Record<(typeof RISK_LEVELS)[number], Parameters<Translator>[0]> = {
   L0: 'emp.level.L0',
@@ -25,8 +24,26 @@ const LEVEL_LABEL_KEYS: Record<(typeof RISK_LEVELS)[number], Parameters<Translat
   L4: 'emp.level.L4',
 };
 
-/** Employee profile (frozen mockup §5.4): hero + in-page tabs with the
- *  CONFIG sub-page as the centerpiece. Everything read-only. */
+interface ConfigDraft {
+  prompt: string;
+  allowedTools: string[];
+  sensitiveOps: SensitiveOpRule[];
+  maxReActIterations: number;
+  timeoutMs: number;
+}
+
+const emptyRule = (): SensitiveOpRule => ({
+  operation: '',
+  toolPattern: '',
+  riskLevel: 'L2',
+  action: 'approve',
+  description: '',
+});
+
+/** Employee profile (frozen mockup §5.4): hero + in-page tabs. The CONFIG
+ *  sub-page is an editable policy surface — prompt, tool allow-list,
+ *  sensitive-op rules and execution constraints. Saving goes through the
+ *  governed mutation (server-validated) and lands on the audit chain. */
 export function EmployeeDetailView({
   t,
   token,
@@ -47,8 +64,13 @@ export function EmployeeDetailView({
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [tab, setTab] = useState<SubTab>('config');
+  const [draft, setDraft] = useState<ConfigDraft | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [savedVersion, setSavedVersion] = useState<number | null>(null);
+  const [newTool, setNewTool] = useState('');
 
-  useEffect(() => {
+  const load = useCallback(() => {
     let cancelled = false;
     setLoading(true);
     setNotFound(false);
@@ -76,8 +98,28 @@ export function EmployeeDetailView({
     };
   }, [token, agentId]);
 
+  useEffect(() => load(), [load]);
+
+  // Re-seed the draft whenever a fresh detail arrives.
+  useEffect(() => {
+    if (!detail) {
+      setDraft(null);
+      return;
+    }
+    const rules = detail.guardrailRules ?? {};
+    setDraft({
+      prompt: detail.prompt ?? '',
+      allowedTools: [...(rules.allowedTools ?? [])],
+      sensitiveOps: (rules.sensitiveOps ?? []).map((rule) => ({ ...rule })),
+      maxReActIterations: rules.execution?.maxReActIterations ?? 4,
+      timeoutMs: rules.execution?.timeoutMs ?? 60_000,
+    });
+  }, [detail]);
+
   if (loading) return <p className="muted">{t('common.loading')}</p>;
-  if (notFound || !detail) return <EmptyState t={t} label={t('emp.detail.notFound')} />;
+  if (notFound || !detail || !draft) {
+    return <EmptyState t={t} label={t('emp.detail.notFound')} />;
+  }
 
   const ops = detail.guardrailRules?.sensitiveOps ?? [];
   const maxLevel = ops.reduce<(typeof RISK_LEVELS)[number] | null>(
@@ -94,6 +136,69 @@ export function EmployeeDetailView({
     { id: 'exec', label: t('emp.tab.exec') },
     { id: 'growth', label: t('emp.tab.growth') },
   ];
+
+  const addTool = () => {
+    const tool = newTool.trim();
+    if (!tool || draft.allowedTools.includes(tool)) return;
+    setDraft((current) =>
+      current ? { ...current, allowedTools: [...current.allowedTools, tool] } : current,
+    );
+    setNewTool('');
+  };
+
+  const patchRule = (index: number, patch: Partial<SensitiveOpRule>) => {
+    setDraft((current) =>
+      current
+        ? {
+            ...current,
+            sensitiveOps: current.sensitiveOps.map((rule, i) =>
+              i === index ? { ...rule, ...patch } : rule,
+            ),
+          }
+        : current,
+    );
+  };
+
+  const removeRule = (index: number) => {
+    setDraft((current) =>
+      current
+        ? { ...current, sensitiveOps: current.sensitiveOps.filter((_, i) => i !== index) }
+        : current,
+    );
+  };
+
+  const addRule = () => {
+    setDraft((current) =>
+      current
+        ? { ...current, sensitiveOps: [...current.sensitiveOps, emptyRule()] }
+        : current,
+    );
+  };
+
+  const save = async () => {
+    if (!draft) return;
+    setSaving(true);
+    setSaveError(null);
+    try {
+      const result = await updateAgentConfig(token, detail.id, {
+        prompt: draft.prompt,
+        allowedTools: draft.allowedTools,
+        sensitiveOps: draft.sensitiveOps
+          .filter((rule) => rule.operation && rule.toolPattern)
+          .map((rule) => ({ ...rule, objectApiName: rule.objectApiName ?? '*' })),
+        execution: {
+          maxReActIterations: draft.maxReActIterations,
+          timeoutMs: draft.timeoutMs,
+        },
+      });
+      setSavedVersion(result.version);
+      await load();
+    } catch {
+      setSaveError(t('emp.cfg.saveError'));
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <section className="view">
@@ -211,55 +316,194 @@ export function EmployeeDetailView({
                   </div>
                 </div>
               </div>
+
               <div className="panel">
                 <div className="panel-head">
                   <h3 style={{ margin: 0 }}>{t('emp.cfg.prompt')}</h3>
                 </div>
-                <pre className="json" style={{ maxHeight: 120 }}>{detail.prompt ?? '—'}</pre>
+                <label className="visually-hidden" htmlFor="cfg-prompt">{t('emp.cfg.prompt')}</label>
+                <textarea
+                  id="cfg-prompt"
+                  className="cfg-textarea"
+                  rows={5}
+                  value={draft.prompt}
+                  onChange={(event) =>
+                    setDraft((current) =>
+                      current ? { ...current, prompt: event.target.value } : current,
+                    )
+                  }
+                />
                 <p className="muted" style={{ margin: '6px 0 0', fontSize: 12 }}>
                   {t('emp.cfg.promptNote')}
                 </p>
+              </div>
+
+              <div className="panel">
+                <div className="panel-head">
+                  <h3 style={{ margin: 0 }}>{t('emp.cfg.execution')}</h3>
+                </div>
+                <div className="cfg-exec-grid">
+                  <label>
+                    <span>{t('emp.cfg.maxSteps')}</span>
+                    <input
+                      type="number"
+                      min={1}
+                      max={50}
+                      value={draft.maxReActIterations}
+                      onChange={(event) =>
+                        setDraft((current) =>
+                          current
+                            ? { ...current, maxReActIterations: Number(event.target.value) || 4 }
+                            : current,
+                        )
+                      }
+                    />
+                  </label>
+                  <label>
+                    <span>{t('emp.cfg.timeout')}</span>
+                    <input
+                      type="number"
+                      min={1000}
+                      max={600000}
+                      step={1000}
+                      value={draft.timeoutMs}
+                      onChange={(event) =>
+                        setDraft((current) =>
+                          current
+                            ? { ...current, timeoutMs: Number(event.target.value) || 60_000 }
+                            : current,
+                        )
+                      }
+                    />
+                  </label>
+                </div>
               </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div className="panel">
                 <div className="panel-head">
-                  <h3 style={{ margin: 0 }}>{t('emp.cfg.tools')}</h3>
-                  <span className="chip muted">
-                    {ops.length} / {ops.length} {t('emp.cfg.enabled')}
-                  </span>
+                  <h3 style={{ margin: 0 }}>{t('emp.cfg.allowedTools')}</h3>
+                  <span className="chip muted">{draft.allowedTools.length}</span>
                 </div>
-                {ops.length === 0 ? (
-                  <p className="muted" style={{ margin: '6px 0 0' }}>{t('policy.empty')}</p>
-                ) : (
-                  ops.map((rule, index) => (
-                    <div className="config-row" key={index}>
-                      <span
-                        className="mini-icon"
-                        style={{
-                          background: rule.riskLevel === 'L3' ? 'var(--warn-soft)' : 'var(--info-soft)',
-                          color: rule.riskLevel === 'L3' ? 'var(--warn)' : 'var(--info)',
-                        }}
+                <div className="tool-chips">
+                  {draft.allowedTools.length === 0 && (
+                    <p className="muted" style={{ margin: '2px 0 6px', fontSize: 12 }}>
+                      {t('emp.cfg.allowedToolsEmpty')}
+                    </p>
+                  )}
+                  {draft.allowedTools.map((tool) => (
+                    <span className="tool-chip" key={tool}>
+                      <span className="mono">{tool}</span>
+                      <button
+                        type="button"
+                        aria-label={t('emp.cfg.removeTool', { tool })}
+                        onClick={() =>
+                          setDraft((current) =>
+                            current
+                              ? {
+                                  ...current,
+                                  allowedTools: current.allowedTools.filter((value) => value !== tool),
+                                }
+                              : current,
+                          )
+                        }
                       >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                          <path d={rule.riskLevel === 'L3' ? 'M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3' : 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'} />
-                        </svg>
-                      </span>
-                      <div className="info">
-                        <b className="mono">{rule.toolPattern ?? '—'}</b>
-                        <span>{rule.description ?? rule.operation}</span>
-                      </div>
-                      <RiskBadge riskLevel={rule.riskLevel} />
-                      <span className={`chip ${rule.action === 'approve' ? 'warn' : 'info'}`}>{rule.action}</span>
-                      <span className="switch" title={t('emp.cfg.enabled')} />
-                    </div>
-                  ))
-                )}
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+                <div className="tool-add-row">
+                  <input
+                    type="text"
+                    placeholder={t('emp.cfg.toolPlaceholder')}
+                    value={newTool}
+                    onChange={(event) => setNewTool(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        event.preventDefault();
+                        addTool();
+                      }
+                    }}
+                  />
+                  <button type="button" onClick={addTool} disabled={!newTool.trim()}>
+                    {t('emp.cfg.addTool')}
+                  </button>
+                </div>
                 <p className="muted" style={{ margin: '8px 0 0', fontSize: 12 }}>
                   {t('emp.cfg.denyNote')}
                 </p>
               </div>
+
+              <div className="panel">
+                <div className="panel-head">
+                  <h3 style={{ margin: 0 }}>{t('emp.cfg.rules')}</h3>
+                </div>
+                {draft.sensitiveOps.length === 0 ? (
+                  <p className="muted" style={{ margin: '6px 0 0' }}>{t('policy.empty')}</p>
+                ) : (
+                  draft.sensitiveOps.map((rule, index) => (
+                    <div className="rule-editor" key={index}>
+                      <div className="rule-editor-row">
+                        <input
+                          className="mono"
+                          placeholder={t('emp.cfg.ruleTool')}
+                          value={rule.toolPattern ?? ''}
+                          onChange={(event) => patchRule(index, { toolPattern: event.target.value })}
+                        />
+                        <input
+                          placeholder={t('emp.cfg.ruleOperation')}
+                          value={rule.operation}
+                          onChange={(event) => patchRule(index, { operation: event.target.value })}
+                        />
+                      </div>
+                      <div className="rule-editor-row">
+                        <select
+                          aria-label={t('policy.col.risk')}
+                          value={rule.riskLevel}
+                          onChange={(event) => patchRule(index, { riskLevel: event.target.value })}
+                        >
+                          {RISK_LEVELS.map((level) => (
+                            <option key={level} value={level}>
+                              {level}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          aria-label={t('policy.col.action')}
+                          value={rule.action}
+                          onChange={(event) => patchRule(index, { action: event.target.value })}
+                        >
+                          {RULE_ACTIONS.map((action) => (
+                            <option key={action} value={action}>
+                              {action}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          className="ghost"
+                          aria-label={t('emp.cfg.removeRule')}
+                          onClick={() => removeRule(index)}
+                        >
+                          ×
+                        </button>
+                      </div>
+                      <input
+                        className="rule-desc"
+                        placeholder={t('emp.cfg.ruleDesc')}
+                        value={rule.description ?? ''}
+                        onChange={(event) => patchRule(index, { description: event.target.value })}
+                      />
+                    </div>
+                  ))
+                )}
+                <button type="button" className="ghost" onClick={addRule} style={{ marginTop: 8 }}>
+                  + {t('emp.cfg.addRule')}
+                </button>
+              </div>
+
               <div className="panel">
                 <div className="panel-head">
                   <h3 style={{ margin: 0 }}>{t('emp.cfg.autonomy')}</h3>
@@ -272,33 +516,24 @@ export function EmployeeDetailView({
                     </div>
                   ))}
                 </div>
-                {ops.length > 0 && (
-                  <table style={{ marginTop: 10 }}>
-                    <thead>
-                      <tr>
-                        <th>{t('emp.cfg.trigger')}</th>
-                        <th>{t('policy.col.action')}</th>
-                        <th>{t('emp.cfg.binding')}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {ops.map((rule, index) => (
-                        <tr key={index}>
-                          <td>{rule.operation}</td>
-                          <td>
-                            <span className={`chip ${rule.action === 'approve' ? 'warn' : 'info'}`}>{rule.action}</span>
-                          </td>
-                          <td className="mono">{rule.toolPattern ?? '—'}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                )}
                 <p className="muted" style={{ margin: '8px 0 0', fontSize: 12 }}>
                   {t('emp.cfg.pipelineNote')}
                 </p>
               </div>
             </div>
+          </div>
+
+          <div className="save-bar">
+            <div className="save-status">
+              {savedVersion != null && (
+                <span className="form-ok">{t('emp.cfg.saved', { n: savedVersion })}</span>
+              )}
+              {saveError && <span className="form-error" role="alert">{saveError}</span>}
+              <span className="muted" style={{ fontSize: 12 }}>{t('emp.cfg.editNote')}</span>
+            </div>
+            <button className="primary" onClick={save} disabled={saving}>
+              {saving ? t('emp.cfg.saving') : t('emp.cfg.save')}
+            </button>
           </div>
         </div>
       )}

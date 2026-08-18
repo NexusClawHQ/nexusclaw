@@ -9,10 +9,17 @@ import {
   type GrowthEntry,
 } from '../api';
 import type { Translator } from '../i18n';
-import { EmptyState, formatDuration, StatusChip } from '../components/ui';
+import {
+  EmptyState,
+  formatDuration,
+  formatPercent,
+  StatusChip,
+} from '../components/ui';
 
-/** Training & growth (AC-6.1–6.6): timeline + replay-compare, everything
- *  derived from governance data. */
+/** Training & growth (AC-6.1–6.6): pick a digital employee from the list,
+ *  then read that employee's growth timeline — coaching notes from approval
+ *  decisions, L3 escalations, milestones — with replay-compare. Everything
+ *  is derived from governance data. */
 export function GrowthView({
   t,
   token,
@@ -28,6 +35,9 @@ export function GrowthView({
   onSelectAgent: (id: string) => void;
   onOpenExecution: (id: string) => void;
 }) {
+  // selectedAgentId is the external entry point (e.g. "open training" from
+  // an employee profile); the list view is the default.
+  const [selectedId, setSelectedId] = useState<string | null>(selectedAgentId);
   const [entries, setEntries] = useState<GrowthEntry[] | null>(null);
   const [replay, setReplay] = useState<{
     originalId: string;
@@ -38,9 +48,13 @@ export function GrowthView({
   const [replayed, setReplayed] = useState<ExecutionDetail | null>(null);
 
   useEffect(() => {
-    if (!selectedAgentId) return;
+    setSelectedId(selectedAgentId);
+  }, [selectedAgentId]);
+
+  useEffect(() => {
+    if (!selectedId) return;
     let cancelled = false;
-    fetchGrowthTimeline(token, selectedAgentId)
+    fetchGrowthTimeline(token, selectedId)
       .then((rows) => {
         if (!cancelled) setEntries(rows);
       })
@@ -50,11 +64,16 @@ export function GrowthView({
     return () => {
       cancelled = true;
     };
-  }, [token, selectedAgentId]);
+  }, [token, selectedId]);
+
+  const openEmployee = (id: string) => {
+    setSelectedId(id);
+    onSelectAgent(id);
+  };
 
   const replayRun = useCallback(
     async (entry: GrowthEntry) => {
-      if (!selectedAgentId || replaying) return;
+      if (!selectedId || replaying) return;
       setReplaying(true);
       setReplay(null);
       setOriginal(null);
@@ -64,7 +83,7 @@ export function GrowthView({
         if (source) setOriginal(source);
         const started = await executeAgent(
           token,
-          selectedAgentId,
+          selectedId,
           source?.rawInput ?? '',
         );
         // Poll until terminal, then load for the side-by-side compare.
@@ -85,7 +104,7 @@ export function GrowthView({
         setReplaying(false);
       }
     },
-    [token, selectedAgentId, replaying],
+    [token, selectedId, replaying],
   );
 
   const identical =
@@ -94,23 +113,64 @@ export function GrowthView({
     original.rawInput === replayed.rawInput &&
     original.reactSteps.length === replayed.reactSteps.length;
 
+  if (selectedId === null) {
+    // Step 1 — the employee list; each card opens that employee's training.
+    return (
+      <section className="view">
+        <h2>{t('growth.title')}</h2>
+        <p className="muted">{t('growth.subtitle')}</p>
+        {agents.length === 0 ? (
+          <EmptyState t={t} label={t('growth.agentsEmpty')} />
+        ) : (
+          <div className="card-wall">
+            {agents.map((agent) => (
+              <button className="employee-card" key={agent.id} onClick={() => openEmployee(agent.id)}>
+                <span className="avatar" aria-hidden="true">
+                  {agent.name.slice(0, 1).toUpperCase()}
+                </span>
+                <b>{agent.name}</b>
+                <span className={`chip ${agent.status === 'active' ? 'ok' : 'muted'}`}>
+                  {agent.status}
+                </span>
+                {agent.description && <p className="muted">{agent.description}</p>}
+                <dl className="employee-stats">
+                  <div>
+                    <dt>{t('emp.stats.executions')}</dt>
+                    <dd>{agent.stats?.totalExecutions ?? 0}</dd>
+                  </div>
+                  <div>
+                    <dt>{t('emp.stats.success')}</dt>
+                    <dd>{formatPercent(agent.stats?.successRate ?? null)}</dd>
+                  </div>
+                  <div>
+                    <dt>{t('emp.stats.approvals')}</dt>
+                    <dd>{formatPercent(agent.stats?.approvalRate ?? null)}</dd>
+                  </div>
+                  <div>
+                    <dt>{t('emp.stats.l3')}</dt>
+                    <dd>{agent.stats?.l3EscalationCount ?? 0}</dd>
+                  </div>
+                </dl>
+              </button>
+            ))}
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  const selectedAgent = agents.find((agent) => agent.id === selectedId) ?? null;
+
+  // Step 2 — the selected employee's training timeline + replay-compare.
   return (
     <section className="view">
+      <button className="ghost" onClick={() => setSelectedId(null)}>
+        ← {t('growth.back')}
+      </button>
       <h2>{t('growth.title')}</h2>
-      <p className="muted">{t('growth.subtitle')}</p>
-      {agents.length > 1 && (
-        <select
-          value={selectedAgentId ?? agents[0].id}
-          onChange={(event) => onSelectAgent(event.target.value)}
-          aria-label={t('run.agent')}
-        >
-          {agents.map((agent) => (
-            <option key={agent.id} value={agent.id}>
-              {agent.name}
-            </option>
-          ))}
-        </select>
-      )}
+      <p className="muted">
+        {selectedAgent ? selectedAgent.name : '—'} · {t('growth.subtitle')}
+      </p>
 
       {entries === null ? (
         <p className="muted">{t('common.loading')}</p>

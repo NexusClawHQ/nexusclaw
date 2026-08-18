@@ -161,12 +161,25 @@ described below.
 - **Reference dashboard** (`packages/dashboard`, React + Vite, Apache-2.0,
   English/中文) — visualizes the kernel's own outputs: execution timeline,
   approval queue, tool-call records (permission/guardrail checks, inputs,
-  outputs), outbox event stream and an audit-derived growth timeline. All
-  numbers come from the audit chain — nothing is fabricated.
+  outputs), outbox event stream and an audit-derived growth timeline. It also
+  lets you **configure the employee policies** behind those runs — prompt,
+  tool allow-list, L0–L4 sensitive-op rules and execution constraints — with
+  every change written to the audit chain. All numbers come from the audit
+  chain — nothing is fabricated.
 
 The 30-second closed loop, from run to audit chain:
 
 <img src="docs/assets/dashboard-demo.gif" alt="30-second governance closed loop: run a task, the L3 follow-up-email tool pauses for approval, approving resumes the run, and the execution detail shows the ReAct timeline, succeeded tool calls and outbox event stream" width="880">
+
+The dashboard, screen by screen:
+
+<img src="docs/assets/dashboard-overview.png" alt="Governance dashboard overview: full platform navigation with audit-derived workspace stats" width="880">
+
+<img src="docs/assets/dashboard-employee-config.png" alt="Digital employee policy configuration: prompt, tool allow-list, sensitive-op rules with L0–L4 risk levels, execution constraints" width="880">
+
+<img src="docs/assets/dashboard-growth-list.png" alt="Training & growth: pick a digital employee from the list to read its coaching timeline" width="880">
+
+<img src="docs/assets/dashboard-product-placeholder.png" alt="Full-platform navigation: commercial modules stay visible and open a restrained placeholder" width="880">
 
 Optional: host an anonymous playground for visitors — a 60-second governed
 closed loop with no signup, no Docker on their side:

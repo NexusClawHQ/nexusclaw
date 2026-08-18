@@ -28,6 +28,16 @@ import { EmployeesView } from './views/EmployeesView';
 import { EmployeeDetailView } from './views/EmployeeDetailView';
 import { GrowthView } from './views/GrowthView';
 import { PolicyView } from './views/PolicyView';
+import { NewEmployeeView } from './views/NewEmployeeView';
+import { InsightsView } from './views/InsightsView';
+import { ApprovalHistoryView } from './views/ApprovalHistoryView';
+import { EventStreamView } from './views/EventStreamView';
+import { SourceView } from './views/SourceView';
+import { DevelopersView } from './views/DevelopersView';
+import {
+  CommercialPlaceholderView,
+  COMMERCIAL_MODULES,
+} from './views/CommercialPlaceholderView';
 import { Icon, type IconName } from './components/icons';
 
 const TOKEN_KEY = 'nexusclaw.dashboard.token';
@@ -41,7 +51,19 @@ type Section =
   | 'approvals'
   | 'audit'
   | 'growth'
-  | 'policy';
+  | 'policy'
+  | 'insights'
+  | 'history'
+  | 'events'
+  | 'source'
+  | 'developers'
+  | 'product';
+
+interface Route {
+  section: Section;
+  employeeId: string | null;
+  moduleKey: string | null;
+}
 
 interface CommunityFeed {
   agents: AgentSummary[];
@@ -97,8 +119,8 @@ function useCommunityFeed(token: string | null, refreshTick: number): CommunityF
 }
 
 /** Hand-rolled hash routing (spec AC-9.1: no router dependency).
- *  Shapes: #/section and #/employees/<id>. */
-function parseHash(hash: string): { section: Section; employeeId: string | null } {
+ *  Shapes: #/section, #/employees/<id> and #/product/<moduleKey>. */
+function parseHash(hash: string): Route {
   const path = hash.replace(/^#\/?/, '').split('?')[0];
   const segments = path.split('/').filter(Boolean);
   const known: Section[] = [
@@ -109,12 +131,21 @@ function parseHash(hash: string): { section: Section; employeeId: string | null 
     'audit',
     'growth',
     'policy',
+    'insights',
+    'history',
+    'events',
+    'source',
+    'developers',
+    'product',
   ];
   if (segments[0] === 'employees' && segments[1]) {
-    return { section: 'employees', employeeId: segments[1] };
+    return { section: 'employees', employeeId: segments[1], moduleKey: null };
+  }
+  if (segments[0] === 'product' && segments[1]) {
+    return { section: 'product', employeeId: null, moduleKey: segments[1] };
   }
   const section = known.find((value) => value === segments[0]);
-  return { section: section ?? 'overview', employeeId: null };
+  return { section: section ?? 'overview', employeeId: null, moduleKey: null };
 }
 
 function LoginView({
@@ -230,27 +261,30 @@ export function App() {
   const handleExecuted = useCallback((executionId: string) => {
     setFocusExecutionId(executionId);
     window.location.hash = '#/audit';
-    setRoute({ section: 'audit', employeeId: null });
+    setRoute({ section: 'audit', employeeId: null, moduleKey: null });
     setRefreshTick((n) => n + 1);
   }, []);
 
   const go = useCallback((section: Section) => {
     window.location.hash = `#/${section}`;
-    setRoute({ section, employeeId: null });
+    setRoute({ section, employeeId: null, moduleKey: null });
   }, []);
 
   const openEmployee = useCallback((id: string) => {
     window.location.hash = `#/employees/${id}`;
-    setRoute({ section: 'employees', employeeId: id });
+    setRoute({ section: 'employees', employeeId: id, moduleKey: null });
   }, []);
 
   const openGrowthFor = useCallback((agentId: string) => {
     window.location.hash = '#/growth';
-    setRoute({ section: 'growth', employeeId: null });
+    setRoute({ section: 'growth', employeeId: null, moduleKey: null });
     setGrowthAgentId(agentId);
   }, []);
 
-  const effectiveGrowthAgent = growthAgentId ?? feed.agents[0]?.id ?? null;
+  const openCommercialModule = useCallback((moduleKey: string) => {
+    window.location.hash = `#/product/${moduleKey}`;
+    setRoute({ section: 'product', employeeId: null, moduleKey });
+  }, []);
 
   if (!token) return <LoginView t={t} onSignedIn={handleSignedIn} />;
 
@@ -258,10 +292,21 @@ export function App() {
   const feedBroken =
     feed.error !== null && !feed.loading && !feed.error.includes('unauthorized');
 
-  const nav: Array<{ group: string; items: Array<{ id: Section; label: string; icon: IconName }> }> = [
+  interface NavEntry {
+    id: Section;
+    label: string;
+    icon: IconName;
+    commercial?: boolean;
+    moduleKey?: string;
+  }
+
+  const nav: Array<{ group: string; items: NavEntry[] }> = [
     {
       group: t('nav.group.workbench'),
-      items: [{ id: 'overview', label: t('nav.overview'), icon: 'overview' }],
+      items: [
+        { id: 'overview', label: t('nav.overview'), icon: 'overview' },
+        { id: 'insights', label: t('nav.insights'), icon: 'insights' },
+      ],
     },
     {
       group: t('nav.group.governance'),
@@ -274,13 +319,43 @@ export function App() {
       ],
     },
     {
+      group: t('nav.group.audit'),
+      items: [
+        { id: 'history', label: t('nav.history'), icon: 'history' },
+        { id: 'events', label: t('nav.events'), icon: 'events' },
+      ],
+    },
+    {
       group: t('nav.group.platform'),
-      items: [{ id: 'policy', label: t('nav.policy'), icon: 'policy' }],
+      items: [
+        { id: 'policy', label: t('nav.policy'), icon: 'policy' },
+        { id: 'source', label: t('nav.source'), icon: 'source' },
+        { id: 'developers', label: t('nav.developers'), icon: 'developers' },
+      ],
+    },
+    {
+      group: t('nav.group.product'),
+      items: COMMERCIAL_MODULES.map((module) => ({
+        id: 'product' as Section,
+        label: t(`product.module.${module.key}` as Parameters<Translator>[0]),
+        icon: module.icon,
+        commercial: true,
+        moduleKey: module.key,
+      })),
     },
   ];
 
   let active: ReactNode;
-  if (route.section === 'employees' && route.employeeId) {
+  if (route.section === 'employees' && route.employeeId === 'new') {
+    active = (
+      <NewEmployeeView
+        t={t}
+        token={token}
+        onCreated={(id) => openEmployee(id)}
+        onCancel={() => go('employees')}
+      />
+    );
+  } else if (route.section === 'employees' && route.employeeId) {
     active = (
       <EmployeeDetailView
         t={t}
@@ -330,7 +405,7 @@ export function App() {
         t={t}
         token={token}
         agents={feed.agents}
-        selectedAgentId={effectiveGrowthAgent}
+        selectedAgentId={growthAgentId}
         onSelectAgent={setGrowthAgentId}
         onOpenExecution={(id) => {
           setFocusExecutionId(id);
@@ -340,6 +415,26 @@ export function App() {
     );
   } else if (route.section === 'policy') {
     active = <PolicyView t={t} token={token} agents={feed.agents} />;
+  } else if (route.section === 'insights') {
+    active = (
+      <InsightsView
+        t={t}
+        agents={feed.agents}
+        executions={feed.executions}
+        approvals={feed.approvals}
+        onGo={go}
+      />
+    );
+  } else if (route.section === 'history') {
+    active = <ApprovalHistoryView t={t} token={token} lang={lang} />;
+  } else if (route.section === 'events') {
+    active = <EventStreamView t={t} token={token} lang={lang} />;
+  } else if (route.section === 'source') {
+    active = <SourceView t={t} />;
+  } else if (route.section === 'developers') {
+    active = <DevelopersView t={t} />;
+  } else if (route.section === 'product') {
+    active = <CommercialPlaceholderView t={t} moduleKey={route.moduleKey ?? ''} />;
   } else if (route.section === 'employees') {
     active = (
       <EmployeesView
@@ -347,6 +442,10 @@ export function App() {
         agents={feed.agents}
         loading={feed.loading}
         onOpen={openEmployee}
+        onNew={() => {
+          window.location.hash = '#/employees/new';
+          setRoute({ section: 'employees', employeeId: 'new', moduleKey: null });
+        }}
       />
     );
   } else {
@@ -403,12 +502,26 @@ export function App() {
               <div className="nav-group-title">{group.group}</div>
               {group.items.map((entry) => (
                 <button
-                  key={entry.id}
-                  className={route.section === entry.id ? 'nav-item active' : 'nav-item'}
-                  onClick={() => go(entry.id)}
+                  key={entry.id + (entry.moduleKey ?? '')}
+                  className={
+                    route.section === entry.id &&
+                    (!entry.moduleKey || entry.moduleKey === route.moduleKey)
+                      ? 'nav-item active'
+                      : 'nav-item'
+                  }
+                  onClick={() =>
+                    entry.commercial && entry.moduleKey
+                      ? openCommercialModule(entry.moduleKey)
+                      : go(entry.id)
+                  }
                 >
                   <Icon name={entry.icon} />
                   {entry.label}
+                  {entry.commercial && (
+                    <span className="nav-lock" title={t('product.lock')}>
+                      <Icon name="lock" />
+                    </span>
+                  )}
                   {entry.id === 'approvals' && pendingCount > 0 && (
                     <span className="badge-count">{pendingCount}</span>
                   )}

@@ -79,6 +79,23 @@ export class CommunityExecutionContextAdapter implements ExecutionContextPort {
     const sensitiveOps = Array.isArray(rules.sensitiveOps)
       ? (rules.sensitiveOps as AgentExecutionContext['security']['sensitiveOps'])
       : [];
+    // Execution constraints are configurable per employee via
+    // guardrailRules.execution; malformed values fall back to the defaults.
+    const execution = asRecord(rules.execution);
+    const maxReActIterations =
+      typeof execution.maxReActIterations === 'number' &&
+      Number.isInteger(execution.maxReActIterations) &&
+      execution.maxReActIterations >= 1 &&
+      execution.maxReActIterations <= 50
+        ? execution.maxReActIterations
+        : 4;
+    const timeoutMs =
+      typeof execution.timeoutMs === 'number' &&
+      Number.isFinite(execution.timeoutMs) &&
+      execution.timeoutMs >= 1_000 &&
+      execution.timeoutMs <= 600_000
+        ? execution.timeoutMs
+        : 60_000;
 
     return {
       executionId,
@@ -124,10 +141,10 @@ export class CommunityExecutionContextAdapter implements ExecutionContextPort {
         maxTokens: 4_096,
         maxOutputTokensPerStep: 512,
         maxStepTokens: 1_024,
-        timeoutMs: 60_000,
+        timeoutMs,
         maxToolCalls: 4,
         allowedTools,
-        maxReActIterations: 4,
+        maxReActIterations,
         maxToolRetryAttempts: 0,
         toolRetryBackoffMs: 0,
         sensitiveOps,

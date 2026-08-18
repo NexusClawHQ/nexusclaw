@@ -15,12 +15,14 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/graphql': { target: proxyTarget, changeOrigin: true },
+      '/source': { target: proxyTarget, changeOrigin: true },
     },
   },
   preview: {
     port: 4173,
     proxy: {
       '/graphql': { target: proxyTarget, changeOrigin: true },
+      '/source': { target: proxyTarget, changeOrigin: true },
     },
   },
 });

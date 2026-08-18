@@ -36,7 +36,7 @@ export interface GrowthEntry {
 }
 
 export interface SensitiveOpRule {
-  objectApiName: string;
+  objectApiName?: string;
   operation: string;
   riskLevel: string;
   action: string;
@@ -54,10 +54,27 @@ export interface AgentDetail {
   updatedAt: string | null;
   description: string | null;
   prompt: string | null;
-  guardrailRules: { sensitiveOps?: SensitiveOpRule[] } | null;
+  guardrailRules: {
+    allowedTools?: string[];
+    sensitiveOps?: SensitiveOpRule[];
+    execution?: { maxReActIterations?: number; timeoutMs?: number };
+  } | null;
   recentExecutions: ExecutionSummary[];
   growthTimeline: GrowthEntry[];
   stats: AgentStats;
+}
+
+export interface AgentConfigInput {
+  prompt?: string | null;
+  allowedTools?: string[] | null;
+  sensitiveOps?: SensitiveOpRule[] | null;
+  execution?: { maxReActIterations?: number; timeoutMs?: number } | null;
+}
+
+export interface CreateAgentInput extends AgentConfigInput {
+  name: string;
+  apiName: string;
+  description?: string | null;
 }
 
 export interface ModelSource {
@@ -119,6 +136,18 @@ export interface PendingApproval {
   description: string | null;
   toolInput: Record<string, unknown>;
   status: string;
+  submittedAt: string;
+}
+
+export interface ApprovalHistoryEntry {
+  id: string;
+  executionId: string;
+  decision: string;
+  toolName: string;
+  riskLevel: string;
+  comment: string | null;
+  actorName: string | null;
+  decidedAt: string;
   submittedAt: string;
 }
 
@@ -239,12 +268,32 @@ const operations = {
       id topic eventType payload createdAt
     }
   }`,
+  recentEvents: `query RecentEvents($l: Int) {
+    communityRecentEvents(limit: $l) {
+      id topic eventType payload createdAt
+    }
+  }`,
+  approvalHistory: `query ApprovalHistory($l: Int) {
+    communityApprovalHistory(limit: $l) {
+      id executionId decision toolName riskLevel comment actorName decidedAt submittedAt
+    }
+  }`,
   execute: `mutation Execute($a: ID!, $i: String!) {
     communityExecuteAgent(agentId: $a, input: $i) { id status }
   }`,
   decide: `mutation Decide($i: ID!, $d: String!, $c: String) {
     communityDecideApproval(instanceId: $i, decision: $d, comment: $c) {
       instanceId decision executionId executionStatus
+    }
+  }`,
+  updateAgentConfig: `mutation UpdateAgentConfig($a: ID!, $i: CommunityUpdateAgentConfigInput!) {
+    communityUpdateAgentConfig(agentId: $a, input: $i) {
+      id version updatedAt
+    }
+  }`,
+  createAgent: `mutation CreateAgent($i: CommunityCreateAgentInput!) {
+    communityCreateAgent(input: $i) {
+      id name apiName version createdAt
     }
   }`,
 } as const;
@@ -338,6 +387,28 @@ export function fetchExecutionEvents(
   ).then((d) => d.communityExecutionEvents);
 }
 
+export function fetchRecentEvents(
+  token: string,
+  limit = 50,
+): Promise<OutboxEventView[]> {
+  return request<{ communityRecentEvents: OutboxEventView[] }>(
+    operations.recentEvents,
+    { l: limit },
+    token,
+  ).then((d) => d.communityRecentEvents);
+}
+
+export function fetchApprovalHistory(
+  token: string,
+  limit = 50,
+): Promise<ApprovalHistoryEntry[]> {
+  return request<{ communityApprovalHistory: ApprovalHistoryEntry[] }>(
+    operations.approvalHistory,
+    { l: limit },
+    token,
+  ).then((d) => d.communityApprovalHistory);
+}
+
 export function executeAgent(
   token: string,
   agentId: string,
@@ -361,4 +432,25 @@ export function decideApproval(
     { i: instanceId, d: decision, c: comment },
     token,
   ).then((d) => d.communityDecideApproval);
+}
+
+export function updateAgentConfig(
+  token: string,
+  agentId: string,
+  config: AgentConfigInput,
+): Promise<{ id: string; version: number; updatedAt: string }> {
+  return request<{ communityUpdateAgentConfig: { id: string; version: number; updatedAt: string } }>(
+    operations.updateAgentConfig,
+    { a: agentId, i: config },
+    token,
+  ).then((d) => d.communityUpdateAgentConfig);
+}
+
+export function createAgent(
+  token: string,
+  input: CreateAgentInput,
+): Promise<{ id: string; name: string; apiName: string; version: number; createdAt: string }> {
+  return request<{
+    communityCreateAgent: { id: string; name: string; apiName: string; version: number; createdAt: string };
+  }>(operations.createAgent, { i: input }, token).then((d) => d.communityCreateAgent);
 }

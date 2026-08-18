@@ -1,7 +1,93 @@
-import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Float, ID, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-scalars';
 
 import { AgentExecution } from '../../modules/agent-runtime/entities/agent-execution.entity';
+
+/** Editable per-employee execution constraints (community surface). */
+@InputType('CommunityExecutionConstraintsInput')
+export class CommunityExecutionConstraintsInput {
+  @Field(() => Int, { nullable: true })
+  maxReActIterations?: number | null;
+
+  @Field(() => Int, { nullable: true })
+  timeoutMs?: number | null;
+}
+
+/** Editable employee policy configuration (community surface). */
+@InputType('CommunityUpdateAgentConfigInput')
+export class CommunityUpdateAgentConfigInput {
+  @Field(() => String, { nullable: true })
+  prompt?: string | null;
+
+  @Field(() => [String], { nullable: true })
+  allowedTools?: string[] | null;
+
+  /** sensitiveOps rows: objectApiName/operation/riskLevel/action/toolPattern/
+   *  description — validated server-side before write. */
+  @Field(() => GraphQLJSON, { nullable: true })
+  sensitiveOps?: Record<string, any>[] | null;
+
+  @Field(() => CommunityExecutionConstraintsInput, { nullable: true })
+  execution?: CommunityExecutionConstraintsInput | null;
+}
+
+/** Result of communityUpdateAgentConfig. */
+@ObjectType('CommunityUpdateAgentConfigResult')
+export class CommunityUpdateAgentConfigResult {
+  @Field(() => ID)
+  id: string;
+
+  @Field(() => Int)
+  version: number;
+
+  @Field()
+  updatedAt: Date;
+}
+
+/** Editable employee policy configuration (community surface). */
+@InputType('CommunityCreateAgentInput')
+export class CommunityCreateAgentInput {
+  @Field()
+  name: string;
+
+  @Field()
+  apiName: string;
+
+  @Field(() => String, { nullable: true })
+  description?: string | null;
+
+  @Field(() => String, { nullable: true })
+  prompt?: string | null;
+
+  @Field(() => [String], { nullable: true })
+  allowedTools?: string[] | null;
+
+  /** sensitiveOps rows — validated server-side before write. */
+  @Field(() => GraphQLJSON, { nullable: true })
+  sensitiveOps?: Record<string, any>[] | null;
+
+  @Field(() => CommunityExecutionConstraintsInput, { nullable: true })
+  execution?: CommunityExecutionConstraintsInput | null;
+}
+
+/** Result of communityCreateAgent. */
+@ObjectType('CommunityCreateAgentResult')
+export class CommunityCreateAgentResult {
+  @Field(() => ID)
+  id: string;
+
+  @Field()
+  name: string;
+
+  @Field()
+  apiName: string;
+
+  @Field(() => Int)
+  version: number;
+
+  @Field()
+  createdAt: Date;
+}
 
 /** Pending agent-tool approval surfaced to the browser console. */
 @ObjectType('CommunityPendingApproval')
@@ -46,6 +132,40 @@ export class CommunityApprovalDecisionResult {
 
   @Field()
   executionStatus: string;
+}
+
+/** One decided approval row for the approval-history view. Read-only,
+ *  projected from ApprovalInstance (status + terminal history entry). */
+@ObjectType('CommunityApprovalHistoryEntry')
+export class CommunityApprovalHistoryEntry {
+  @Field(() => ID)
+  id: string;
+
+  @Field(() => ID)
+  executionId: string;
+
+  /** Stable decision code: APPROVED | REJECTED. */
+  @Field()
+  decision: string;
+
+  @Field()
+  toolName: string;
+
+  @Field()
+  riskLevel: string;
+
+  /** The approver's comment — the coaching note of the decision. */
+  @Field(() => String, { nullable: true })
+  comment?: string | null;
+
+  @Field(() => String, { nullable: true })
+  actorName?: string | null;
+
+  @Field()
+  decidedAt: Date;
+
+  @Field()
+  submittedAt: Date;
 }
 
 /** Outbox event row projected for the audit-chain view. */

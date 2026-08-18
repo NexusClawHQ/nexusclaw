@@ -8,7 +8,21 @@ export type IconName =
   | 'audit'
   | 'growth'
   | 'policy'
-  | 'console';
+  | 'console'
+  | 'insights'
+  | 'history'
+  | 'events'
+  | 'source'
+  | 'developers'
+  | 'lock'
+  | 'builder'
+  | 'loop'
+  | 'routing'
+  | 'enterprise'
+  | 'crm'
+  | 'sales'
+  | 'analytics'
+  | 'integrations';
 
 const PATHS: Record<IconName, string> = {
   overview: 'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
@@ -19,6 +33,20 @@ const PATHS: Record<IconName, string> = {
   growth: 'M22 7l-8.5 8.5-5-5L2 17M16 7h6v6',
   policy: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
   console: 'M4 17l6-6-6-6M12 19h8',
+  insights: 'M3 3v18h18M7 15l4-5 3 3 5-7',
+  history: 'M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l3 3',
+  events: 'M4 6h16M4 12h16M4 18h10M2 3h2v2H2zM20 3h2v2h-2zM2 9h2v2H2zM20 9h2v2h-2z',
+  source: 'M9 12h6M9 16h6M8 3H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4M12 3v8l3-2 3 2V3',
+  developers: 'M16 18l6-6-6-6M8 6l-6 6 6 6M14 4l-4 16',
+  lock: 'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4',
+  builder: 'M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l7.586 7.586M11 11a2 2 0 1 0 4 0 2 2 0 0 0-4 0',
+  loop: 'M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3',
+  routing: 'M6 3v12a3 3 0 0 0 3 3h6M18 21l3-3-3-3M6 3a3 3 0 1 0 0 .01',
+  enterprise: 'M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 9h.01M15 9h.01M9 13h.01M15 13h.01',
+  crm: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM20 8v6M23 11h-6',
+  sales: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
+  analytics: 'M18 20V10M12 20V4M6 20v-6',
+  integrations: 'M9 7V3m0 4h4M9 7a4 4 0 1 0 0 8v6m0-6H7m10 4v4m0-4a4 4 0 1 0 0-8V3m0 8h2',
 };
 
 export function Icon({ name }: { name: IconName }) {

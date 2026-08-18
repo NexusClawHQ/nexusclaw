@@ -7,3 +7,6 @@ dist/
 __pycache__/
 dist/
 build/
+
+# Local planning artifacts
+.zcode/
