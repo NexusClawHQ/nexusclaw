@@ -251,7 +251,11 @@ For audit and compliance review,
 [docs/compliance-mapping.md](docs/compliance-mapping.md) maps the kernel's
 capabilities — deny-by-default permissions, L0–L4 guardrails, human
 approvals, the audit chain — to SOC 2, EU AI Act, ISO 27001 and 等保 2.0
-control areas, with the exact evidence each record provides.
+control areas, with the exact evidence each record provides. For choosing
+between adjacent approaches, see the comparisons with
+[Microsoft Agent Governance Toolkit](docs/compare-vs-agt.md),
+[LangGraph interrupts](docs/compare-vs-langgraph-interrupts.md) and
+[harness-native permissions](docs/compare-vs-harness-permissions.md).
 
 Operators who deploy the reference slice must publish the source matching
 their deployed version and configure `COMMUNITY_SOURCE_URL`; every API

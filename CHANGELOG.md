@@ -210,6 +210,19 @@ eight kernel packages keep the zero-runtime-dependency red line.
 THIRD_PARTY_NOTICES.md / file-licenses.json regenerate at the next sealed
 snapshot (their generator lives in the private source-of-truth repo).
 
+### 2026-08-18 — comparison pages + positioning (Phase G, P0-3/P2-6)
+
+Three fact-checked comparison pages under `docs/`:
+[vs Microsoft Agent Governance Toolkit](docs/compare-vs-agt.md) (form/stack/
+emphasis/MCP posture/audit, with "when to choose AGT" — no disparagement,
+both may coexist), [vs LangGraph interrupts](docs/compare-vs-langgraph-interrupts.md)
+(in-graph primitive vs cross-framework server-side policy/audit; the recipe
+composition is linked) and [vs harness-native permissions](docs/compare-vs-harness-permissions.md)
+(seat-local UX vs organizational governance; MCP composition noted). Both
+READMEs link all three from the auditability section, sharpening the
+differentiator keywords (approvals · audit chain · human-in-the-loop) rather
+than competing on the generic "agent governance" term.
+
 ## [v0.5.0-community] — 2026-08-17
 
 **The gate API grows framework adapters — govern n8n workflows and Dify agents

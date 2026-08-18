@@ -50,11 +50,11 @@
 
 ## Phase G — 对比页与定位收窄（P0-3 + P2-6 矩阵）
 
-- [ ] **G1** `[AC-7.1]` `docs/compare-vs-agt.md`：与 Microsoft AGT 的事实对比（形态/语言/审批/审计/合规/集成面）+ "何时选 AGT"段落。
-- [ ] **G2** `[AC-7.2]` README（EN+ZH）标题区与仓库描述关键词收窄：approvals / audit chain / human-in-the-loop。
-- [ ] **G3** `[AC-7.3]` `docs/compare-vs-langgraph-interrupts.md`：interrupts 框内建 vs 跨框架 sidecar 的适用场景。
-- [ ] **G4** `[AC-7.3]` `docs/compare-vs-harness-permissions.md`：Claude Code / OpenClaw 内建权限 vs 独立治理层。
-- [ ] **G5** 三页对比的事实核查清单归档（每行主张可链接到代码或文档）。
+- [x] **G1** `[AC-7.1]` `docs/compare-vs-agt.md`：与 Microsoft AGT 的事实对比（形态/语言/审批/审计/合规/集成面）+ "何时选 AGT"段落。
+- [x] **G2** `[AC-7.2]` README（EN+ZH）标题区与仓库描述关键词收窄：approvals / audit chain / human-in-the-loop。
+- [x] **G3** `[AC-7.3]` `docs/compare-vs-langgraph-interrupts.md`：interrupts 框内建 vs 跨框架 sidecar 的适用场景。
+- [x] **G4** `[AC-7.3]` `docs/compare-vs-harness-permissions.md`：Claude Code / OpenClaw 内建权限 vs 独立治理层。
+- [x] **G5** 三页对比的事实核查清单归档（每行主张可链接到代码或文档）。
 
 ## Phase H — OTel 审计导出（P1-4）
 
