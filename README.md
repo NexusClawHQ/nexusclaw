@@ -90,13 +90,29 @@ cp .env.example .env
 docker compose up --build
 ```
 
-After startup, open **http://localhost:3000/console** and sign in with the
-seeded demo account (`demo` / `nexusclaw-demo`). Run a task to watch the
-deterministic governed scenario: an L1 customer lookup proceeds and is
+After startup, open **http://localhost:3000/app** (the product-showcase
+Dashboard — overview, digital employees, training & growth, approvals, audit
+chain) or **http://localhost:3000/console** (the zero-dependency demo page),
+and sign in with the seeded demo account (`demo` / `nexusclaw-demo`). Run a
+task to watch the governed scenario: an L1 customer lookup proceeds and is
 audited, an L3 follow-up email pauses for your approval, and approving it
 resumes the execution — the audit chain (execution → reasoning steps → tool
-calls → outbox events) is then inspectable in the console and via GraphQL.
-No external LLM credential is required.
+calls → outbox events) is then inspectable in both frontends and via GraphQL.
+
+By default no external LLM credential is required (deterministic scenario).
+To watch a **real model** run under the same governance gates, set all three
+`COMMUNITY_LLM_*` variables in `.env` — any OpenAI-compatible endpoint works
+(DeepSeek / Qwen / Doubao / Zhipu / vLLM / Ollama):
+
+```dotenv
+COMMUNITY_LLM_BASE_URL=https://api.deepseek.com/v1
+COMMUNITY_LLM_API_KEY=your-key
+COMMUNITY_LLM_MODEL=deepseek-chat
+```
+
+Permissions, guardrails, L3 approvals and the audit chain stay identical in
+both modes (the console and dashboard badge shows which one is active); a
+partial configuration refuses to boot rather than silently downgrading.
 
 **The 30-second closed loop, in the Governance Dashboard** — run → L3 pause →
 human approval → resumed execution → audit chain:
@@ -106,19 +122,36 @@ human approval → resumed execution → audit chain:
 ## Governance Dashboard
 
 A dedicated frontend for the kernel's own outputs — no commercial UI involved,
-just the governance data every deployment produces:
+just the governance data every deployment produces. It doubles as the
+**product showcase**: a sidebar maps the full platform surface, with community
+capabilities fully interactive and commercial ones presented as honest
+preview cards.
 
+- **Overview** — audit-derived workspace stats and quick entry points.
+- **Digital employees** — the employee card wall (duty, run stats, approval
+  rate, L3 escalations) and read-only profiles with the bound governance
+  policy and growth records.
+- **Training & growth** — the flagship view: every approval decision becomes a
+  coaching record on the employee's growth timeline, and any record can be
+  **replayed** for a side-by-side run comparison. All numbers come from the
+  audit chain — nothing is fabricated.
 - **Executions** — recent runs with live status; open one for the ReAct step
   timeline, tool-call records (permission/guardrail checks, inputs, outputs)
   and the outbox event stream (`started → step → paused → resumed → completed`).
 - **Approvals** — the pending L3 queue with risk level, tool input and an
   optional decision comment; approve or reject resumes or cancels the paused
   execution.
-- **Run** — trigger the deterministic governed scenario end to end.
+- **Run** — trigger the governed scenario end to end, deterministic or BYO.
+- **Governance policy / Full product** — the deny-by-default policy table and
+  the capability map (community vs commercial).
 
 ```sh
 npm run dev:dashboard   # Vite dev server on http://localhost:5173, proxies /graphql to :3000
 ```
+
+In the composed stack the built dashboard is served by the backend at
+**`http://localhost:3000/app`** (the main entry), while `/console` stays the
+zero-dependency demo page.
 
 The dashboard is a React + Vite workspace (`packages/dashboard`, Apache-2.0,
 English/中文) that consumes only the public community GraphQL surface — the
@@ -211,6 +244,13 @@ docker compose up --build
 ```
 
 后端默认监听 `http://localhost:3000`（可用 `COMMUNITY_PORT` 覆盖宿主端口）。
+启动后打开 **http://localhost:3000/app**（产品橱窗 Dashboard：概览 / 数字员工 /
+训练成长 / 审批 / 审计链）或 **http://localhost:3000/console**（零依赖演示页），
+用种子账号 `demo` / `nexusclaw-demo` 登录。默认为确定性剧本，**无需任何外部
+LLM 凭证**；如需观察真实模型跑在相同治理门下，在 `.env` 同时设置三个
+`COMMUNITY_LLM_*` 变量（任意 OpenAI 兼容端点：DeepSeek / 通义 / 豆包 / 智谱 /
+vLLM / Ollama）——权限、护栏、L3 审批与审计链在两种模式下完全一致，控制台与
+Dashboard 的徽标会标明当前模式；部分配置会拒绝启动而不是静默降级。
 完整环境要求与源码构建见上方 [Quick start](#quick-start) 与下方
 [Operational guide](#operational-guide-english)。
 

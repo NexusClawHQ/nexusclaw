@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NexusClaw 橱窗视觉基线 · Mockup（spec showcase-visual-refinement）</title>
+<!--
+  评审用交互式 mockup —— 单文件、零外部资源。
+  · 左侧栏切换 10 个分区（design.md §5 的评审锚点）
+  · 右下角「设计标注」开关：叠加令牌/间距标注层（AC-3.1）
+  · 本文件是设计工件：不进构建链、数据为演示假数据、允许内联脚本
+-->
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f5f7fa; --panel: #ffffff; --panel-2: #f2f5f9;
+  --border: #e5e9f0; --border-strong: #d4dae4;
+  --text: #17233d; --muted: #68738a; --faint: #98a1b3;
+  --accent: #3056d3; --accent-soft: #edf1fe;
+  --ok: #0f7a4a; --ok-soft: #e6f5ee;
+  --info: #1d4fd8; --info-soft: #e8effd;
+  --warn: #9a6408; --warn-soft: #fdf3e0;
+  --bad: #b33131; --bad-soft: #fbeaea;
+  --json-bg: #0f1626; --json-ink: #d7e0f5;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-7: 32px;
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px;
+  --shadow-1: 0 1px 2px rgba(23,35,61,.05);
+  --shadow-2: 0 6px 24px rgba(23,35,61,.08);
+  --sidebar-w: 236px; --header-h: 64px;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-size: 13.5px; line-height: 1.6; }
+.mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+
+/* ---- topbar ---- */
+.topbar {
+  height: var(--header-h); display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-4); padding: 0 var(--sp-7); background: var(--panel);
+  border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 20;
+}
+.topbar h1 { margin: 0; font-size: 17px; font-weight: 650; }
+.topbar .sub { margin: 1px 0 0; font-size: 12px; color: var(--muted); }
+.top-actions { display: flex; align-items: center; gap: var(--sp-3); }
+.brand-row { display: flex; align-items: center; gap: 10px; }
+.brandmark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg,#3056d3,#6a8dff); color:#fff; font-weight: 700; display:flex; align-items:center; justify-content:center; font-size:13px; }
+
+/* ---- shell ---- */
+.body { display: flex; min-height: calc(100vh - var(--header-h)); }
+.side {
+  width: var(--sidebar-w); flex-shrink: 0; padding: var(--sp-5) var(--sp-3);
+  border-right: 1px solid var(--border); background: var(--panel);
+  position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h)); overflow-y: auto;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-group-title { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); padding: var(--sp-4) var(--sp-3) var(--sp-1); }
+.nav-item {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  padding: 9px 12px; border: none; border-radius: var(--radius-sm); background: transparent;
+  color: var(--muted); cursor: pointer; font: inherit; font-size: 13.5px; text-decoration: none;
+}
+.nav-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: .85; }
+.nav-item:hover { color: var(--text); background: var(--panel-2); }
+.nav-item.active { color: var(--accent); background: var(--accent-soft); font-weight: 600; box-shadow: inset 3px 0 0 var(--accent); }
+.nav-sep { height: 1px; background: var(--border); margin: var(--sp-3) var(--sp-2); }
+.content { flex: 1; min-width: 0; padding: var(--sp-5) var(--sp-6) 48px; max-width: 1280px; }
+
+/* ---- review banner (mockup only) ---- */
+.review-note {
+  background: var(--accent-soft); color: var(--accent); border: 1px dashed var(--accent);
+  border-radius: var(--radius-md); padding: 8px 14px; font-size: 12.5px; margin-bottom: var(--sp-5);
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+}
+
+/* ---- sections / views ---- */
+.sec { display: none; flex-direction: column; gap: var(--sp-4); }
+.sec.show { display: flex; }
+.view-h { margin: 0; font-size: 18px; font-weight: 650; }
+.view-sub { margin: -10px 0 0; font-size: 12.5px; color: var(--muted); }
+h3.block { margin: var(--sp-4) 0 var(--sp-2); font-size: 13.5px; font-weight: 600; }
+
+.panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-1); padding: var(--sp-5); position: relative; }
+.panel.slim { padding: var(--sp-4); }
+
+/* ---- stats ---- */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: var(--sp-3); }
+.stat-card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-1); padding: var(--sp-3) var(--sp-4); display: flex; flex-direction: column; gap: 0; }
+.stat-value { font-size: 22px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; }
+.stat-label { color: var(--muted); font-size: 12px; }
+
+/* ---- chips / buttons ---- */
+.chip { display: inline-flex; align-items: center; border-radius: 999px; padding: 1px 10px; font-size: 12px; font-weight: 600; border: 1px solid transparent; white-space: nowrap; line-height: 1.7; }
+.chip.ok { color: var(--ok); background: var(--ok-soft); }
+.chip.info { color: var(--info); background: var(--info-soft); }
+.chip.warn { color: var(--warn); background: var(--warn-soft); }
+.chip.bad { color: var(--bad); background: var(--bad-soft); }
+.chip.muted { color: var(--muted); background: var(--panel-2); border-color: var(--border); }
+
+.btn { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); color: var(--text); padding: 8px 16px; font: inherit; font-size: 13.5px; cursor: pointer; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.btn.primary:hover { background: #2748b8; color: #fff; }
+.btn.approve { background: var(--ok-soft); border-color: color-mix(in srgb, var(--ok) 40%, transparent); color: var(--ok); font-weight: 600; }
+.btn.reject { background: var(--bad-soft); border-color: color-mix(in srgb, var(--bad) 40%, transparent); color: var(--bad); font-weight: 600; }
+.btn.ghost { background: none; border-color: transparent; color: var(--muted); }
+
+.cta-row { display: flex; gap: 10px; }
+
+/* ---- tables ---- */
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th { text-align: left; color: var(--faint); font-weight: 600; font-size: 11.5px; padding: 6px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr.click { cursor: pointer; } tbody tr.click:hover { background: var(--panel-2); }
+
+/* ---- cards wall / module ---- */
+.card-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: var(--sp-3); }
+.employee-card { display: flex; flex-direction: column; gap: var(--sp-2); text-align: left; padding: var(--sp-4); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-1); cursor: pointer; font: inherit; color: var(--text); }
+.employee-card:hover { border-color: var(--accent); box-shadow: var(--shadow-2); }
+.avatar { width: 42px; height: 42px; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; background: linear-gradient(135deg,#3056d3,#6a8dff); color: #fff; }
+.avatar-lg { width: 46px; height: 46px; font-size: 18px; }
+.employee-name { font-weight: 650; font-size: 15px; }
+.employee-desc { color: var(--muted); font-size: 12.5px; margin: 0; }
+.employee-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp-2); margin: var(--sp-2) 0 0; padding-top: var(--sp-3); border-top: 1px solid var(--border); }
+.employee-stats div { display: flex; flex-direction: column; }
+.employee-stats dt { color: var(--faint); font-size: 11px; }
+.employee-stats dd { margin: 0; font-weight: 650; font-size: 15px; }
+
+.module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: var(--sp-3); }
+.module-card { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; padding: var(--sp-4); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-1); cursor: pointer; font: inherit; color: var(--text); }
+.module-card.is-commercial { border-style: dashed; }
+.module-icon { width: 38px; height: 38px; border-radius: var(--radius-sm); display: inline-flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent); }
+.module-icon svg { width: 19px; height: 19px; }
+.module-icon.tone-ok { background: var(--ok-soft); color: var(--ok); }
+.module-icon.tone-warn { background: var(--warn-soft); color: var(--warn); }
+.module-icon.tone-info { background: var(--info-soft); color: var(--info); }
+.module-icon.tone-bad { background: var(--bad-soft); color: var(--bad); }
+.module-name { font-weight: 650; font-size: 14.5px; }
+.module-desc { color: var(--muted); font-size: 12.5px; margin: 0; }
+
+/* ---- growth timeline ---- */
+.growth-timeline { list-style: none; margin: var(--sp-3) 0 0; padding: 0 0 0 16px; border-left: 2px solid var(--border); display: flex; flex-direction: column; gap: var(--sp-4); }
+.growth-node { position: relative; display: flex; flex-direction: column; gap: var(--sp-2); }
+.growth-node::before { content: ""; position: absolute; left: -22px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--panel); border: 2.5px solid var(--accent); }
+.growth-node.k-coaching::before { border-color: var(--warn); }
+.growth-node.k-escalation::before { border-color: var(--info); }
+.growth-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.coaching-note { margin: 2px 0; padding: 10px 14px; border-left: 3px solid var(--ok); background: var(--panel); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; box-shadow: var(--shadow-1); }
+.coaching-note.is-correction { border-left-color: var(--warn); }
+.coaching-note footer { font-size: 12px; margin-top: var(--sp-1); color: var(--faint); }
+.growth-actions { display: flex; gap: var(--sp-2); }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+.compare-column { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--sp-3) var(--sp-4); background: var(--panel); }
+.compare-steps { margin: var(--sp-2) 0 0; padding-left: 18px; color: var(--muted); }
+.verdict-bar { border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; }
+.verdict-bar.same { background: var(--ok-soft); color: var(--ok); }
+.verdict-bar.diff { background: var(--info-soft); color: var(--info); }
+
+/* ---- approvals ---- */
+.approval-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: var(--sp-4); }
+.approval-card { background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--warn); border-radius: var(--radius-md); box-shadow: var(--shadow-1); padding: var(--sp-5); display: flex; flex-direction: column; gap: 10px; }
+.approval-title { font-weight: 650; display: flex; gap: var(--sp-2); align-items: center; flex-wrap: wrap; }
+.approval-desc { color: var(--muted); margin: 0; }
+
+/* ---- audit ---- */
+.meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; margin: var(--sp-3) 0; }
+.field { display: flex; flex-direction: column; gap: 2px; }
+.field-label { color: var(--faint); font-size: 12px; }
+.audit-timeline { list-style: none; margin: 0; padding: 0 0 0 18px; border-left: 2px solid var(--border); display: flex; flex-direction: column; gap: var(--sp-3); }
+.audit-node { position: relative; border-left: 3px solid var(--border); padding: var(--sp-2) var(--sp-3); margin-left: 2px; background: #fafbfd; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.audit-node::before { content: ""; position: absolute; left: -25px; top: 10px; width: 9px; height: 9px; border-radius: 50%; background: var(--panel); border: 2.5px solid var(--accent); }
+.audit-node.tone-warn::before { border-color: var(--warn); }
+.audit-node.tone-ok::before { border-color: var(--ok); }
+.node-head { display: flex; gap: var(--sp-2); align-items: center; flex-wrap: wrap; font-weight: 600; }
+.pair { margin: var(--sp-1) 0; }
+.pair .m { display: block; color: var(--muted); font-size: 12px; }
+
+pre.json { background: var(--json-bg); color: var(--json-ink); border-radius: var(--radius-sm); padding: 12px; margin: var(--sp-1) 0; max-height: 200px; overflow: auto; white-space: pre-wrap; word-break: break-all; font-size: 12px; font-family: ui-monospace, Menlo, monospace; }
+
+/* ---- modal ---- */
+.modal-demo { position: relative; }
+.modal-overlay { position: absolute; inset: 0; background: rgba(15,22,38,.45); display: grid; place-items: center; border-radius: var(--radius-lg); z-index: 5; }
+.modal { width: min(440px, 92%); background: var(--panel); border-radius: var(--radius-lg); box-shadow: var(--shadow-2); padding: var(--sp-7); display: flex; flex-direction: column; gap: var(--sp-3); }
+.modal .eyebrow { margin: 0; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.modal h4 { margin: 0; font-size: 17px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: var(--sp-2); }
+
+/* ---- empty ---- */
+.empty-state { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); padding: 48px 0; color: var(--muted); text-align: center; }
+.empty-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border-strong); }
+
+/* ---- login ---- */
+.login-demo { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
+.login-stage { min-height: 460px; display: grid; place-items: center; background: radial-gradient(1200px 500px at 20% -10%, #edf1fe 0%, transparent 60%), radial-gradient(900px 420px at 90% 0%, #e6f5ee 0%, transparent 55%), var(--bg); }
+.login-card { width: min(400px, 90%); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-2); padding: 32px; display: flex; flex-direction: column; gap: 14px; }
+.login-card h3 { margin: 0; font-size: 21px; }
+.login-card label { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.login-card input { background: #fff; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 9px 12px; font: inherit; }
+
+/* ---- tokens page ---- */
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: var(--sp-3); }
+.swatch { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--panel); }
+.swatch .color { height: 52px; }
+.swatch .meta { padding: 8px 10px; font-size: 12px; }
+.swatch .meta b { display: block; font-size: 12.5px; }
+.swatch .meta span { color: var(--faint); font-family: ui-monospace, Menlo, monospace; }
+.scale-row { display: flex; gap: var(--sp-2); align-items: flex-end; flex-wrap: wrap; }
+.scale-block { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 4px; }
+
+/* ---- employee detail: subtabs & config (compact rhythm) ---- */
+.subtabs { display: inline-flex; gap: 2px; background: var(--panel-2); border-radius: var(--radius-sm); padding: 3px; }
+.subtab { border: none; background: transparent; color: var(--muted); border-radius: 5px; padding: 5px 14px; font: inherit; font-size: 12.5px; cursor: pointer; }
+.subtab.active { background: var(--panel); color: var(--text); font-weight: 600; box-shadow: var(--shadow-1); }
+.subsec { display: none; flex-direction: column; gap: var(--sp-3); }
+.subsec.show { display: flex; }
+.detail-hero { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+.detail-hero .grow { flex: 1; min-width: 240px; }
+.detail-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.kv-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--sp-6); margin: 0; }
+.kv-grid > div { display: flex; gap: var(--sp-2); padding: 7px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+.kv-grid > div:nth-last-child(-n+2) { border-bottom: none; }
+.kv-grid dt { color: var(--faint); font-size: 12px; min-width: 82px; flex-shrink: 0; }
+.kv-grid dd { margin: 0; font-size: 12.5px; min-width: 0; word-break: break-all; }
+.two-col { display: grid; grid-template-columns: minmax(300px, 1fr) minmax(380px, 1.3fr); gap: var(--sp-3); align-items: start; }
+@media (max-width: 980px) { .two-col { grid-template-columns: 1fr; } }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+.panel-head .hint-chip { border: 1px dashed var(--border-strong); border-radius: 999px; padding: 0 9px; font-size: 11.5px; color: var(--warn); background: var(--warn-soft); line-height: 1.7; }
+.config-row { display: flex; align-items: center; gap: var(--sp-2); padding: 9px 0; border-bottom: 1px solid var(--border); }
+.config-row:last-child { border-bottom: none; }
+.config-row .info { flex: 1; min-width: 0; line-height: 1.45; }
+.config-row .info b { font-weight: 600; font-size: 12.5px; display: block; }
+.config-row .info span { color: var(--muted); font-size: 12px; display: block; }
+.config-row .chip { flex-shrink: 0; }
+.config-row .mini-icon { width: 28px; height: 28px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.config-row .mini-icon svg { width: 14px; height: 14px; }
+.switch { width: 30px; height: 18px; border-radius: 999px; background: var(--accent); position: relative; flex-shrink: 0; }
+.switch::after { content: ""; position: absolute; top: 2px; right: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); }
+.switch.off { background: var(--border-strong); }
+.switch.off::after { right: auto; left: 2px; }
+.level-track { display: flex; gap: 5px; }
+.level-step { flex: 1; text-align: center; border: 1px solid var(--border); border-radius: 5px; padding: 6px 4px; font-size: 11.5px; color: var(--faint); background: var(--panel); line-height: 1.4; }
+.level-step b { display: block; font-size: 12.5px; color: var(--muted); }
+.level-step.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.level-step.on b { color: var(--accent); }
+.model-chip { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel-2); }
+.divider { height: 1px; background: var(--border); margin: var(--sp-3) 0; }
+
+/* ---- annotation layer (mockup only) ---- */
+.anno { display: none; position: absolute; z-index: 30; background: #17233d; color: #fff; border-radius: 4px; padding: 2px 7px; font-size: 10.5px; font-family: ui-monospace, Menlo, monospace; box-shadow: var(--shadow-1); white-space: nowrap; }
+.anno::after { content: ""; position: absolute; inset: auto auto -4px 8px; width: 8px; height: 8px; background: #17233d; transform: rotate(45deg); }
+body.anno-on .anno { display: block; }
+.anno-flag { display: none; }
+body.anno-on .anno-flag { display: inline-flex; }
+.anno-bar { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: flex; gap: 10px; align-items: center; background: var(--panel); border: 1px solid var(--border-strong); border-radius: 999px; box-shadow: var(--shadow-2); padding: 8px 8px 8px 16px; font-size: 12.5px; }
+.anno-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+@media (max-width: 860px) {
+  .body { flex-direction: column; }
+  .side { position: static; width: 100%; height: auto; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border); padding: var(--sp-2); }
+  .nav-group-title { display: none; }
+  .nav-group { display: flex; }
+  .content { padding: var(--sp-4); }
+  .topbar { padding: 0 var(--sp-4); }
+  .compare-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand-row">
+    <span class="brandmark">N</span>
+    <div>
+      <h1>NexusClaw 治理仪表盘</h1>
+      <p class="sub">执行时间线 · 审批队列 · 工具调用记录 · Outbox 事件流</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="chip muted model">确定性剧本</span>
+    <span class="chip ok">● 自动刷新</span>
+    <button class="btn ghost">English</button>
+    <button class="btn ghost">退出登录</button>
+  </div>
+</header>
+
+<div class="body">
+<nav class="side">
+  <div class="nav-group">
+    <div class="nav-group-title">工作台</div>
+    <button class="nav-item active" data-sec="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>概览</button>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-title">员工与治理</div>
+    <button class="nav-item" data-sec="employees"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>数字员工</button>
+    <button class="nav-item" data-sec="growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7l-8.5 8.5-5-5L2 17M16 7h6v6"/></svg>训练成长</button>
+    <button class="nav-item" data-sec="approvals"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>审批 <span class="chip warn" style="margin-left:auto">1</span></button>
+    <button class="nav-item" data-sec="audit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>审计链</button>
+    <button class="nav-item" data-sec="run"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z"/></svg>运行</button>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-title">平台</div>
+    <button class="nav-item" data-sec="policy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>治理策略</button>
+    <button class="nav-item" data-sec="product"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>产品控制台</button>
+    <button class="nav-item" data-sec="tokens"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18h.5V3z"/></svg>令牌色板</button>
+  </div>
+  <div class="nav-sep"></div>
+  <a class="nav-item" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6M12 19h8"/></svg>零依赖控制台 ↗</a>
+</nav>
+
+<main class="content">
+
+  <!-- ============ 概览 ============ -->
+  <section class="sec show" id="sec-overview">
+    <div class="review-note">📋 评审锚点 <b>#/overview</b> · 对照 design.md §5.2 <span class="anno-flag">标注: stat-card pad 20/24 · 值 26/700</span></div>
+    <h2 class="view-h">受治理工作区一览</h2>
+    <p class="view-sub">以下每个数字都派生自审计链。</p>
+    <div class="stat-grid">
+      <div class="stat-card"><span class="stat-value">3</span><span class="stat-label">执行总数</span><span class="anno" style="top:8px;right:8px">pad 20/24 · 值26/700</span></div>
+      <div class="stat-card"><span class="stat-value">1</span><span class="stat-label">待审批</span></div>
+      <div class="stat-card"><span class="stat-value">2</span><span class="stat-label">最近完成</span></div>
+      <div class="stat-card"><span class="stat-value">3</span><span class="stat-label">治理事件</span></div>
+    </div>
+    <div class="cta-row">
+      <button class="btn primary">▶ 跑一次闭环 →</button>
+      <button class="btn">处理审批 (1) →</button>
+    </div>
+    <div class="panel">
+      <h3 class="block" style="margin-top:0">最近执行</h3>
+      <table>
+        <thead><tr><th>输入</th><th>状态</th><th>耗时</th></tr></thead>
+        <tbody>
+          <tr class="click"><td>查询客户 C-1001 并发送跟进邮件</td><td><span class="chip ok">已完成</span></td><td class="mono">13 ms</td></tr>
+          <tr class="click"><td>马上给客户发一封限时折扣邮件。</td><td><span class="chip muted">已取消</span></td><td class="mono">3100 ms</td></tr>
+          <tr class="click"><td>查询客户 C-1001 并发送跟进邮件。</td><td><span class="chip ok">已完成</span></td><td class="mono">4200 ms</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel slim">
+      <h3 class="block" style="margin-top:0">数字员工</h3>
+      <p style="margin:0" class="muted">Follow-up Assistant · 成功率 <b>67%</b> · 审批通过率 <b>50%</b></p>
+    </div>
+  </section>
+
+  <!-- ============ 数字员工 ============ -->
+  <section class="sec" id="sec-employees">
+    <div class="review-note">📋 评审锚点 <b>#/employees</b> · §5.3 <span class="anno-flag">标注: 卡 300px 列 · gap16 · 统计区上分隔线</span></div>
+    <h2 class="view-h">数字员工</h2>
+    <p class="view-sub">被定义、被约束、被观察 — 只读画像，全部来自运行时数据。</p>
+    <div class="card-wall">
+      <button class="employee-card">
+        <span class="avatar">F</span>
+        <span class="employee-name">Follow-up Assistant <span class="chip ok">active</span></span>
+        <p class="employee-desc">演示数字员工：查询客户档案，然后在外发跟进邮件前请求人工审批。</p>
+        <dl class="employee-stats">
+          <div><dt>执行数</dt><dd>3</dd></div>
+          <div><dt>成功率</dt><dd>67%</dd></div>
+          <div><dt>审批通过率</dt><dd>50%</dd></div>
+          <div><dt>L3 升级</dt><dd>3</dd></div>
+        </dl>
+        <span class="anno" style="top:10px;right:10px">卡 pad24 · 列300 · gap16</span>
+      </button>
+      <div class="empty-state" style="grid-column: span 2">
+        <span class="empty-dot"></span>
+        <p>更多员工卡片在多员工工作区中以此规格排布</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 员工详情（配置为重点） ============ -->
+  <section class="sec" id="sec-employee-detail">
+    <div class="review-note">📋 评审锚点 <b>#/employee-detail</b> · §5.4（重点页）— 页内 tabs：概览 / <b>配置</b> / 执行记录 / 成长记录；配置子页为产品级分区卡片 <span class="anno-flag">标注: 两列 1:1.25 · 配置行 pad12 · 开关 34×20</span></div>
+    <button class="btn ghost">← 返回员工列表</button>
+
+    <!-- 页头 -->
+    <div class="panel slim detail-hero">
+      <span class="avatar avatar-lg">F</span>
+      <div class="grow">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <h2 class="view-h" style="margin:0">Follow-up Assistant</h2>
+          <span class="chip ok">active</span>
+          <span class="chip muted mono">v1</span>
+        </div>
+        <p class="muted" style="margin:2px 0 0">演示数字员工：查询客户档案，然后在外发跟进邮件前请求人工审批。</p>
+      </div>
+      <div class="detail-actions">
+        <button class="btn primary">▶ 运行任务</button>
+        <button class="btn">打开训练成长 →</button>
+      </div>
+    </div>
+
+    <!-- 页内 tabs -->
+    <div class="subtabs" role="tablist">
+      <button class="subtab" data-sub="overview">概览</button>
+      <button class="subtab active" data-sub="config">配置</button>
+      <button class="subtab" data-sub="exec">执行记录</button>
+      <button class="subtab" data-sub="growth">成长记录</button>
+    </div>
+
+    <!-- 子页：概览 -->
+    <div class="subsec" id="sub-employee-overview">
+      <div class="stat-grid">
+        <div class="stat-card"><span class="stat-value">3</span><span class="stat-label">执行数</span></div>
+        <div class="stat-card"><span class="stat-value">67%</span><span class="stat-label">成功率</span></div>
+        <div class="stat-card"><span class="stat-value">50%</span><span class="stat-label">审批通过率</span></div>
+        <div class="stat-card"><span class="stat-value">3</span><span class="stat-label">L3 升级次数</span></div>
+      </div>
+      <div class="panel">
+        <h3 class="block" style="margin-top:0">最近执行</h3>
+        <table>
+          <thead><tr><th>输入</th><th>状态</th><th>耗时</th></tr></thead>
+          <tbody>
+            <tr class="click"><td>查询客户 C-1001 并发送跟进邮件</td><td><span class="chip ok">已完成</span></td><td class="mono">13 ms</td></tr>
+            <tr class="click"><td>马上给客户发一封限时折扣邮件。</td><td><span class="chip muted">已取消</span></td><td class="mono">3100 ms</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 子页：配置（默认展示，紧凑版式） -->
+    <div class="subsec show" id="sub-employee-config">
+      <div class="two-col">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="panel">
+            <div class="panel-head"><h3 class="block" style="margin:0">基本信息</h3><span class="hint-chip">编辑属商业版</span></div>
+            <dl class="kv-grid">
+              <div><dt>名称</dt><dd>Follow-up Assistant</dd></div>
+              <div><dt>API 名称</dt><dd class="mono">demo_followup_assistant</dd></div>
+              <div><dt>类型</dt><dd>自定义员工（custom）</dd></div>
+              <div><dt>状态</dt><dd><span class="chip ok">active</span></dd></div>
+              <div><dt>版本</dt><dd class="mono">v1 · 08-16 发布</dd></div>
+              <div><dt>所属角色</dt><dd>Demo Operator</dd></div>
+            </dl>
+            <div class="divider"></div>
+            <div class="model-chip">
+              <span class="chip muted">确定性剧本</span>
+              <div style="flex:1;min-width:0">
+                <b class="mono" style="font-size:11.5px">community-deterministic-smoke-v1</b>
+                <p class="muted" style="margin:0;font-size:11.5px">配置 COMMUNITY_LLM_* 后切换 BYO 模型，治理门不变</p>
+              </div>
+              <a href="#" onclick="return false" style="color:var(--accent);font-size:12px">切换说明</a>
+            </div>
+            <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:8px 12px;margin-top:10px;display:flex;align-items:center;gap:10px">
+              <span class="chip warn">商业版</span>
+              <span style="font-size:12.5px;color:var(--muted)">模型路由 — 多模型调度、计量与降级</span>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3 class="block" style="margin:0">系统提示词</h3><span class="hint-chip">编辑属商业版</span></div>
+            <pre class="json" style="max-height:120px">你是一名受治理的演示数字员工。先查询客户档案，
+再起草跟进邮件，并在发送前请求人工审批。</pre>
+            <p class="muted" style="margin:6px 0 0;font-size:12px">提示词决定行为意图；权限与风险边界由右侧治理配置约束，提示词无法越界。</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="panel">
+            <div class="panel-head">
+              <h3 class="block" style="margin:0">能力配置 · 工具</h3>
+              <span class="chip muted">2 / 2 已启用</span>
+            </div>
+            <div class="config-row">
+              <span class="mini-icon" style="background:var(--info-soft);color:var(--info)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+              <div class="info"><b class="mono">demo.customer_lookup</b><span>只读客户档案查询（Contact / C-1001）</span></div>
+              <span class="chip info">L1</span>
+              <span class="chip info">audit</span>
+              <span class="switch" title="启用"></span>
+            </div>
+            <div class="config-row">
+              <span class="mini-icon" style="background:var(--warn-soft);color:var(--warn)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg></span>
+              <div class="info"><b class="mono">demo.send_followup_email</b><span>外发跟进邮件（草稿 → 人工审批 → 发送）</span></div>
+              <span class="chip warn">L3</span>
+              <span class="chip warn">approve</span>
+              <span class="switch" title="启用"></span>
+            </div>
+            <p class="muted" style="margin:8px 0 0;font-size:12px">未列出的工具一律拒绝（deny-by-default）；工具接入管理属商业版。</p>
+            <span class="anno" style="top:6px;right:6px">配置行 pad9 · 开关30×18 · 图标28</span>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3 class="block" style="margin:0">自主权限 · 风险分级</h3><span class="hint-chip">策略编辑属商业版</span></div>
+            <div class="level-track">
+              <div class="level-step"><b>L0</b>阻断</div>
+              <div class="level-step"><b>L1</b>放行+审计</div>
+              <div class="level-step"><b>L2</b>留痕确认</div>
+              <div class="level-step on"><b>L3</b>人工审批</div>
+              <div class="level-step"><b>L4</b>双人复核</div>
+            </div>
+            <table style="margin-top:10px">
+              <thead><tr><th>触发条件（操作）</th><th>动作</th><th>当前绑定</th></tr></thead>
+              <tbody>
+                <tr><td>customer_lookup</td><td><span class="chip info">audit</span></td><td class="mono">demo.customer_lookup</td></tr>
+                <tr><td>send_followup_email</td><td><span class="chip warn">approve</span></td><td class="mono">demo.send_followup_email</td></tr>
+              </tbody>
+            </table>
+            <p class="muted" style="margin:8px 0 0;font-size:12px">分级驱动执行器五段式治理管线：权限 → 护栏 → 工具 → 审批 → 审计。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 子页：执行记录 -->
+    <div class="subsec" id="sub-employee-exec">
+      <div class="panel">
+        <table>
+          <thead><tr><th>状态</th><th>输入</th><th>耗时</th><th>令牌</th><th>时间</th></tr></thead>
+          <tbody>
+            <tr class="click"><td><span class="chip ok">已完成</span></td><td>查询客户 C-1001 并发送跟进邮件</td><td class="mono">13 ms</td><td class="mono">96/128</td><td class="muted">08-17 18:03</td></tr>
+            <tr class="click"><td><span class="chip muted">已取消</span></td><td>马上给客户发一封限时折扣邮件。</td><td class="mono">3100 ms</td><td class="mono">64/88</td><td class="muted">08-17 18:02</td></tr>
+            <tr class="click"><td><span class="chip ok">已完成</span></td><td>查询客户 C-1001 并发送跟进邮件。</td><td class="mono">4200 ms</td><td class="mono">96/128</td><td class="muted">08-16 14:22</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 子页：成长记录 -->
+    <div class="subsec" id="sub-employee-growth">
+      <ol class="growth-timeline">
+        <li class="growth-node k-coaching">
+          <div class="growth-head"><span class="chip warn">辅导 · 驳回</span><span class="mono">demo.send_followup_email</span><span class="muted">08-17 18:03</span></div>
+          <blockquote class="coaching-note is-correction" style="margin:2px 0">语气过于急切——先确认客户预算，再谈折扣方案。<footer>由 Demo Operator · 来自审批决定</footer></blockquote>
+        </li>
+        <li class="growth-node k-coaching">
+          <div class="growth-head"><span class="chip ok">辅导 · 批准</span><span class="mono">demo.send_followup_email</span><span class="muted">08-16 14:22</span></div>
+          <blockquote class="coaching-note" style="margin:2px 0">内容准确、语气得体，批准发送。<footer>由 Demo Operator · 来自审批决定</footer></blockquote>
+        </li>
+      </ol>
+      <div><button class="btn primary">打开完整训练成长 →</button></div>
+    </div>
+  </section>
+
+  <!-- ============ 训练成长 ============ -->
+  <section class="sec" id="sec-growth">
+    <div class="review-note">📋 评审锚点 <b>#/growth</b>（旗舰面）· §5.5 <span class="anno-flag">标注: 节点圆 9px+2.5px 描边 · 辅导笔记左3px条</span></div>
+    <h2 class="view-h">训练成长</h2>
+    <p class="view-sub">治理数据即辅导：每一次审批决定都是一条成长记录。</p>
+    <ol class="growth-timeline">
+      <li class="growth-node k-coaching">
+        <div class="growth-head">
+          <span class="chip warn">辅导 · 驳回</span>
+          <span class="mono">demo.send_followup_email</span>
+          <span class="muted">2026-08-17 18:03</span>
+        </div>
+        <blockquote class="coaching-note is-correction" style="margin:2px 0">
+          语气过于急切——先确认客户预算，再谈折扣方案。
+          <footer>由 Demo Operator · 来自审批决定</footer>
+        </blockquote>
+        <div class="growth-actions">
+          <button class="btn ghost">查看执行 →</button>
+          <button class="btn ghost">↻ 重放训练</button>
+        </div>
+        <span class="anno" style="top:-6px;left:24px">coaching=warn 描边 · 笔记左3px条</span>
+      </li>
+      <li class="growth-node k-escalation">
+        <div class="growth-head">
+          <span class="chip info">L3 升级</span>
+          <span class="mono">demo.send_followup_email</span>
+          <span class="muted">2026-08-17 18:02</span>
+        </div>
+        <div class="growth-actions"><button class="btn ghost">查看执行 →</button></div>
+      </li>
+      <li class="growth-node">
+        <div class="growth-head">
+          <span class="chip accent" style="color:var(--accent);background:var(--accent-soft)">里程碑</span>
+          <span class="chip muted">已取消</span>
+          <span class="muted">2026-08-17 18:03</span>
+        </div>
+      </li>
+      <li class="growth-node k-coaching">
+        <div class="growth-head">
+          <span class="chip ok">辅导 · 批准</span>
+          <span class="mono">demo.send_followup_email</span>
+          <span class="muted">2026-08-16 14:22</span>
+        </div>
+        <blockquote class="coaching-note" style="margin:2px 0">
+          内容准确、语气得体，批准发送。
+          <footer>由 Demo Operator · 来自审批决定</footer>
+        </blockquote>
+      </li>
+      <li class="growth-node">
+        <div class="growth-head">
+          <span class="chip" style="color:var(--accent);background:var(--accent-soft)">里程碑</span>
+          <span class="chip ok">已完成</span>
+          <span class="muted">2026-08-16 14:22 · 4200 ms</span>
+        </div>
+      </li>
+    </ol>
+    <div class="panel">
+      <h3 class="block" style="margin-top:0">重放对比</h3>
+      <div class="verdict-bar same">两次执行完全一致 — 确定性剧本精确复现（含治理门）。</div>
+      <div class="compare-grid" style="margin-top:12px">
+        <div class="compare-column">
+          <b>原执行</b> <span class="chip ok">已完成</span>
+          <p class="muted" style="margin:6px 0 0">4200 ms · 2 步</p>
+          <ol class="compare-steps"><li class="mono">demo.customer_lookup</li><li class="mono">demo.send_followup_email</li></ol>
+        </div>
+        <div class="compare-column">
+          <b>重放执行</b> <span class="chip ok">已完成</span>
+          <p class="muted" style="margin:6px 0 0">4100 ms · 2 步</p>
+          <ol class="compare-steps"><li class="mono">demo.customer_lookup</li><li class="mono">demo.send_followup_email</li></ol>
+        </div>
+      </div>
+    </div>
+    <div class="panel slim">
+      <p class="muted" style="margin:0 0 8px">数据来源：审计链</p>
+      <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-md);padding:14px">
+        <span class="chip warn">商业版</span>
+        <p style="margin:8px 0 0">深度成长回路 — 微调、范例库、自动化策略调优</p>
+        <a href="#" onclick="return false" style="color:var(--accent)">了解更多 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 审批 ============ -->
+  <section class="sec" id="sec-approvals">
+    <div class="review-note">📋 评审锚点 <b>#/approvals</b> · §5.6 <span class="anno-flag">标注: 左4px风险条 · JSON 折叠</span></div>
+    <h2 class="view-h">待审批事项</h2>
+    <p class="view-sub">L3 敏感操作暂停在此，等待你的决定。</p>
+    <div class="approval-grid">
+      <div class="approval-card">
+        <div class="approval-title"><span class="mono">demo.send_followup_email</span> <span class="chip warn">L3</span> <span class="chip warn">等待审批</span></div>
+        <p class="approval-desc">外发跟进邮件至客户 — 需要人工审批</p>
+        <div class="pair"><span class="m">所属执行</span><a class="mono" style="color:var(--accent)" href="#" onclick="return false">01a0130e-2608…</a></div>
+        <div class="pair"><span class="m">工具输入</span></div>
+        <pre class="json">{
+  "customerId": "C-1001",
+  "subject": "Follow-up: service check-in",
+  "body": "您好 Acme Robotics 团队……"
+}</pre>
+        <input style="width:100%;background:#fff;border:1px solid var(--border-strong);border-radius:6px;padding:9px 12px;font:inherit" placeholder="审批意见（可选，将成为该数字员工的辅导记录）">
+        <div style="display:flex;gap:10px">
+          <button class="btn approve">✓ 批准</button>
+          <button class="btn reject">✕ 拒绝</button>
+        </div>
+        <span class="anno" style="top:-8px;left:8px">左4px warn 条 · 卡 r10</span>
+      </div>
+      <div class="panel slim" style="display:flex;align-items:center;justify-content:center">
+        <div class="empty-state"><span class="empty-dot"></span><p>队列为空 — 暂无等待人工决策的事项</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 审计链 ============ -->
+  <section class="sec" id="sec-audit">
+    <div class="review-note">📋 评审锚点 <b>#/audit</b> · §5.7 <span class="anno-flag">标注: 节点=白底+语义描边圆 · 折叠体 #fafbfd</span></div>
+    <h2 class="view-h">审计链</h2>
+    <p class="view-sub">execution → reasoning steps → tool calls → outbox events 四层证据。</p>
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 class="block" style="margin:0">执行记录</h3>
+        <button class="btn">↻ 刷新</button>
+      </div>
+      <table>
+        <thead><tr><th>状态</th><th>创建时间</th><th>耗时</th><th>输入</th></tr></thead>
+        <tbody>
+          <tr class="click"><td><span class="chip ok">已完成</span></td><td>08-17 18:03</td><td class="mono">13 ms</td><td>查询客户 C-1001 并发送跟进邮件</td></tr>
+          <tr class="click" style="background:var(--accent-soft)"><td><span class="chip warn">等待审批</span></td><td>08-18 10:41</td><td class="mono">—</td><td>查询客户 C-1001 并发送跟进邮件</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel">
+      <h3 class="block" style="margin-top:0">执行详情 <span class="mono" style="font-weight:400;color:var(--faint)">01a0130e-2608…</span></h3>
+      <div class="meta-grid">
+        <div class="field"><span class="field-label">创建时间</span><span>2026-08-17 18:02:59</span></div>
+        <div class="field"><span class="field-label">完成时间</span><span>2026-08-17 18:03:12</span></div>
+        <div class="field"><span class="field-label">耗时</span><span class="mono">13 ms</span></div>
+        <div class="field"><span class="field-label">令牌</span><span class="mono">96 in / 128 out</span></div>
+      </div>
+      <h3 class="block">ReAct 步骤</h3>
+      <ol class="audit-timeline">
+        <li class="audit-node tone-ok">
+          <div class="node-head">#1 <span class="chip muted mono">tool_call</span> <span class="chip info">L1</span></div>
+          <div class="pair"><span class="m">思考</span>确定性场景 第 1/3 步 — 查询客户档案（L1 放行并审计）</div>
+          <div class="pair"><span class="m">动作</span><span class="mono">demo.customer_lookup</span></div>
+          <div class="pair"><span class="m">工具输入</span>
+            <pre class="json">{ "customerId": "C-1001", "objectApiName": "Contact" }</pre>
+          </div>
+          <div class="pair"><span class="m">检查</span><span class="chip ok">passed</span> <span class="chip ok">passed</span> <span class="muted mono">4 ms</span></div>
+        </li>
+        <li class="audit-node tone-warn">
+          <div class="node-head">#2 <span class="chip muted mono">tool_call</span> <span class="chip warn">L3</span> <span class="chip warn">escalated</span></div>
+          <div class="pair"><span class="m">思考</span>起草跟进邮件（L3 — 需要人工审批后才能执行）</div>
+          <div class="pair"><span class="m">观察</span><span class="chip warn">⏸ 暂停等待人工审批</span></div>
+        </li>
+      </ol>
+      <h3 class="block">工具调用记录</h3>
+      <table>
+        <thead><tr><th>工具</th><th>状态</th><th>权限</th><th>护栏</th><th>耗时</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">demo.customer_lookup</td><td><span class="chip ok">success</span></td><td><span class="chip ok">passed</span></td><td><span class="chip ok">passed</span></td><td class="mono">4 ms</td></tr>
+          <tr><td class="mono">demo.send_followup_email</td><td><span class="chip warn">requires_approval</span></td><td><span class="chip ok">passed</span></td><td><span class="chip warn">escalated</span></td><td class="mono">—</td></tr>
+        </tbody>
+      </table>
+      <h3 class="block">事件流（outbox）</h3>
+      <ol class="audit-timeline">
+        <li class="audit-node"><div class="node-head mono" style="font-weight:600">execution.started.v1 <span class="muted" style="font-weight:400">18:02:59</span></div></li>
+        <li class="audit-node"><div class="node-head mono" style="font-weight:600">approval.requested.v1 <span class="muted" style="font-weight:400">18:03:01</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 运行 ============ -->
+  <section class="sec" id="sec-run">
+    <div class="review-note">📋 评审锚点 <b>#/run</b> · §5.1 同族（RunView 结构精修边距）</div>
+    <h2 class="view-h">运行一个受治理的任务</h2>
+    <p class="view-sub">确定性剧本：L1 查询放行并审计；L3 发信暂停等待人工决策。</p>
+    <div class="panel" style="max-width:640px">
+      <div class="pair"><span class="m">数字员工</span>
+        <select style="width:100%;background:#fff;border:1px solid var(--border-strong);border-radius:6px;padding:9px 12px;font:inherit"><option>Follow-up Assistant</option></select>
+      </div>
+      <div class="pair" style="margin-top:12px"><span class="m">任务输入</span>
+        <textarea style="width:100%;background:#fff;border:1px solid var(--border-strong);border-radius:6px;padding:9px 12px;font:inherit;min-height:84px">查询客户 C-1001 并发送一封跟进邮件。</textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+        <button class="btn primary">▶ 运行任务</button>
+        <span class="muted">已提交 — 正在跟踪…</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 治理策略 ============ -->
+  <section class="sec" id="sec-policy">
+    <div class="review-note">📋 评审锚点 <b>#/policy</b> · §5.8</div>
+    <h2 class="view-h">治理策略</h2>
+    <p class="view-sub">默认拒绝：每次工具调用都要通过权限、风险等级与审批三道门。</p>
+    <div class="verdict-bar" style="background:var(--info-soft);color:var(--info)">🛡 deny-by-default — 未被策略显式允许的工具调用一律拒绝；L0–L4 分级驱动动作（allow / audit / confirm / approve / block）。</div>
+    <div class="panel">
+      <h3 class="block" style="margin-top:0">Follow-up Assistant</h3>
+      <table>
+        <thead><tr><th>工具</th><th>操作</th><th>风险级</th><th>动作</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">demo.customer_lookup</td><td>customer_lookup</td><td><span class="chip info">L1</span></td><td><span class="chip info">audit</span></td><td>只读客户查询 — 放行并审计</td></tr>
+          <tr><td class="mono">demo.send_followup_email</td><td>send_followup_email</td><td><span class="chip warn">L3</span></td><td><span class="chip warn">approve</span></td><td>外发跟进邮件 — 需要人工审批</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel slim">
+      <p class="muted" style="margin:0 0 8px">策略编辑属于商业版能力。</p>
+      <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-md);padding:14px">
+        <span class="chip warn">商业版</span>
+        <p style="margin:8px 0 0">可视化构建器 — 无代码设计员工与流程</p>
+        <a href="#" onclick="return false" style="color:var(--accent)">了解更多 ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 产品控制台 ============ -->
+  <section class="sec" id="sec-product">
+    <div class="review-note">📋 评审锚点 <b>#/product</b> · §5.9 — <b>弹窗打开态直接呈现</b>（此处演示 Visual builder）</div>
+    <h2 class="view-h">产品控制台</h2>
+    <p class="view-sub">平台完整能力面，全部开源于本仓库 — 社区模块直接可用，商业模块点击查看说明。</p>
+    <div class="module-grid modal-demo">
+      <button class="module-card"><span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg></span><span class="module-name">概览</span><p class="module-desc">受治理工作区一览与快速入口</p><span class="chip ok">本仓库可用</span></button>
+      <button class="module-card"><span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></span><span class="module-name">数字员工</span><p class="module-desc">员工画像、统计与治理策略</p><span class="chip ok">本仓库可用</span></button>
+      <button class="module-card"><span class="module-icon tone-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7l-8.5 8.5-5-5L2 17M16 7h6v6"/></svg></span><span class="module-name">训练成长</span><p class="module-desc">审批即辅导 + 重放对比</p><span class="chip ok">本仓库可用</span></button>
+      <button class="module-card"><span class="module-icon tone-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg></span><span class="module-name">审批</span><p class="module-desc">L3 敏感操作人工决定队列</p><span class="chip ok">本仓库可用</span></button>
+      <button class="module-card"><span class="module-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span><span class="module-name">审计链</span><p class="module-desc">四层不可篡改证据链</p><span class="chip ok">本仓库可用</span></button>
+      <button class="module-card"><span class="module-icon tone-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="module-name">治理策略</span><p class="module-desc">deny-by-default 与 L0–L4 分级</p><span class="chip ok">本仓库可用</span></button>
+      <button class="module-card is-commercial"><span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l7.586 7.586"/></svg></span><span class="module-name">可视化构建器</span><p class="module-desc">无代码设计员工与流程</p><span class="chip warn">商业版</span></button>
+      <button class="module-card is-commercial"><span class="module-icon tone-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><span class="module-name">成长回路</span><p class="module-desc">微调、范例库、自动策略调优</p><span class="chip warn">商业版</span></button>
+      <button class="module-card is-commercial"><span class="module-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v12a3 3 0 0 0 3 3h6"/></svg></span><span class="module-name">模型路由</span><p class="module-desc">多供应商控制面与计量</p><span class="chip warn">商业版</span></button>
+      <button class="module-card is-commercial"><span class="module-icon tone-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></span><span class="module-name">客户 360</span><p class="module-desc">统一客户档案与 AI 记忆</p><span class="chip warn">商业版</span></button>
+      <button class="module-card is-commercial"><span class="module-icon tone-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="module-name">销售流程</span><p class="module-desc">管道、打法与下一步最佳动作</p><span class="chip warn">商业版</span></button>
+      <button class="module-card is-commercial"><span class="module-icon tone-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span><span class="module-name">数据分析</span><p class="module-desc">跨团队营收与行为洞察</p><span class="chip warn">商业版</span></button>
+      <button class="module-card is-commercial"><span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7V3m0 4h4M9 7a4 4 0 1 0 0 8v6m0-6H7m10 4v4m0-4a4 4 0 1 0 0-8V3m0 8h2"/></svg></span><span class="module-name">集成连接</span><p class="module-desc">企业微信、飞书、钉钉、邮件</p><span class="chip warn">商业版</span></button>
+      <button class="module-card is-commercial"><span class="module-icon tone-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span><span class="module-name">企业模块</span><p class="module-desc">身份、加密、合规报告</p><span class="chip warn">商业版</span></button>
+
+      <!-- 商业弹窗打开态（mockup 直接呈现） -->
+      <div class="modal-overlay">
+        <div class="modal" role="dialog" aria-label="商业版功能">
+          <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5zM2 2l7.586 7.586"/></svg></span>
+          <p class="eyebrow">商业版功能</p>
+          <h4>可视化构建器</h4>
+          <span class="chip warn">商业版</span>
+          <p class="muted" style="margin:0">无代码设计员工与流程。</p>
+          <p class="muted" style="margin:0">该模块属于 NexusClaw 商业平台。本仓库的开源治理内核保持权限、护栏、审批与审计行为完全一致，商业版在此之上提供托管的产品化界面。</p>
+          <div class="modal-actions">
+            <button class="btn ghost">关闭</button>
+            <button class="btn primary">了解商业版 ↗</button>
+          </div>
+        </div>
+      </div>
+      <span class="anno" style="top:8px;right:8px">商业卡=dashed · 社区卡=solid · 弹窗 r14/pad32</span>
+    </div>
+  </section>
+
+  <!-- ============ 登录 ============ -->
+  <section class="sec" id="sec-login">
+    <div class="review-note">📋 评审锚点 <b>#/login</b> · §5.1 — 实际为全屏页，此处内嵌演示</div>
+    <div class="login-demo">
+      <div class="login-stage">
+        <div class="login-card">
+          <h3>NexusClaw 治理仪表盘</h3>
+          <p class="muted" style="margin:0">社区演示账号在首次启动时自动创建。</p>
+          <label><span>用户名</span><input value="demo"></label>
+          <label><span>密码</span><input type="password" value="nexusclaw-demo"></label>
+          <button class="btn primary">登录</button>
+          <p class="mono" style="text-align:center;color:var(--faint);margin:0">demo / nexusclaw-demo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 令牌色板 ============ -->
+  <section class="sec" id="sec-tokens">
+    <div class="review-note">📋 评审锚点 <b>#/tokens</b> · AC-3.2 — 统一令牌的可视化对照（AC-1.1 单一来源）</div>
+    <h2 class="view-h">设计令牌色板</h2>
+    <p class="view-sub">design.md §2 的完整示例化；两端实现必须与此零偏差（关键项）。</p>
+    <div class="swatch-grid" id="swatches"></div>
+    <h3 class="block">间距标尺（4px 基线）</h3>
+    <div class="scale-row" id="scales"></div>
+    <h3 class="block">圆角</h3>
+    <div class="scale-row">
+      <div style="text-align:center"><div class="scale-block" style="width:84px;height:48px;border-radius:6px"></div><span class="mono" style="color:var(--faint)">sm 6</span></div>
+      <div style="text-align:center"><div class="scale-block" style="width:84px;height:48px;border-radius:10px"></div><span class="mono" style="color:var(--faint)">md 10</span></div>
+      <div style="text-align:center"><div class="scale-block" style="width:84px;height:48px;border-radius:14px"></div><span class="mono" style="color:var(--faint)">lg 14</span></div>
+      <div style="text-align:center"><div class="scale-block" style="width:84px;height:48px;border-radius:999px"></div><span class="mono" style="color:var(--faint)">chip 999</span></div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<div class="anno-bar">
+  <span class="dot"></span>
+  <span>设计标注</span>
+  <button class="btn" id="annoToggle" style="padding:5px 12px">关</button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // ---- section switching ----
+  var buttons = document.querySelectorAll('.nav-item[data-sec]');
+  function show(name) {
+    var secs = document.querySelectorAll('.sec');
+    for (var i = 0; i < secs.length; i++) secs[i].classList.toggle('show', secs[i].id === 'sec-' + name);
+    for (var j = 0; j < buttons.length; j++) buttons[j].classList.toggle('active', buttons[j].getAttribute('data-sec') === name);
+  }
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function (evt) {
+      var name = evt.currentTarget.getAttribute('data-sec');
+      show(name);
+      if (history.replaceState) history.replaceState(null, '', '#/' + name);
+    });
+  }
+  var hash = (location.hash || '').replace('#/', '');
+  if (hash && document.getElementById('sec-' + hash)) show(hash);
+
+  // ---- employee detail sub-tabs ----
+  var subButtons = document.querySelectorAll('.subtab[data-sub]');
+  for (var s = 0; s < subButtons.length; s++) {
+    subButtons[s].addEventListener('click', function (evt) {
+      var name = evt.currentTarget.getAttribute('data-sub');
+      for (var i = 0; i < subButtons.length; i++) {
+        subButtons[i].classList.toggle('active', subButtons[i] === evt.currentTarget);
+      }
+      var subs = document.querySelectorAll('#sec-employee-detail .subsec');
+      for (var j = 0; j < subs.length; j++) {
+        subs[j].classList.toggle('show', subs[j].id === 'sub-employee-' + name);
+      }
+    });
+  }
+
+  // ---- annotation toggle ----
+  document.getElementById('annoToggle').addEventListener('click', function () {
+    var on = document.body.classList.toggle('anno-on');
+    this.textContent = on ? '开 ✓' : '关';
+  });
+
+  // ---- token swatches (single source: matches design.md §2.1) ----
+  var tokens = [
+    ['bg', '#f5f7fa', '页面画布'], ['panel', '#ffffff', '卡片/侧栏/顶栏'],
+    ['panel-2', '#f2f5f9', '悬停/次级填充'], ['border', '#e5e9f0', '常规描边'],
+    ['border-strong', '#d4dae4', '输入/强调描边'], ['text', '#17233d', '主文字'],
+    ['muted', '#68738a', '次级文字'], ['faint', '#98a1b3', '弱标签/表头'],
+    ['accent', '#3056d3', '品牌蓝'], ['accent-soft', '#edf1fe', '选中底/图标底'],
+    ['ok', '#0f7a4a', '成功'], ['ok-soft', '#e6f5ee', '成功底'],
+    ['info', '#1d4fd8', '信息/L1'], ['info-soft', '#e8effd', '信息底'],
+    ['warn', '#9a6408', '警告/L3/商业'], ['warn-soft', '#fdf3e0', '警告底'],
+    ['bad', '#b33131', '危险/失败'], ['bad-soft', '#fbeaea', '危险底'],
+    ['json-bg', '#0f1626', '代码块底'], ['json-ink', '#d7e0f5', '代码块字'],
+  ];
+  var mount = document.getElementById('swatches');
+  for (var i = 0; i < tokens.length; i++) {
+    var box = document.createElement('div');
+    box.className = 'swatch';
+    var color = document.createElement('div');
+    color.className = 'color';
+    color.style.background = tokens[i][1];
+    if (tokens[i][1] === '#ffffff') color.style.borderBottom = '1px solid #e5e9f0';
+    var meta = document.createElement('div');
+    meta.className = 'meta';
+    var b = document.createElement('b');
+    b.textContent = '--' + tokens[i][0];
+    var s = document.createElement('span');
+    s.textContent = tokens[i][1] + ' · ' + tokens[i][2];
+    meta.appendChild(b);
+    meta.appendChild(s);
+    box.appendChild(color);
+    box.appendChild(meta);
+    mount.appendChild(box);
+  }
+  // ---- spacing scale ----
+  var scales = document.getElementById('scales');
+  var steps = [['sp-1', 4], ['sp-2', 8], ['sp-3', 12], ['sp-4', 16], ['sp-5', 20], ['sp-6', 24], ['sp-7', 32]];
+  for (var j = 0; j < steps.length; j++) {
+    var cell = document.createElement('div');
+    cell.style.textAlign = 'center';
+    var blk = document.createElement('div');
+    blk.className = 'scale-block';
+    blk.style.width = steps[j][1] * 3 + 'px';
+    blk.style.height = steps[j][1] * 2 + 'px';
+    var label = document.createElement('span');
+    label.className = 'mono';
+    label.style.color = 'var(--faint)';
+    label.textContent = steps[j][0] + ' ' + steps[j][1];
+    cell.appendChild(blk);
+    cell.appendChild(label);
+    scales.appendChild(cell);
+  }
+})();
+</script>
+</body>
+</html>
