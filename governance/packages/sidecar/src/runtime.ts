@@ -73,6 +73,8 @@ export async function buildSidecarRuntime(options: {
    * SIDECAR_GATE_ALLOWED_TOOLS (comma-separated).
    */
   gateAllowedTools?: string[];
+  /** Extra workspace guardrail rules (e.g. the MCP demo L3 rule). */
+  extraGuardrailRules?: GuardrailRule[];
 }): Promise<SidecarRuntime> {
   const workspaceId = options.workspaceId ?? DEMO_WORKSPACE_ID;
   const agentId = options.agentId ?? DEMO_AGENT_ID;
@@ -112,6 +114,7 @@ export async function buildSidecarRuntime(options: {
       isActive: true,
       conditions: { operation: TOOL_SEND },
     },
+    ...(options.extraGuardrailRules ?? []),
   ] as GuardrailRule[];
 
   const outboxTransport = new InMemoryTransport();

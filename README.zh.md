@@ -109,6 +109,28 @@ L3 跟进邮件暂停等待审批、批准后恢复执行、审计链全程可�
   `n8n-nodes-nexusclaw-governance`
 - **Dify**：可导入的 OpenAPI custom-tool schema
 
+## 作为 MCP 网关
+
+把任意 MCP 客户端（Claude Code / OpenClaw / deepseek-harness……）指向 sidecar，
+每次 `tools/call` 都走同一套管线——默认拒绝权限、L0–L4 护栏、L2/L3 人工审批、
+审计链——agent 侧零改造：
+
+```sh
+cd governance/packages/sidecar
+SIDECAR_MCP_DEMO=memory pnpm exec tsx scripts/dev-server.ts
+# 无状态 MCP 端点（Streamable HTTP）：http://127.0.0.1:7899/mcp
+```
+
+演示下游自带 `memory__echo` / `memory__counter`（放行）、`memory__send_notice`
+（L3——暂停等你批准）与未授权的 `memory__danger`（从 `tools/list` 隐藏——
+**可见性即权限**）。接入真实下游 server 用
+`SIDECAR_MCP_UPSTREAMS=name|url[|token],…`。
+
+暂停语义：支持 MCP elicitation 的客户端在请求内收到批准问题、同回合完成；
+其余客户端收到结构化 `approval_pending` 结果——在 sidecar 控制台审批后，agent
+用内置 `governance_pending__lookup` 工具取回执行结果。
+设计文档：[`.kiro/specs/mcp-governance-gateway`](.kiro/specs/mcp-governance-gateway/requirements.md)。
+
 ## 参考实现
 
 `packages/backend` + `packages/dashboard` + `packages/shared` 构成可运行的

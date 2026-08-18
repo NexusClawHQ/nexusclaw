@@ -176,6 +176,40 @@ records, outbox stream). A "what this kernel does not provide" section
 states the honest boundaries (external tamper-evidence, retention lifecycle,
 SIEM connectors). Both READMEs link to it from their auditability sections.
 
+### 2026-08-18 — MCP governance gateway (spec mcp-governance-gateway, Phase A–E flagship)
+
+The sidecar can now front downstream MCP servers: any MCP client (Claude
+Code / OpenClaw / deepseek-harness / plain SDK client) points at the
+stateless Streamable-HTTP endpoint `POST /mcp`, and every `tools/call`
+flows through the existing gate pipeline — deny-by-default permissions,
+L0–L4 guardrails, L2/L3 human approval and the audit chain — with zero
+agent-side changes. Highlights:
+
+- tools are aggregated as `<server>__<tool>`; **ungranted tools are hidden
+  from `tools/list` by default** (visibility IS permission; opt out via
+  `SIDECAR_MCP_EXPOSE_DENIED=true`);
+- pause semantics on the synchronous RPC: MCP **elicitation** when the
+  client speaks it (approval completes in the same turn), otherwise a
+  structured `approval_pending` result + human decision via the existing
+  console/HTTP approval endpoints + proxy execution and outcome fetch via
+  the built-in `governance_pending__lookup` meta-tool (parameters are
+  recovered from the approval record — no in-memory pending state);
+- `SIDECAR_MCP_DEMO=memory` ships an in-process demo upstream
+  (`echo`/`counter` allowed, `send_notice` L3, `danger` ungranted);
+  `SIDECAR_MCP_UPSTREAMS=name|url[|token],…` declares real downstreams;
+  with neither set the sidecar is byte-for-byte today's behavior (noop
+  regression test in CI);
+- 8 new e2e tests (real Postgres + in-memory MCP fixture) cover all four
+  governance paths plus the elicitation branch, visibility switch and the
+  noop regression — governance suite now 66 tests, all green; a live HTTP
+  smoke walked handshake → list → allow → blocked → L3 pause → console
+  approve → proxy execution → audit chain.
+
+`@modelcontextprotocol/sdk` (MIT) is a sidecar-only dependency — the other
+eight kernel packages keep the zero-runtime-dependency red line.
+THIRD_PARTY_NOTICES.md / file-licenses.json regenerate at the next sealed
+snapshot (their generator lives in the private source-of-truth repo).
+
 ## [v0.5.0-community] — 2026-08-17
 
 **The gate API grows framework adapters — govern n8n workflows and Dify agents

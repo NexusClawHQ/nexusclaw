@@ -150,6 +150,30 @@ Same gate API, different frameworks — no custom integration code:
 - **Dify** ([`governance/adapters/dify`](governance/adapters/dify)) —
   importable OpenAPI schema for the custom-tool surface.
 
+## As an MCP gateway
+
+Point any MCP client (Claude Code, OpenClaw, deepseek-harness, …) at the
+sidecar and every `tools/call` flows through the same pipeline — deny-by-default
+permissions, L0–L4 guardrails, L2/L3 human approval, the audit chain — with
+zero changes on the agent side:
+
+```sh
+cd governance/packages/sidecar
+SIDECAR_MCP_DEMO=memory pnpm exec tsx scripts/dev-server.ts
+# stateless MCP endpoint (Streamable HTTP): http://127.0.0.1:7899/mcp
+```
+
+The demo upstream ships `memory__echo` / `memory__counter` (allowed),
+`memory__send_notice` (L3 — pauses for your approval) and an ungranted
+`memory__danger` (hidden from `tools/list`; **visibility is permission**).
+For real downstream servers set `SIDECAR_MCP_UPSTREAMS=name|url[|token],…`.
+
+Pause semantics: clients that speak MCP elicitation get the approval question
+in-request and finish in one turn; others receive a structured
+`approval_pending` result — decide in the sidecar console, then the agent
+fetches the executed outcome via the built-in `governance_pending__lookup`
+tool. Design: [`.kiro/specs/mcp-governance-gateway`](.kiro/specs/mcp-governance-gateway/requirements.md).
+
 ## Reference implementation
 
 `packages/backend` + `packages/dashboard` + `packages/shared` form a runnable

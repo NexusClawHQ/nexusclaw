@@ -20,7 +20,8 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "start": "node dist/index.js",
-    "verify": "tsx scripts/verify.ts"
+    "verify": "tsx scripts/verify.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@agent-governance/approval": "workspace:*",
@@ -30,6 +31,7 @@
     "@agent-governance/guardrail": "workspace:*",
     "@agent-governance/outbox": "workspace:*",
     "@agent-governance/permission": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "express": "^5.2.1"
   },
   "peerDependencies": {
