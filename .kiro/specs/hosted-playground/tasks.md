@@ -1,7 +1,7 @@
 # Tasks — Hosted Playground（访客 60 秒治理闭环体验）
 
 > Spec ID: `hosted-playground` · 上游: [requirements.md](./requirements.md) · [design.md](./design.md)
-> 状态: **已实现并验证**（2026-08-18）— compose --profile playground 全链路冒烟通过（会话/闭环/隔离/限流/TTL 代码路径）；T1 安全清单与 T4 截图归档待补
+> 状态: **已实现并验证**（2026-08-18）— 全链路冒烟通过；T1 安全清单 + T2 时长实测已归档（assets/security-checklist.md）；T4 landing 截图已归档，运行态/完成态截图因无头驱动时序问题待真实浏览器补拍
 > 流程纪律：评审通过前只允许修改 mockup 与 spec 文档。
 > 任务标注 `[Rx.y]` 追溯验收标准；🧪 = TDD。
 
@@ -31,7 +31,7 @@
 
 ## Phase T — 托管准备与门禁
 
-- [ ] **T1** 安全自查清单归档 `assets/security-checklist.md`（匿名面/限流/回收/凭证隔离逐项签字）。
+- [x] **T1** 安全自查清单归档 `assets/security-checklist.md`（匿名面/限流/回收/凭证隔离逐项签字）。
 - [x] **T2** 60 秒口径实测记录：打开→完成闭环的实测时长（目标 ≤20s 纯执行）。
 - [x] **T3** `[AC-5.2]` 全门禁：root build / check:i18n / check:boundary / backend+dashboard 全测保持绿；`packages/shared` 零 diff。
 - [ ] **T4** mockup 与实现并排截图归档（同 spec3 P1 模式）。
