@@ -37,7 +37,7 @@
 
 - [x] **E1** `[AC-5.3]` 协议 e2e（内存 fixture）：聚合 / 拒绝 / 暂停-批准 / 暂停-拒绝四路径全链。
 - [x] **E2** `[AC-5.2]` （零外部依赖红线测试落地，uuid×3/zod×1 记为存量债务；NOTICES/file-licenses 重生成随下次密封快照——生成器在私有源仓库） （SDK 已仅入 sidecar、其余八包零依赖保持；THIRD_PARTY_NOTICES/file-licenses 由私有快照管道生成，随下次密封快照重生成） 依赖与 license 门禁：SDK 仅入 sidecar、其余八包零依赖断言、THIRD_PARTY_NOTICES 与 file-licenses 重生成。
-- [ ] **E3** `[AC-5.3]` （governance 66 测试 + check:boundary 全绿；root build/CI 随推送验证） 全门禁回归：root build / vitest / pnpm verify / check:boundary / check:i18n 全绿。
+- [x] **E3** `[AC-5.3]`（governance 199 测试 + root build + check:boundary 本地全绿；CI #32155986609 全绿） （governance 66 测试 + check:boundary 全绿；root build/CI 随推送验证） 全门禁回归：root build / vitest / pnpm verify / check:boundary / check:i18n 全绿。
 - [x] **E4** `[AC-5.4]` 命名与边界自查：无商业词汇、`packages/shared` 零 diff。
 
 ## Phase F — 零配置启动（P0-2）
