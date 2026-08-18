@@ -41,6 +41,35 @@ services:
     ports:
       - "${COMMUNITY_PORT:-3000}:3000"
 
+  # Anonymous 60-second demo surface (spec hosted-playground). Opt in with
+  # `docker compose --profile playground up -d`; shares the stack but runs
+  # the same image in playground personality (ephemeral workspaces, rate
+  # limits, BYO forbidden). Single-instance rate limits by design.
+  playground:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    profiles: ["playground"]
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: ${DATABASE_USER:-nexusclaw}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?set DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME:-nexusclaw_community}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      COMMUNITY_SOURCE_URL: ${COMMUNITY_SOURCE_URL:?set COMMUNITY_SOURCE_URL}
+      COMMUNITY_DEMO_SEED: "false"
+      PLAYGROUND_PROFILE: "true"
+      PORT: 3000
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "${PLAYGROUND_PORT:-3002}:3000"
+
 volumes:
   community-postgres:
   community-redis:

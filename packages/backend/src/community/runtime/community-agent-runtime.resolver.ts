@@ -31,6 +31,7 @@ import {
 } from './community-console.dto';
 import { CommunityModelSourceService } from '../byo/community-model-source.service';
 import { CommunityAgentInsightsService } from './community-agent-insights.service';
+import { PlaygroundSessionRegistry } from '../playground/community-playground.registry';
 
 const PAUSED_TOOL_CALL_MARKER = '__pausedToolCall__:';
 
@@ -78,6 +79,7 @@ export class CommunityAgentRuntimeResolver {
     private readonly outbox: OutboxService,
     private readonly modelSourceService: CommunityModelSourceService,
     private readonly insights: CommunityAgentInsightsService,
+    private readonly playgroundRegistry: PlaygroundSessionRegistry,
   ) {}
 
   /** Read-only runtime metadata backing the console model badge (AC-2.7). */
@@ -94,6 +96,9 @@ export class CommunityAgentRuntimeResolver {
   ): Promise<AgentExecution> {
     const text = input.trim();
     if (!text) throw new BadRequestException('Agent task input must not be empty');
+    // Playground sessions only (AC-2.3): per-session and per-IP hourly caps.
+    this.playgroundRegistry.assertExecutionAllowed(principal.defaultWorkspaceId);
+    this.playgroundRegistry.countExecution(principal.defaultWorkspaceId);
     const result = await this.executor.runSync({
       workspaceId: principal.defaultWorkspaceId,
       agentId,
@@ -215,6 +220,8 @@ export class CommunityAgentRuntimeResolver {
     if (normalized !== 'APPROVED' && normalized !== 'REJECTED') {
       throw new BadRequestException('Decision must be APPROVED or REJECTED');
     }
+    // Keep the playground session alive on human decisions (AC-2.2 touch).
+    this.playgroundRegistry.touch(principal.defaultWorkspaceId);
     const workspaceId = principal.defaultWorkspaceId;
     const instance = await this.approvals.findOne({
       where: { id: instanceId, workspaceId },

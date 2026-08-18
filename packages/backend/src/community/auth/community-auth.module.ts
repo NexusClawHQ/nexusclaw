@@ -28,6 +28,6 @@ import { CommunityGqlAuthGuard } from './community-gql-auth.guard';
     }),
   ],
   providers: [CommunityAuthService, CommunityGqlAuthGuard, CommunityAuthResolver],
-  exports: [CommunityAuthService, CommunityGqlAuthGuard],
+  exports: [CommunityAuthService, CommunityGqlAuthGuard, JwtModule],
 })
 export class CommunityAuthModule {}

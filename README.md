@@ -114,6 +114,24 @@ Permissions, guardrails, L3 approvals and the audit chain stay identical in
 both modes (the console and dashboard badge shows which one is active); a
 partial configuration refuses to boot rather than silently downgrading.
 
+### Host a playground (optional)
+
+Give anonymous visitors a 60-second governed closed loop — no signup, no
+Docker on their side (`spec: hosted-playground`):
+
+```sh
+docker compose --profile playground up -d
+# open http://localhost:3002/playground
+```
+
+The playground service shares the stack but runs with
+`COMMUNITY_DEMO_SEED=false` and `PLAYGROUND_PROFILE=true`: every visitor gets
+an isolated throwaway workspace (auto-recycled after 30 idle minutes), the
+deterministic dry-run scenario only, per-IP rate limits, and **BYO model
+variables are refused** on this surface — anonymous hosting stays
+credential-free. Rate limits are in-memory and single-instance by design;
+`PLAYGROUND_PORT` selects the host port.
+
 **The 30-second closed loop, in the Governance Dashboard** — run → L3 pause →
 human approval → resumed execution → audit chain:
 
@@ -266,6 +284,13 @@ LLM 凭证**；如需观察真实模型跑在相同治理门下，在 `.env` 同
 `COMMUNITY_LLM_*` 变量（任意 OpenAI 兼容端点：DeepSeek / 通义 / 豆包 / 智谱 /
 vLLM / Ollama）——权限、护栏、L3 审批与审计链在两种模式下完全一致，控制台与
 Dashboard 的徽标会标明当前模式；部分配置会拒绝启动而不是静默降级。
+
+**自托管 Playground（可选）**：给匿名访客 60 秒治理闭环体验——对方无需注册、
+无需装 Docker。`docker compose --profile playground up -d` 后打开
+`http://localhost:3002/playground`。playground 服务以 `PLAYGROUND_PROFILE=true`
+运行：每位访客获得独立一次性工作区（空闲 30 分钟自动回收）、仅确定性干跑剧本、
+按 IP 限流，且该接入面**强制禁用 BYO 模型变量**——匿名托管永不接触凭证。
+限流为内存实现、按单实例设计；`PLAYGROUND_PORT` 可改宿主端口。
 完整环境要求与源码构建见上方 [Quick start](#quick-start) 与下方
 [Operational guide](#operational-guide-english)。
 

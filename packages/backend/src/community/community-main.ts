@@ -9,10 +9,13 @@ import { createRequestContextMiddleware } from '../common/request-context/reques
 import { CommunityAppModule } from './community-app.module';
 import { assertCommunityCompositionReady } from './community-composition-readiness';
 import { assertCommunitySourceUrl } from './source-disclosure/community-source-disclosure.module';
+import { assertPlaygroundProfile } from './playground/community-playground.profile';
 
 export async function bootstrapCommunity(): Promise<void> {
   assertCommunityCompositionReady();
   assertCommunitySourceUrl(process.env.COMMUNITY_SOURCE_URL, process.env.NODE_ENV);
+  // AC-2.4 (spec hosted-playground): anonymous surface + credentials = boot error.
+  assertPlaygroundProfile(process.env);
   const app = await NestFactory.create(CommunityAppModule);
   // Public mutations reach OutboxService.enqueue, which requires a bound
   // RequestTraceContext; mirror the middleware the private main.ts mounts.

@@ -6,6 +6,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CommunityAuthModule } from './auth/community-auth.module';
+import { CommunityPlaygroundModule } from './playground/community-playground.module';
 import { COMMUNITY_ENTITY_MANIFEST } from './community-entity-manifest';
 import { COMMUNITY_MIGRATION_MANIFEST } from './community-migration-manifest';
 import { CommunityMetadataRuntimeModule } from './metadata-runtime/community-metadata-runtime.module';
@@ -45,6 +46,7 @@ import { CommunitySourceDisclosureModule } from './source-disclosure/community-s
       }),
     }),
     CommunityAuthModule,
+    CommunityPlaygroundModule,
     CommunityMetadataRuntimeModule,
     CommunityAgentRuntimeModule,
     CommunitySourceDisclosureModule,
