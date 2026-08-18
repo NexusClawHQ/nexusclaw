@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NexusClaw Playground · 60 秒治理闭环 · Mockup（spec hosted-playground）</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg:#f5f7fa; --panel:#ffffff; --panel-2:#f2f5f9; --border:#e5e9f0; --border-strong:#d4dae4;
+  --text:#17233d; --muted:#68738a; --faint:#98a1b3;
+  --accent:#3056d3; --accent-soft:#edf1fe;
+  --ok:#0f7a4a; --ok-soft:#e6f5ee; --info:#1d4fd8; --info-soft:#e8effd;
+  --warn:#9a6408; --warn-soft:#fdf3e0; --bad:#b33131; --bad-soft:#fbeaea;
+  --json-bg:#0f1626; --json-ink:#d7e0f5;
+  --radius-sm:6px; --radius-md:10px; --radius-lg:14px;
+  --shadow-1:0 1px 2px rgba(23,35,61,.05); --shadow-2:0 6px 24px rgba(23,35,61,.08);
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-size:13.5px; line-height:1.6; }
+.mono { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; }
+.wrap { max-width:880px; margin:0 auto; padding:24px 24px 64px; display:flex; flex-direction:column; gap:16px; }
+
+.review-note { background:var(--accent-soft); color:var(--accent); border:1px dashed var(--accent); border-radius:var(--radius-md); padding:8px 14px; font-size:12.5px; }
+
+/* hero */
+.hero {
+  background:
+    radial-gradient(700px 300px at 15% -20%, #edf1fe 0%, transparent 60%),
+    radial-gradient(560px 260px at 95% -10%, #e6f5ee 0%, transparent 55%),
+    var(--panel);
+  border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow-1);
+  padding:36px 40px; text-align:center;
+}
+.hero .brandrow { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px; }
+.brandmark { width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,#3056d3,#6a8dff); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.hero h1 { margin:0; font-size:26px; font-weight:700; letter-spacing:-.01em; }
+.hero p.sub { margin:8px auto 0; max-width:560px; color:var(--muted); font-size:14px; }
+.run-btn {
+  margin:20px auto 0; display:inline-flex; align-items:center; gap:8px;
+  background:var(--accent); color:#fff; border:none; border-radius:var(--radius-sm);
+  padding:12px 32px; font:inherit; font-size:15px; font-weight:650; cursor:pointer;
+  box-shadow:var(--shadow-2);
+}
+.steps { display:flex; gap:10px; margin-top:20px; }
+.step { flex:1; background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-md); padding:10px 12px; font-size:12.5px; color:var(--muted); }
+.step b { display:block; color:var(--text); font-size:12.5px; }
+.step .n { display:inline-flex; width:18px; height:18px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-size:11px; font-weight:700; align-items:center; justify-content:center; margin-right:6px; }
+
+/* runtime timeline */
+.card { background:var(--panel); border:1px solid var(--border); border-radius:var(--radius-md); box-shadow:var(--shadow-1); padding:20px; }
+.card h3 { margin:0 0 10px; font-size:14px; }
+.chip { display:inline-flex; align-items:center; border-radius:999px; padding:0 10px; font-size:11.5px; font-weight:600; border:1px solid transparent; line-height:1.7; white-space:nowrap; }
+.chip.ok { color:var(--ok); background:var(--ok-soft); }
+.chip.info { color:var(--info); background:var(--info-soft); }
+.chip.warn { color:var(--warn); background:var(--warn-soft); }
+.chip.bad { color:var(--bad); background:var(--bad-soft); }
+.chip.muted { color:var(--muted); background:var(--panel-2); border-color:var(--border); }
+
+.ptl { list-style:none; margin:0; padding:0 0 0 16px; border-left:2px solid var(--border); display:flex; flex-direction:column; gap:14px; }
+.pnode { position:relative; display:flex; flex-direction:column; gap:6px; }
+.pnode::before { content:""; position:absolute; left:-21px; top:7px; width:9px; height:9px; border-radius:50%; background:var(--panel); border:2.5px solid var(--accent); }
+.pnode.tone-ok::before { border-color:var(--ok); }
+.pnode.tone-warn::before { border-color:var(--warn); }
+.pnode.tone-muted::before { border-color:var(--border-strong); }
+.phead { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-weight:600; }
+.pnode .desc { color:var(--muted); font-size:12.5px; margin:0; }
+
+.approve-box { border:1px solid color-mix(in srgb, var(--warn) 35%, transparent); background:var(--warn-soft); border-radius:var(--radius-sm); padding:12px 14px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.approve-box .tool { flex:1; min-width:220px; }
+.btn { display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid var(--border-strong); border-radius:var(--radius-sm); color:var(--text); padding:8px 16px; font:inherit; font-size:13px; cursor:pointer; }
+.btn.primary { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+.btn.approve { background:var(--ok-soft); border-color:color-mix(in srgb, var(--ok) 40%, transparent); color:var(--ok); font-weight:600; }
+.btn.reject { background:var(--bad-soft); border-color:color-mix(in srgb, var(--bad) 40%, transparent); color:var(--bad); font-weight:600; }
+
+pre.json { background:var(--json-bg); color:var(--json-ink); border-radius:var(--radius-sm); padding:12px; margin:6px 0; max-height:180px; overflow:auto; white-space:pre-wrap; word-break:break-all; font-size:12px; font-family:ui-monospace,Menlo,monospace; }
+
+/* CTA */
+.cta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.cta { border:1px solid var(--border); border-radius:var(--radius-md); background:var(--panel); padding:14px; display:flex; flex-direction:column; gap:6px; box-shadow:var(--shadow-1); }
+.cta b { font-size:13.5px; }
+.cta span { color:var(--muted); font-size:12px; }
+.cmd { background:var(--json-bg); color:var(--json-ink); border-radius:var(--radius-sm); padding:8px 10px; font-family:ui-monospace,Menlo,monospace; font-size:11.5px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.copy { background:transparent; border:1px solid rgba(215,224,245,.4); color:#d7e0f5; border-radius:4px; padding:2px 8px; font-size:11px; cursor:pointer; }
+
+footer { text-align:center; color:var(--faint); font-size:12px; }
+.langbar { display:flex; justify-content:flex-end; gap:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="review-note">📋 评审锚点：<b>playground 落地页</b> · design.md §6 — 本 mockup 呈现「运行中 · L3 暂停等待批准」关键态；下方审计链卡为完成态预览。零依赖单页、无注册、会话即焚。</div>
+
+  <div class="langbar"><button class="btn">English</button></div>
+
+  <header class="hero">
+    <div class="brandrow">
+      <span class="brandmark">N</span>
+      <span style="font-weight:700;font-size:15px">NexusClaw Playground</span>
+    </div>
+    <h1>60 秒，跑一次真实的 AI 治理闭环</h1>
+    <p class="sub">无需注册、无需安装。真实的权限 · 护栏 · 审批 · 审计管线，确定性剧本，无任何真实外发。</p>
+    <button class="run-btn">▶ 运行治理闭环</button>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><b>点击运行</b>自动创建一次性会话</div>
+      <div class="step"><span class="n">2</span><b>L3 暂停时你来批准</b>体验人工治理门</div>
+      <div class="step"><span class="n">3</span><b>查看审计链</b>四层证据全程可查</div>
+    </div>
+  </header>
+
+  <!-- 运行中的实时时间轴（关键态：L3 暂停） -->
+  <section class="card">
+    <h3>实时执行 <span class="chip warn">L3 等待你的批准</span></h3>
+    <ol class="ptl">
+      <li class="pnode tone-ok">
+        <div class="phead"><span class="chip ok">会话就绪</span><span class="mono">pg_8f3a…</span><span style="color:var(--faint);font-weight:400;font-size:12px">刚刚</span></div>
+        <p class="desc">一次性工作区已创建，30 分钟后自动清理。</p>
+      </li>
+      <li class="pnode tone-ok">
+        <div class="phead"><span class="chip ok">L1 · 客户查询</span><span class="mono">demo.customer_lookup</span><span class="chip ok">passed · audited</span></div>
+        <p class="desc">只读查询放行并写入审计——C-1001 · Acme Robotics。</p>
+      </li>
+      <li class="pnode tone-warn">
+        <div class="phead"><span class="chip warn">L3 · 外发邮件</span><span class="mono">demo.send_followup_email</span><span class="chip warn">requires approval</span></div>
+        <div class="approve-box">
+          <div class="tool">
+            <b style="font-size:12.5px">跟进邮件草稿已就绪，等待人工批准</b>
+            <p class="desc" style="margin:2px 0 0">收件人：C-1001 · 主题：Follow-up: service check-in（干跑，无真实发送）</p>
+          </div>
+          <button class="btn approve">✓ 批准</button>
+          <button class="btn reject">✕ 拒绝</button>
+        </div>
+      </li>
+      <li class="pnode tone-muted">
+        <div class="phead"><span class="chip muted">执行完成</span><span style="color:var(--faint);font-weight:400;font-size:12px">批准后继续…</span></div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 完成态：审计链卡 -->
+  <section class="card">
+    <h3>审计链 <span class="chip info">四层证据</span></h3>
+    <ol class="ptl">
+      <li class="pnode tone-ok">
+        <div class="phead">#1 <span class="chip muted mono">tool_call</span> <span class="chip info">L1</span></div>
+        <pre class="json">{ "customerId": "C-1001", "objectApiName": "Contact" }</pre>
+        <div><span class="chip ok">permission passed</span> <span class="chip ok">guardrail passed</span> <span class="chip ok">audited</span></div>
+      </li>
+      <li class="pnode tone-warn">
+        <div class="phead">#2 <span class="chip muted mono">tool_call</span> <span class="chip warn">L3</span> <span class="chip warn">approved by you</span></div>
+        <div><span class="chip ok">approval · APPROVED</span> <span class="chip ok">resumed</span></div>
+      </li>
+    </ol>
+    <p class="desc" style="color:var(--muted);font-size:12.5px;margin:8px 0 0">execution → ReAct 步骤 → 工具调用 → outbox 事件流，与自托管 /app 同一读模型。</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-grid">
+    <div class="cta">
+      <b>★ GitHub 仓库</b>
+      <span>Apache-2.0 · 治理内核 9 个 npm 包</span>
+      <a href="#" onclick="return false" style="color:var(--accent)">nexusclaw ↗</a>
+    </div>
+    <div class="cta">
+      <b>⌘ 自托管完整版</b>
+      <div class="cmd"><span>docker compose up --build</span><button class="copy">复制</button></div>
+      <div class="cmd"><span>open localhost:3000/app</span><button class="copy">复制</button></div>
+    </div>
+    <div class="cta">
+      <b>◈ 了解商业版</b>
+      <span>可视化构建器 · 成长回路 · 模型路由</span>
+      <a href="#" onclick="return false" style="color:var(--accent)">nexusclaw.cn ↗</a>
+    </div>
+  </section>
+
+  <footer>会话 30 分钟无活动自动清理 · 无注册 · 确定性剧本（无 LLM、无真实外发）· <a href="#" onclick="return false" style="color:var(--accent)">自托管本 playground</a></footer>
+</div>
+</body>
+</html>
