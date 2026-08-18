@@ -41,6 +41,17 @@ The plain `agent-governance` name is taken, and the compressed
 `agentgovernance` variant is rejected by PyPI's project-name similarity
 guard, hence the branded distribution name.
 
+**Also 2026-08-18 (direct community commits, branch `community-showcase-and-byo`):
+the Community frontends became the product showcase.** The Governance
+Dashboard is served at `/app` as a full capability map — digital employees
+with a product-grade configuration view, training & growth timelines derived
+from approval decisions, replay-compare, governance policy, and an honest
+commercial-preview product console. `/console` was rebuilt on the same
+unified design-token table (guard-tested) as a zero-dependency demo, and a
+BYO real-model path (`COMMUNITY_LLM_*`) lets evaluators watch a real LLM run
+under identical governance gates. Design records and the frozen mockup live
+under `.kiro/specs/`.
+
 ## Building next
 
 On top of the v0.5.0 adapter base:

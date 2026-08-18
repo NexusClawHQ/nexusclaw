@@ -12,14 +12,53 @@ drop — the snapshot pipeline is routine, not an event.
 
 | Tag | Date | One-liner |
 |---|---|---|
-| [Unreleased] | 2026-08-17 | Direct community-repo commits (not a sealed snapshot): license fix, audit zero, CI, Governance Dashboard, publish prep |
+| [Unreleased] | 2026-08-18 | Direct community-repo commits (not a sealed snapshot): product-showcase dashboard at /app, rebuilt /console, BYO real-model path, governance-derived training & growth |
 | [v0.5.0-community] | 2026-08-17 | Framework adapters: n8n nodes, Dify schema, PyPI-ready Python package |
 | [v0.4.0-community] | 2026-08-17 | Governance gate API + zero-dependency Python client |
 | [v0.3.0-community] | 2026-08-17 | The governance core lands as an Apache-2.0 library |
 | [v0.2.0-community] | 2026-08-17 | Browser closed loop: the `/console` governance mini-console |
 | [v0.1.0-community] | 2026-08-15 | First public snapshot: the governed runtime slice |
 
-## [Unreleased] — direct community-repo commits, 2026-08-17
+## [Unreleased] — direct community-repo commits
+
+### 2026-08-18 — product showcase, BYO real-model path, unified design system
+
+Unlike the sealed snapshots below, these changes were committed directly in
+the public repository (branch `community-showcase-and-byo`); every claim was
+verified against this tree (backend 48 + dashboard 43 tests, root build,
+`check:i18n`, `check:boundary`, and an end-to-end closed-loop smoke against
+the composed stack).
+
+#### Added
+
+- **Product-showcase dashboard at `/app`** — sidebar capability map (overview
+  / digital employees / training & growth / approvals / audit chain /
+  governance policy / product console), served from the backend image via
+  `express.static` with zero new dependencies. Commercial capabilities
+  render as honest preview cards and dialogs — no fake interactions.
+- **Digital-employee configuration view** — in-page tabs (overview /
+  configuration / executions / growth) with a kv-grid profile, read-only
+  system prompt, model source, tool capability rows (risk level + action +
+  enable state) and an L0–L4 autonomy track; `apiName` / `agentType` /
+  `version` / `updatedAt` exposed read-only on the detail resolver.
+- **Training & growth** — growth timelines derived from approval decisions
+  (coaching notes), L3 escalations and execution milestones; replay-compare
+  reuses `communityExecuteAgent` for side-by-side run diffs; idempotent
+  backdated seed keeps the view honest and non-empty.
+- **BYO real-model demo path** — `COMMUNITY_LLM_*` environment trio wires an
+  OpenAI-compatible adapter behind the same `ExecutorModelPort`; partial
+  configuration refuses to boot (fail-fast), errors are sanitized (no key,
+  no response bodies), lineage lands in `aiProviderStamp`. The deterministic
+  smoke path is unchanged and remains the default.
+- **Unified design tokens** — one token table across the dashboard and the
+  `/console` page, enforced by a token-guard test (18 assertions); compact
+  light "product rhythm v2"; `/console` rebuilt as three reviewable
+  constants with an audit-timeline view, JSON syntax highlighting
+  (zero-innerHTML, guard-tested) and ARIA tabs.
+- **Design records** — three Kiro spec trios with a frozen, reviewable
+  mockup (annotation toggle) and baseline screenshots under `.kiro/specs/`.
+
+## Previous unreleased batch — direct community-repo commits, 2026-08-17
 
 Unlike the sealed snapshots below, these changes were committed directly in
 the public repository (branch `community/fixes-dashboard`); every claim was

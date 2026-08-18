@@ -32,7 +32,7 @@
 
 ## Phase P — 收尾与门禁
 
-- [x] **P1** `[AC-2.2]` 冻结 mockup 与实现同页并排截图归档 `assets/baseline/`（已归档 assets/baseline/{mockup,app} ×1440 共 19 张；860 断点与登录页待补）。
+- [x] **P1** `[AC-2.2]` 冻结 mockup 与实现同页并排截图归档 `assets/baseline/`（已归档 assets/baseline/{mockup,app} ×1440 共 19 张；含 860 断点与登录页，共 23 张）。
 - [x] **P2** `[AC-5.3]` 新增文案 i18n 双表补齐；dashboard i18n 奇偶测试保持。🧪
 - [x] **P3** `[AC-5.1 / 5.4]` 全门禁：root build、`check:i18n`、`check:boundary`、backend 48+、dashboard 全测；两 package.json 零 diff。
 - [ ] **P4** 人工验收清单：浏览器走查九页与冻结 mockup 逐页对照，偏差记录（容忍度内注记、超差返工）。

@@ -149,9 +149,24 @@ preview cards.
 npm run dev:dashboard   # Vite dev server on http://localhost:5173, proxies /graphql to :3000
 ```
 
+<img src="docs/assets/dashboard-showcase-overview.png" alt="Product-showcase dashboard overview: sidebar capability map with workspace stats derived from the audit chain" width="880">
+
 In the composed stack the built dashboard is served by the backend at
 **`http://localhost:3000/app`** (the main entry), while `/console` stays the
 zero-dependency demo page.
+
+The digital-employee profile carries a product-grade **configuration** view —
+basic info, read-only system prompt, model source, tool capabilities with
+risk levels, and the L0–L4 autonomy track — with every edit affordance
+honestly labelled as a commercial capability:
+
+<img src="docs/assets/dashboard-employee-config.png" alt="Digital employee configuration: kv grid, read-only prompt, model source, tool capability rows with risk chips and switches, L0-L4 risk-level track" width="880">
+
+Training & growth turns governance data into coaching — every approval
+decision becomes a growth record, and any record can be replayed for a
+side-by-side comparison:
+
+<img src="docs/assets/dashboard-training-growth.png" alt="Training and growth timeline: coaching notes from approval decisions, L3 escalation and milestone nodes, replay comparison" width="880">
 
 The dashboard is a React + Vite workspace (`packages/dashboard`, Apache-2.0,
 English/中文) that consumes only the public community GraphQL surface — the
