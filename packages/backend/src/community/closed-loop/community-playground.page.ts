@@ -291,7 +291,7 @@ export const PLAYGROUND_PAGE_HTML = `<!doctype html>
     (exec.toolCallRecords || []).forEach(function (tc) {
       var li = node(tc.guardrailCheck === 'escalated' ? 'warn' : 'ok', function (h) {
         h.appendChild(el('span', 'mono', tc.toolName));
-        h.appendChild(chip('info', tc.riskLevel || ''));
+        h.appendChild(chip('info', tc.status || ''));
         h.appendChild(chip(tc.permissionCheck === 'passed' ? 'ok' : 'bad', 'permission ' + (tc.permissionCheck || '')));
         h.appendChild(chip(tc.guardrailCheck === 'passed' ? 'ok' : 'warn', 'guardrail ' + (tc.guardrailCheck || '')));
       });
@@ -311,7 +311,7 @@ export const PLAYGROUND_PAGE_HTML = `<!doctype html>
     }).catch(function () { okBtn.disabled = false; noBtn.disabled = false; });
   }
 
-  var Q_EXEC = 'query X($id: ID!) { communityAgentExecution(id: $id) { id status outputSummary reactSteps { id stepIndex toolName toolInput observationError } toolCallRecords { id toolName riskLevel permissionCheck guardrailCheck input } } }';
+  var Q_EXEC = 'query X($id: ID!) { communityAgentExecution(id: $id) { id status outputSummary reactSteps { id stepIndex toolName toolInput observationError } toolCallRecords { id toolName status permissionCheck guardrailCheck input } } }';
 
   function tick() {
     gql(Q_EXEC, { id: executionId }).then(function (body) {

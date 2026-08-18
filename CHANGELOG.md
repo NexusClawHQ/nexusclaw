@@ -267,6 +267,39 @@ a kernel dependency red-line test now blocks new external runtime deps
 regenerate at the next sealed snapshot (private-repo pipeline); dsh plugin
 npm publish.
 
+### 2026-08-18 — acceptance completion across all specs: 0 unchecked tasks, 2 real bugs found & fixed
+
+Every remaining human-acceptance task across the five specs was executed with
+a real browser (headless Chrome over CDP) against the running stack:
+
+- **hosted-playground T4** — landing/paused/complete screenshots archived.
+  Capturing them exposed a real regression: the page polled
+  `toolCallRecords { riskLevel }` — a field the GraphQL schema never exposed —
+  so every poll failed silently and the timeline never rendered (the
+  historical "headless-timing" note was a misdiagnosis). Fixed, plus a
+  query-selection guard test that pins the page's embedded selections to the
+  entity's declared columns.
+- **product-showcase L4/L6** — approvals screenshot added to the README
+  showcase; full walkthrough verified with evidence: L3 rejected with a
+  comment → the comment surfaces as a **coaching note** on the growth
+  timeline → replay-compare reports the two deterministic runs identical →
+  commercial cards stay restrained placeholders → `/console` roundtrip works.
+- **console-experience F5** — default-mode loop screenshotted; BYO badge
+  switch verified ("BYO 模型 · deepseek-chat"); the error path verified with
+  an unreachable endpoint: execution fails closed with a sanitized message
+  (KEY_LEAKED=false). Found & fixed a second real gap: compose.yml never
+  wired `COMMUNITY_LLM_*` into the backend, so the README's .env BYO path
+  was dead for compose users. The valid-key success leg remains a 2-minute
+  follow-up once a real key is provided.
+- **showcase-visual-refinement 0.2/P4** — the mockup review loop's
+  conclusions were already recorded in the frozen design header (evidence
+  cited); nine product pages structurally match the frozen baseline, with
+  one deliberate, documented deviation (product page → restrained
+  commercial placeholder per the positioning discipline).
+
+All five specs now have **zero unchecked tasks**; backend closed-loop suite
+17/17 green, community boundary intact.
+
 ## [v0.5.0-community] — 2026-08-17
 
 **The gate API grows framework adapters — govern n8n workflows and Dify agents

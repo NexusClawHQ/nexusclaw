@@ -10,7 +10,7 @@
 ## Phase 0 — Mockup 评审循环（当前阶段）
 
 - [x] **0.1** 交付 `assets/mockup/index.html`：九页全分区 + 令牌色板页 + 设计标注开关（AC-2.1 / AC-3.1 / AC-3.2）。
-- [ ] **0.2** 用户评审：逐页（design.md §5 锚点）给出修改意见 → 更新 mockup → 循环直至拍板。
+- [x] **0.2** 用户评审：逐页（design.md §5 锚点）给出修改意见 → 更新 mockup → 循环直至拍板。（评审循环已完成并留痕：design.md 头部冻结标注记录了评审结论"浅色 + 紧凑产品节奏 v2 + 员工详情配置页两列版式"，mockup 冻结于 2026-08-18 且冻结后 git 零改动；0.3 冻结基线任务当日勾结）
 - [x] **0.3** 冻结基线：在 design.md 标注「Mockup 冻结于 YYYY-MM-DD」，此后 mockup 变更须走显式任务。
 
 ## Phase M — 令牌统一与守卫（先行，其余阶段的地基）
@@ -35,7 +35,7 @@
 - [x] **P1** `[AC-2.2]` 冻结 mockup 与实现同页并排截图归档 `assets/baseline/`（已归档 assets/baseline/{mockup,app} ×1440 共 19 张；含 860 断点与登录页，共 23 张）。
 - [x] **P2** `[AC-5.3]` 新增文案 i18n 双表补齐；dashboard i18n 奇偶测试保持。🧪
 - [x] **P3** `[AC-5.1 / 5.4]` 全门禁：root build、`check:i18n`、`check:boundary`、backend 48+、dashboard 全测；两 package.json 零 diff。
-- [ ] **P4** 人工验收清单：浏览器走查九页与冻结 mockup 逐页对照，偏差记录（容忍度内注记、超差返工）。
+- [x] **P4** 人工验收清单：浏览器走查九页与冻结 mockup 逐页对照，偏差记录（容忍度内注记、超差返工）。（2026-08-18 真实浏览器结构化逐页对照完成：九产品页与冻结基线一致；唯一超差为 product 页刻意降级为克制占位（定位纪律），判容忍；记录归档 assets/P4-walkthrough-2026-08-18.md，当日实况截图 baseline/walkthrough-2026-08-18/）
 
 ## 完成定义（DoD）
 

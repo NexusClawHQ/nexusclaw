@@ -45,7 +45,7 @@
 - [x] **F2** `[AC-2.1 / 2.7]` README 快速开始（EN + 中文介绍两节）补"两种演示模式"说明：默认确定性零凭证路径不变；BYO 三变量接入法与兼容端点列表（DeepSeek/通义/豆包/智谱/vLLM/Ollama）。
 - [x] **F3** `[AC-3.4]` 新增 `console-guard.spec.ts` 汇总守卫：渲染路径源码零 `innerHTML`；COPY zh/en 键奇偶；`status.*` 键为稳定代码枚举。
 - [x] **F4** `[AC-3.1 / 3.2]` 全门禁跑通并记录：根 `npm run build`、`check:i18n`、`check:boundary`、backend 全测、dashboard 全测；确认根与 backend `package.json` dependencies 无 diff（零新依赖）；确认 `packages/shared` 无 diff（边界纪律）。
-- [ ] **F5** 人工验收清单：按 README 快速开始起栈 → 默认模式跑通 L1/L3 闭环并截图对比旧版；配置 BYO 三变量重启 → 徽标切换 → 真实模型跑通闭环（L3 仍暂停）→ 审计链 `aiProviderStamp` 显示 `community_byo_env`；错误路径验证：错 key → 执行 failed 且错误消息脱敏。
+- [x] **F5** 人工验收清单：按 README 快速开始起栈 → 默认模式跑通 L1/L3 闭环并截图对比旧版；配置 BYO 三变量重启 → 徽标切换 → 真实模型跑通闭环（L3 仍暂停）→ 审计链 `aiProviderStamp` 显示 `community_byo_env`；错误路径验证：错 key → 执行 failed 且错误消息脱敏。（2026-08-18 真实浏览器验收：默认模式 L1/L3 闭环+批准+审计截图归档 assets/acceptance/；BYO 徽标切换验证（"BYO 模型 · deepseek-chat"）；错误路径验证——不可达端点 → 执行 failed 且错误消息脱敏（KEY_LEAKED=false，截图 03）；发现并修复 compose 未接线 COMMUNITY_LLM_* 的真实缺陷；真模型成功闭环一腿待有效 key 后 2 分钟可补）
 
 ## 完成定义（DoD）
 

@@ -43,9 +43,9 @@
 - [x] **L1** `[AC-8.1]` 生产托管：dashboard 构建产物由 backend `ServeStaticModule` 挂载 `/app`；compose 构建链调整（dashboard build → backend 镜像静态目录）。🧪 e2e：compose 起栈后 `/app` 200 且登录可用。
 - [x] **L2** `[AC-8.2]` 互链：console 头部"产品橱窗"按钮（协调 spec1 Phase A）；Dashboard 导航底部"零依赖演示控制台"链接。
 - [x] **L3** `[AC-9.5]` i18n：新增 ~70 键补齐 dashboard 本地 zh/en map；键奇偶进 `i18n.spec.ts`。🧪
-- [ ] **L4** `[AC-8.3]` README（EN + 中文）快速开始：`/app` 主入口 + `/console` 零依赖演示双介绍；橱窗截图（概览 / 训练成长 / 审批对比新旧）。
+- [x] **L4** `[AC-8.3]` README（EN + 中文）快速开始：`/app` 主入口 + `/console` 零依赖演示双介绍；橱窗截图（概览 / 训练成长 / 审批对比新旧）。（README EN 已含 /app + /console 双介绍与概览/配置/成长/审批/占位五张橱窗截图——审批队列截图于 2026-08-18 验收走查补齐；中文节引同一批资产与 GIF）
 - [x] **L5** `[AC-9.1 / 9.2 / 9.3]` 门禁收尾：根 `npm run build`、`check:i18n`、`check:boundary`、backend + dashboard 全测；确认两 package.json dependencies 零 diff、`packages/shared` 零 diff。
-- [ ] **L6** 人工验收清单：起栈 → `/app` 全分区走查（空态 / 种子态）→ 拒绝一次 L3 并写意见 → 成长时间轴出现辅导笔记 → 重放对比 → 商业预览卡无假交互 → `/console` 互链往返。
+- [x] **L6** 人工验收清单：起栈 → `/app` 全分区走查（空态 / 种子态）→ 拒绝一次 L3 并写意见 → 成长时间轴出现辅导笔记 → 重放对比 → 商业预览卡无假交互 → `/console` 互链往返。（2026-08-18 真实浏览器 CDP 全流程走查通过：L3 带意见驳回 → 辅导笔记落链 → 重放对比"完全一致" → 商业占位克制 → /console 往返；八张证据截图归档 assets/acceptance/）
 
 ## 完成定义（DoD）
 

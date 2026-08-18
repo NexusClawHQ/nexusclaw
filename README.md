@@ -223,6 +223,8 @@ The dashboard, screen by screen:
 
 <img src="docs/assets/dashboard-growth-list.png" alt="Training & growth: pick a digital employee from the list to read its coaching timeline" width="880">
 
+<img src="docs/assets/dashboard-approvals.png" alt="Approval queue: L3 tool with input payload, waiting for a human decision" width="880">
+
 <img src="docs/assets/dashboard-product-placeholder.png" alt="Full-platform navigation: commercial modules stay visible and open a restrained placeholder" width="880">
 
 Optional: host an anonymous playground for visitors — a 60-second governed

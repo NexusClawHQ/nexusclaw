@@ -34,7 +34,7 @@
 - [x] **T1** 安全自查清单归档 `assets/security-checklist.md`（匿名面/限流/回收/凭证隔离逐项签字）。
 - [x] **T2** 60 秒口径实测记录：打开→完成闭环的实测时长（目标 ≤20s 纯执行）。
 - [x] **T3** `[AC-5.2]` 全门禁：root build / check:i18n / check:boundary / backend+dashboard 全测保持绿；`packages/shared` 零 diff。
-- [ ] **T4** mockup 与实现并排截图归档（同 spec3 P1 模式）。
+- [x] **T4** mockup 与实现并排截图归档（同 spec3 P1 模式）。（2026-08-18 补拍完成：landing/paused/complete 三张真浏览器截图归档于 assets/implementation/；过程发现并修复了 Q_EXEC 查询 riskLevel 字段不存在导致时间轴永不渲染的真实回归，新增 query-selection 守卫测试）
 
 ## 完成定义（DoD）
 
