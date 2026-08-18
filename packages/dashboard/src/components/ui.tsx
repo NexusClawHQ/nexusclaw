@@ -98,3 +98,69 @@ export const TERMINAL_STATUSES: ReadonlySet<ExecutionStatus> = new Set([
   'timeout',
   'cancelled',
 ]);
+
+// ---- product showcase shared pieces (spec product-showcase-dashboard) ----
+
+export type CommercialCapabilityKey =
+  | 'visualBuilder'
+  | 'growthLoop'
+  | 'modelRouting'
+  | 'enterprise'
+  | 'governance'
+  | 'adapters';
+
+export interface CommercialCapability {
+  key: CommercialCapabilityKey;
+  /** false = runs in this community repo; true = commercial preview card. */
+  commercial: boolean;
+}
+
+/** Static catalog — display copy lives in i18n as product.cap.<key>. */
+export const COMMERCIAL_PREVIEW: readonly CommercialCapability[] = [
+  { key: 'governance', commercial: false },
+  { key: 'adapters', commercial: false },
+  { key: 'visualBuilder', commercial: true },
+  { key: 'growthLoop', commercial: true },
+  { key: 'modelRouting', commercial: true },
+  { key: 'enterprise', commercial: true },
+];
+
+export const CAPABILITIES_URL = 'https://nexusclaw.cn/zh/capabilities';
+
+export function CommercialPreviewCard({
+  capability,
+  t,
+}: {
+  capability: CommercialCapability;
+  t: Translator;
+}) {
+  return (
+    <div className={`preview-card ${capability.commercial ? 'is-commercial' : 'is-community'}`}>
+      <div className="preview-head">
+        <span className={`chip ${capability.commercial ? 'warn' : 'ok'}`}>
+          {capability.commercial ? t('product.badge') : t('product.community')}
+        </span>
+      </div>
+      <p className="preview-copy">{t(`product.cap.${capability.key}` as Parameters<Translator>[0])}</p>
+      {capability.commercial && (
+        <a className="preview-link" href={CAPABILITIES_URL} target="_blank" rel="noreferrer">
+          {t('product.link')} ↗
+        </a>
+      )}
+    </div>
+  );
+}
+
+export function EmptyState({ t, label }: { t: Translator; label?: string }) {
+  return (
+    <div className="empty-state">
+      <span className="empty-dot" aria-hidden="true" />
+      <p>{label ?? t('overview.empty')}</p>
+    </div>
+  );
+}
+
+export function formatPercent(value: number | null): string {
+  if (value === null || value === undefined) return '—';
+  return `${Math.round(value * 100)}%`;
+}

@@ -8,6 +8,9 @@ const proxyTarget =
 
 export default defineConfig({
   plugins: [react()],
+  // The built dashboard is served by the community backend under /app
+  // (spec product-showcase-dashboard AC-8.1) — asset URLs must be prefixed.
+  base: '/app/',
   server: {
     port: 5173,
     proxy: {

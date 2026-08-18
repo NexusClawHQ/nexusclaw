@@ -11,22 +11,39 @@ import {
 import {
   fetchAgents,
   fetchExecutions,
+  fetchModelSource,
   fetchPendingApprovals,
   signIn,
   type AgentSummary,
   type ExecutionSummary,
+  type ModelSource,
   type PendingApproval,
 } from './api';
 import { createTranslator, detectLang, type Lang, type Translator } from './i18n';
 import { ApprovalsView } from './views/ApprovalsView';
 import { ExecutionsView } from './views/ExecutionsView';
 import { RunView } from './views/RunView';
+import { OverviewView } from './views/OverviewView';
+import { EmployeesView } from './views/EmployeesView';
+import { EmployeeDetailView } from './views/EmployeeDetailView';
+import { GrowthView } from './views/GrowthView';
+import { PolicyView } from './views/PolicyView';
+import { ProductView } from './views/ProductView';
+import { Icon, type IconName } from './components/icons';
 
 const TOKEN_KEY = 'nexusclaw.dashboard.token';
 const LANG_KEY = 'nexusclaw.dashboard.lang';
 const POLL_INTERVAL_MS = 3000;
 
-type Tab = 'run' | 'executions' | 'approvals';
+type Section =
+  | 'overview'
+  | 'employees'
+  | 'run'
+  | 'approvals'
+  | 'audit'
+  | 'growth'
+  | 'policy'
+  | 'product';
 
 interface CommunityFeed {
   agents: AgentSummary[];
@@ -79,6 +96,28 @@ function useCommunityFeed(token: string | null, refreshTick: number): CommunityF
   }, [token, refreshTick]);
 
   return feed;
+}
+
+/** Hand-rolled hash routing (spec AC-9.1: no router dependency).
+ *  Shapes: #/section and #/employees/<id>. */
+function parseHash(hash: string): { section: Section; employeeId: string | null } {
+  const path = hash.replace(/^#\/?/, '').split('?')[0];
+  const segments = path.split('/').filter(Boolean);
+  const known: Section[] = [
+    'overview',
+    'employees',
+    'run',
+    'approvals',
+    'audit',
+    'growth',
+    'policy',
+    'product',
+  ];
+  if (segments[0] === 'employees' && segments[1]) {
+    return { section: 'employees', employeeId: segments[1] };
+  }
+  const section = known.find((value) => value === segments[0]);
+  return { section: section ?? 'overview', employeeId: null };
 }
 
 function LoginView({
@@ -147,12 +186,20 @@ export function App() {
   const [token, setToken] = useState<string | null>(
     () => window.sessionStorage.getItem(TOKEN_KEY),
   );
-  const [tab, setTab] = useState<Tab>('executions');
+  const [route, setRoute] = useState(() => parseHash(window.location.hash));
   const [refreshTick, setRefreshTick] = useState(0);
   const [focusExecutionId, setFocusExecutionId] = useState<string | null>(null);
+  const [modelSource, setModelSource] = useState<ModelSource | null>(null);
+  const [growthAgentId, setGrowthAgentId] = useState<string | null>(null);
 
   const t = useMemo(() => createTranslator(lang), [lang]);
   const feed = useCommunityFeed(token, refreshTick);
+
+  useEffect(() => {
+    const onHashChange = () => setRoute(parseHash(window.location.hash));
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   useEffect(() => {
     if (!token) {
@@ -160,6 +207,9 @@ export function App() {
       return;
     }
     window.sessionStorage.setItem(TOKEN_KEY, token);
+    fetchModelSource(token)
+      .then(setModelSource)
+      .catch(() => setModelSource(null));
   }, [token]);
 
   useEffect(() => {
@@ -182,23 +232,72 @@ export function App() {
 
   const handleExecuted = useCallback((executionId: string) => {
     setFocusExecutionId(executionId);
-    setTab('executions');
+    window.location.hash = '#/audit';
+    setRoute({ section: 'audit', employeeId: null });
     setRefreshTick((n) => n + 1);
   }, []);
+
+  const go = useCallback((section: Section) => {
+    window.location.hash = `#/${section}`;
+    setRoute({ section, employeeId: null });
+  }, []);
+
+  const openEmployee = useCallback((id: string) => {
+    window.location.hash = `#/employees/${id}`;
+    setRoute({ section: 'employees', employeeId: id });
+  }, []);
+
+  const openGrowthFor = useCallback((agentId: string) => {
+    window.location.hash = '#/growth';
+    setRoute({ section: 'growth', employeeId: null });
+    setGrowthAgentId(agentId);
+  }, []);
+
+  const effectiveGrowthAgent = growthAgentId ?? feed.agents[0]?.id ?? null;
 
   if (!token) return <LoginView t={t} onSignedIn={handleSignedIn} />;
 
   const pendingCount = feed.approvals.length;
   const feedBroken =
     feed.error !== null && !feed.loading && !feed.error.includes('unauthorized');
-  const tabs: Array<{ id: Tab; label: string }> = [
-    { id: 'run', label: t('tab.run') },
-    { id: 'executions', label: t('tab.executions') },
-    { id: 'approvals', label: t('tab.approvals') },
+
+  const nav: Array<{ group: string; items: Array<{ id: Section; label: string; icon: IconName }> }> = [
+    {
+      group: t('nav.group.workbench'),
+      items: [{ id: 'overview', label: t('nav.overview'), icon: 'overview' }],
+    },
+    {
+      group: t('nav.group.governance'),
+      items: [
+        { id: 'employees', label: t('nav.employees'), icon: 'employees' },
+        { id: 'growth', label: t('nav.growth'), icon: 'growth' },
+        { id: 'approvals', label: t('nav.approvals'), icon: 'approvals' },
+        { id: 'audit', label: t('nav.audit'), icon: 'audit' },
+        { id: 'run', label: t('nav.run'), icon: 'run' },
+      ],
+    },
+    {
+      group: t('nav.group.platform'),
+      items: [
+        { id: 'policy', label: t('nav.policy'), icon: 'policy' },
+        { id: 'product', label: t('nav.product'), icon: 'product' },
+      ],
+    },
   ];
 
   let active: ReactNode;
-  if (tab === 'run') {
+  if (route.section === 'employees' && route.employeeId) {
+    active = (
+      <EmployeeDetailView
+        t={t}
+        token={token}
+        agentId={route.employeeId}
+        onBack={() => go('employees')}
+        onOpenGrowth={openGrowthFor}
+        onGoRun={() => go('run')}
+      />
+    );
+  } else if (route.section === 'run') {
     active = (
       <RunView
         t={t}
@@ -208,7 +307,7 @@ export function App() {
         onExecuted={handleExecuted}
       />
     );
-  } else if (tab === 'approvals') {
+  } else if (route.section === 'approvals') {
     active = (
       <ApprovalsView
         t={t}
@@ -219,7 +318,7 @@ export function App() {
         lang={lang}
       />
     );
-  } else {
+  } else if (route.section === 'audit') {
     active = (
       <ExecutionsView
         t={t}
@@ -231,16 +330,63 @@ export function App() {
         lang={lang}
       />
     );
+  } else if (route.section === 'growth') {
+    active = (
+      <GrowthView
+        t={t}
+        token={token}
+        agents={feed.agents}
+        selectedAgentId={effectiveGrowthAgent}
+        onSelectAgent={setGrowthAgentId}
+        onOpenExecution={(id) => {
+          setFocusExecutionId(id);
+          go('audit');
+        }}
+      />
+    );
+  } else if (route.section === 'policy') {
+    active = <PolicyView t={t} token={token} agents={feed.agents} />;
+  } else if (route.section === 'product') {
+    active = <ProductView t={t} onGo={go} />;
+  } else if (route.section === 'employees') {
+    active = (
+      <EmployeesView
+        t={t}
+        agents={feed.agents}
+        loading={feed.loading}
+        onOpen={openEmployee}
+      />
+    );
+  } else {
+    active = (
+      <OverviewView
+        t={t}
+        agents={feed.agents}
+        executions={feed.executions}
+        approvals={feed.approvals}
+        onGo={go}
+      />
+    );
   }
 
   return (
-    <div className="app-shell">
+    <div className="app-shell showcase">
       <header className="app-header">
         <div>
           <h1>{t('app.title')}</h1>
           <p className="muted">{t('app.subtitle')}</p>
         </div>
         <div className="header-actions">
+          {modelSource && (
+            <span
+              className={`chip model ${modelSource.kind === 'byo_env' ? 'info' : 'muted'}`}
+              title={modelSource.modelId}
+            >
+              {modelSource.kind === 'byo_env'
+                ? `${t('model.byo')} · ${modelSource.modelId}`
+                : t('model.smoke')}
+            </span>
+          )}
           <span className={`live-dot ${feed.loading ? 'pulse' : ''}`} title={t('app.autoRefresh')} />
           <button className="ghost" onClick={toggleLang}>
             {lang === 'en' ? '中文' : 'English'}
@@ -250,29 +396,42 @@ export function App() {
           </button>
         </div>
       </header>
-      <nav className="tabs">
-        {feedBroken && (
-          <div className="feed-error" role="alert">
-            <span>{t('common.error')}</span>
-            <button className="ghost" onClick={refresh}>
-              {t('common.retry')}
-            </button>
-          </div>
-        )}
-        {tabs.map((entry) => (
-          <button
-            key={entry.id}
-            className={tab === entry.id ? 'tab active' : 'tab'}
-            onClick={() => setTab(entry.id)}
-          >
-            {entry.label}
-            {entry.id === 'approvals' && pendingCount > 0 && (
-              <span className="badge-count">{pendingCount}</span>
-            )}
+      {feedBroken && (
+        <div className="feed-error" role="alert">
+          <span>{t('common.error')}</span>
+          <button className="ghost" onClick={refresh}>
+            {t('common.retry')}
           </button>
-        ))}
-      </nav>
-      <main className="app-main">{active}</main>
+        </div>
+      )}
+      <div className="showcase-body">
+        <nav className="side-nav" aria-label="sections">
+          {nav.map((group) => (
+            <div className="nav-group" key={group.group}>
+              <div className="nav-group-title">{group.group}</div>
+              {group.items.map((entry) => (
+                <button
+                  key={entry.id}
+                  className={route.section === entry.id ? 'nav-item active' : 'nav-item'}
+                  onClick={() => go(entry.id)}
+                >
+                  <Icon name={entry.icon} />
+                  {entry.label}
+                  {entry.id === 'approvals' && pendingCount > 0 && (
+                    <span className="badge-count">{pendingCount}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          ))}
+          <div className="nav-sep" />
+          <a className="nav-item nav-link" href="/console">
+            <Icon name="console" />
+            {t('nav.console')} ↗
+          </a>
+        </nav>
+        <main className="app-main">{active}</main>
+      </div>
     </div>
   );
 }

@@ -13,10 +13,13 @@ COPY packages/shared/src ./packages/shared/src
 COPY packages/shared/tsconfig.build.json ./packages/shared/tsconfig.build.json
 COPY packages/backend/src ./packages/backend/src
 COPY packages/backend/tsconfig.json ./packages/backend/tsconfig.json
-# The image is the backend service only — the dashboard is a separate static
-# app (see packages/dashboard), so its manifest is present for npm ci's
-# workspace sync but not built here.
-RUN npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend
+COPY packages/dashboard/src ./packages/dashboard/src
+COPY packages/dashboard/index.html ./packages/dashboard/index.html
+COPY packages/dashboard/tsconfig.json ./packages/dashboard/tsconfig.json
+COPY packages/dashboard/vite.config.ts ./packages/dashboard/vite.config.ts
+# The dashboard (product-showcase surface) is built into the same image and
+# served by the backend at /app; /console stays the zero-dependency demo.
+RUN npm run build -w @nexusclaw/shared && npm run build -w @nexusclaw/backend && npm run build -w @nexusclaw/dashboard
 # The runtime image only needs production dependencies — drop the toolchain
 # (typescript, vite, vitest, react) before the runtime stage copies node_modules.
 RUN npm prune --omit=dev
@@ -31,6 +34,7 @@ COPY --from=builder /app/packages/shared/package.json ./packages/shared/package.
 COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
 COPY --from=builder /app/packages/backend/package.json ./packages/backend/package.json
 COPY --from=builder /app/packages/backend/dist ./packages/backend/dist
+COPY --from=builder /app/packages/dashboard/dist ./packages/dashboard/dist
 USER node
 EXPOSE 3000
 CMD ["npm", "run", "start"]

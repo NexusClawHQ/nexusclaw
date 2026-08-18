@@ -7,10 +7,63 @@ export type ExecutionStatus =
   | 'timeout'
   | 'cancelled';
 
+export interface AgentStats {
+  totalExecutions: number;
+  successRate: number | null;
+  approvalRate: number | null;
+  l3EscalationCount: number;
+  avgDurationMs: number | null;
+}
+
 export interface AgentSummary {
   id: string;
   name: string;
   status: string;
+  description: string | null;
+  stats: AgentStats;
+}
+
+export interface GrowthEntry {
+  kind: 'coaching' | 'escalation' | 'milestone';
+  decision?: 'APPROVED' | 'REJECTED' | null;
+  comment?: string | null;
+  toolName?: string | null;
+  riskLevel?: string | null;
+  executionId: string;
+  at: string;
+  actorName?: string | null;
+  status?: string | null;
+}
+
+export interface SensitiveOpRule {
+  objectApiName: string;
+  operation: string;
+  riskLevel: string;
+  action: string;
+  toolPattern?: string;
+  description?: string;
+}
+
+export interface AgentDetail {
+  id: string;
+  name: string;
+  status: string;
+  apiName: string | null;
+  agentType: string | null;
+  version: number | null;
+  updatedAt: string | null;
+  description: string | null;
+  prompt: string | null;
+  guardrailRules: { sensitiveOps?: SensitiveOpRule[] } | null;
+  recentExecutions: ExecutionSummary[];
+  growthTimeline: GrowthEntry[];
+  stats: AgentStats;
+}
+
+export interface ModelSource {
+  kind: 'deterministic_smoke' | 'byo_env';
+  modelId: string;
+  providerKind: string;
 }
 
 export interface ExecutionSummary {
@@ -131,7 +184,29 @@ const operations = {
     communitySignIn(username: $u, password: $p) { token expiresAt }
   }`,
   agents: `query Agents {
-    communityAgents { id name status }
+    communityAgents {
+      id name status description
+      stats { totalExecutions successRate approvalRate l3EscalationCount avgDurationMs }
+    }
+  }`,
+  agentDetail: `query AgentDetail($id: ID!) {
+    communityAgentDetail(id: $id) {
+      id name status apiName agentType version updatedAt description prompt guardrailRules
+      recentExecutions {
+        id agentId status rawInput outputSummary createdAt completedAt
+        durationMs totalInputTokens totalOutputTokens totalCost
+      }
+      growthTimeline { kind decision comment toolName riskLevel executionId at actorName status }
+      stats { totalExecutions successRate approvalRate l3EscalationCount avgDurationMs }
+    }
+  }`,
+  growthTimeline: `query GrowthTimeline($agentId: ID!) {
+    communityAgentGrowthTimeline(agentId: $agentId) {
+      kind decision comment toolName riskLevel executionId at actorName status
+    }
+  }`,
+  modelSource: `query ModelSource {
+    communityModelSource { kind modelId providerKind }
   }`,
   executions: `query Executions($n: Int!) {
     communityAgentExecutions(limit: $n) {
@@ -190,6 +265,36 @@ export function fetchAgents(token: string): Promise<AgentSummary[]> {
   return request<{ communityAgents: AgentSummary[] }>(operations.agents, {}, token).then(
     (d) => d.communityAgents,
   );
+}
+
+export function fetchAgentDetail(
+  token: string,
+  id: string,
+): Promise<AgentDetail | null> {
+  return request<{ communityAgentDetail: AgentDetail | null }>(
+    operations.agentDetail,
+    { id },
+    token,
+  ).then((d) => d.communityAgentDetail);
+}
+
+export function fetchGrowthTimeline(
+  token: string,
+  agentId: string,
+): Promise<GrowthEntry[]> {
+  return request<{ communityAgentGrowthTimeline: GrowthEntry[] }>(
+    operations.growthTimeline,
+    { agentId },
+    token,
+  ).then((d) => d.communityAgentGrowthTimeline);
+}
+
+export function fetchModelSource(token: string): Promise<ModelSource> {
+  return request<{ communityModelSource: ModelSource }>(
+    operations.modelSource,
+    {},
+    token,
+  ).then((d) => d.communityModelSource);
 }
 
 export function fetchExecutions(

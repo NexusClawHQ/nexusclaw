@@ -40,12 +40,15 @@ import {
   CommunityPostExecutionMemoryAdapter,
 } from '../community-execution-support.adapters';
 import {
+  CommunityModelSourceService,
+  createCommunityModelProvider,
+} from '../byo/community-model-source.service';
+import {
   CommunityAutonomyGateAdapter,
   CommunityBehaviorUnavailableAdapter,
   CommunityExecutionAdmissionAdapter,
   CommunityExecutionBudgetAdapter,
   CommunityKnowledgeUnavailableAdapter,
-  CommunityModelProviderAdapter,
   CommunityRagAuthorizationAdapter,
   CommunityVerifiedExemplarUnavailableAdapter,
   CommunityCuratedScenarioExemplarUnavailableAdapter,
@@ -57,6 +60,8 @@ import { User } from '../../modules/user/entities/user.entity';
 import { Workspace } from '../../modules/workspace/entities/workspace.entity';
 import { WorkspaceMember } from '../../modules/workspace/entities/workspace-member.entity';
 import { CommunityAgentRuntimeResolver } from './community-agent-runtime.resolver';
+import { CommunityAgentGrowthResolver } from './community-agent-growth.resolver';
+import { CommunityAgentInsightsService } from './community-agent-insights.service';
 import { CommunityDemoConsoleController } from '../closed-loop/community-demo-console.controller';
 import { CommunityDemoSeedService } from '../closed-loop/community-demo-seed.service';
 import { CommunityDemoToolsetProvider } from '../closed-loop/community-demo-tools';
@@ -90,6 +95,9 @@ import { CommunityDemoToolsetProvider } from '../closed-loop/community-demo-tool
     OutboxService,
     GovernorLimitService,
     CommunityAgentRuntimeResolver,
+    CommunityAgentGrowthResolver,
+    CommunityAgentInsightsService,
+    CommunityModelSourceService,
     CommunityDemoToolsetProvider,
     CommunityDemoSeedService,
     CommunityExecutionAdmissionAdapter,
@@ -97,7 +105,6 @@ import { CommunityDemoToolsetProvider } from '../closed-loop/community-demo-tool
     CommunityBehaviorUnavailableAdapter,
     CommunityAutonomyGateAdapter,
     CommunityKnowledgeUnavailableAdapter,
-    CommunityModelProviderAdapter,
     CommunityRagAuthorizationAdapter,
     CommunityVerifiedExemplarUnavailableAdapter,
     CommunityCuratedScenarioExemplarUnavailableAdapter,
@@ -112,7 +119,10 @@ import { CommunityDemoToolsetProvider } from '../closed-loop/community-demo-tool
     { provide: RUNTIME_BEHAVIOR_EVENT_PORT, useExisting: CommunityBehaviorUnavailableAdapter },
     { provide: AUTONOMY_GATE_PORT, useExisting: CommunityAutonomyGateAdapter },
     { provide: KNOWLEDGE_CONTEXT_PORT, useExisting: CommunityKnowledgeUnavailableAdapter },
-    { provide: EXECUTOR_MODEL_PORT, useExisting: CommunityModelProviderAdapter },
+    // BYO env decides at boot: real OpenAI-compatible adapter or the
+    // deterministic smoke provider. A partial COMMUNITY_LLM_* config throws
+    // inside CommunityModelSourceService and fails startup (fail-fast).
+    { provide: EXECUTOR_MODEL_PORT, useFactory: createCommunityModelProvider, inject: [CommunityModelSourceService] },
     { provide: RAG_AUTHORIZATION_PORT, useExisting: CommunityRagAuthorizationAdapter },
     { provide: VERIFIED_EXEMPLAR_PORT, useExisting: CommunityVerifiedExemplarUnavailableAdapter },
     { provide: CURATED_SCENARIO_EXEMPLAR_PORT, useExisting: CommunityCuratedScenarioExemplarUnavailableAdapter },

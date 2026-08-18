@@ -6,11 +6,27 @@ import { App } from './App';
 
 const TOKEN_KEY = 'nexusclaw.dashboard.token';
 
+const emptyStats = {
+  totalExecutions: 0,
+  successRate: null,
+  approvalRate: null,
+  l3EscalationCount: 0,
+  avgDurationMs: null,
+};
+
 const okSession = {
   status: 200,
   json: async () => ({
     data: {
-      communityAgents: [{ id: 'a1', name: 'Agent', status: 'active' }],
+      communityAgents: [
+        {
+          id: 'a1',
+          name: 'Agent',
+          status: 'active',
+          description: null,
+          stats: emptyStats,
+        },
+      ],
       communityAgentExecutions: [],
       communityPendingApprovals: [],
     },

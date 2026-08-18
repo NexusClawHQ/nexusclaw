@@ -23,10 +23,14 @@ import { OutboxService } from '../../modules/outbox/services/outbox.service';
 import { CommunityGqlAuthGuard } from '../auth/community-gql-auth.guard';
 import type { CommunityPrincipal } from '../auth/community-auth.service';
 import {
+  CommunityAgentSummary,
   CommunityApprovalDecisionResult,
+  CommunityModelSource,
   CommunityOutboxEventView,
   CommunityPendingApproval,
 } from './community-console.dto';
+import { CommunityModelSourceService } from '../byo/community-model-source.service';
+import { CommunityAgentInsightsService } from './community-agent-insights.service';
 
 const PAUSED_TOOL_CALL_MARKER = '__pausedToolCall__:';
 
@@ -72,7 +76,15 @@ export class CommunityAgentRuntimeResolver {
     private readonly outboxEvents: Repository<OutboxEvent>,
     private readonly executor: ExecutorEngineService,
     private readonly outbox: OutboxService,
+    private readonly modelSourceService: CommunityModelSourceService,
+    private readonly insights: CommunityAgentInsightsService,
   ) {}
+
+  /** Read-only runtime metadata backing the console model badge (AC-2.7). */
+  @Query(() => CommunityModelSource, { name: 'communityModelSource' })
+  modelSource(): CommunityModelSource {
+    return this.modelSourceService.view();
+  }
 
   @Mutation(() => AgentExecution, { name: 'communityExecuteAgent' })
   async executeAgent(
@@ -118,14 +130,11 @@ export class CommunityAgentRuntimeResolver {
     });
   }
 
-  @Query(() => [Agent], { name: 'communityAgents' })
+  @Query(() => [CommunityAgentSummary], { name: 'communityAgents' })
   listAgents(
     @CurrentUser() principal: CommunityPrincipal,
-  ): Promise<Agent[]> {
-    return this.agents.find({
-      where: { workspaceId: principal.defaultWorkspaceId, isActive: true },
-      order: { createdAt: 'ASC' },
-    });
+  ): Promise<CommunityAgentSummary[]> {
+    return this.insights.summaries(principal.defaultWorkspaceId);
   }
 
   @Query(() => [AgentExecution], { name: 'communityAgentExecutions' })
